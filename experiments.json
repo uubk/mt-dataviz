@@ -1,0 +1,8 @@
+[
+  {
+    "project": 266,
+    "branch": "isl",
+    "job": "benchmark",
+    "dest": "perf-isl.json"
+  }
+]

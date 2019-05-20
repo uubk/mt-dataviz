@@ -7,4 +7,4 @@ build
 *.pyc
 .idea
 venv
-*.json
+perf*.json
