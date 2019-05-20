@@ -1,3 +1,5 @@
+*.eps
+*.png
 *.pyc
 .idea
 venv

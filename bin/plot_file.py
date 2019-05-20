@@ -5,9 +5,8 @@ from dataviz import Parser, Plotter
 defaults = {
     'sparsity': '0',
     'columns': '16',
+    'type': 'int16',
 }
-parser = Parser("../perf-isl.json", defaults)
-parser.parse()
 
 axis = [
     {
@@ -32,8 +31,15 @@ axis = [
     }
 ]
 
-assigment = [['BM_ISL_Rowops_AVX512_checked_.*', 'BM_ISL_Rowops_AVX512_unchecked_.*']]
+assignment = [
+    [
+        ('BM_ISL_Rowops_AVX512_checked_.*', 'AVX512 checked'),
+        ('BM_ISL_Rowops_AVX512_unchecked_.*', 'AVX512 unchecked')
+    ]
+]
 
-plotter = Plotter([parser.benchmarks], assigment, axis)
+parser = Parser("../perf-isl.json", defaults)
+parser.parse()
+plotter = Plotter([parser.benchmarks], assignment, axis)
 plotter.groupData()
-plotter.plot()
+plotter.plot("AVX512 rowops performance (no sparsity)", "checked_rowops")

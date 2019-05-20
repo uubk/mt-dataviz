@@ -14,15 +14,15 @@ class Plotter():
         self._assignment = assignment
         self._axis = axis
         self._groups = []
+        self.formats = [".png", ".eps"]
 
     def groupData(self):
         for i in range(len(self._data)):
             data = self._data[i]
             experimentsToUse = self._assignment[i]
 
-            for experimentRegex in experimentsToUse:
+            for (experimentRegex, experimentLabel) in experimentsToUse:
                 experimentData = [[] for _ in range(len(self._axis))]
-                experimentName = None
                 for someExperimentName in data:
                     if re.match(experimentRegex, someExperimentName) is not None:
                         experiment = data[someExperimentName]
@@ -36,17 +36,16 @@ class Plotter():
                                 if len(experimentData[idx]) != 0:
                                     raise DuplicateDataException("Index " + str(idx) + " was already populated!")
                                 experimentData[idx] = experiment['data']
-                                experimentName = experiment['name']
 
                 # Map experiment data to axis
                 experimentData = [[y.delta for y in x] for x in experimentData]
                 experimentData = [(np.mean(x), np.std(x)) for x in experimentData]
                 self._groups.append({
-                    "label": experimentName,
+                    "label": experimentLabel,
                     "data": experimentData,
                 })
 
-    def plot(self):
+    def plot(self, title, prefix):
         # We're plotting different experiments. Figure out which parameters change from run to run
         numberOfExperiments = len(self._groups[0]['data'])
         mask = {}
@@ -68,7 +67,6 @@ class Plotter():
                     list.append(key + ": " + value + " ")
         xLegends = [reduce((lambda x, y: x + "\n" + y), x).strip() for x in xLegends]
 
-
         index = np.arange(len(self._groups[0]['data']))
         width = 0.4
         numExps = len(self._groups)
@@ -81,9 +79,11 @@ class Plotter():
                           yerr=[x[1] for x in group['data']], label=group['label'])
 
         ax.set_ylabel('Time (ns)')
-        ax.set_title('Some benchmark')
+        ax.set_title(title)
         ax.set_xticks(index)
         ax.set_xticklabels(xLegends)
         ax.legend()
         fig.tight_layout()
-        plt.show()
+
+        for format in self.formats:
+            plt.savefig(prefix + format, dpi=180)
