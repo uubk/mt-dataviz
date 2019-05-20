@@ -63,8 +63,7 @@ class Plotter():
             if changes:
                 for idx, details in enumerate(self._axis):
                     value = details[key]
-                    list = xLegends[idx]
-                    list.append(key + ": " + value + " ")
+                    xLegends[idx].append(key + ": " + value + " ")
         xLegends = [reduce((lambda x, y: x + "\n" + y), x).strip() for x in xLegends]
 
         index = np.arange(len(self._groups[0]['data']))
@@ -72,18 +71,28 @@ class Plotter():
         numExps = len(self._groups)
         individualWidth = width/numExps
         minWidth = index-individualWidth/2
+        index = list(index)
 
         fig, ax = plt.subplots()
         for idx, group in enumerate(self._groups):
-            bars = ax.bar(minWidth + individualWidth*idx, [x[0] for x in group['data']], individualWidth,
-                          yerr=[x[1] for x in group['data']], label=group['label'])
+            bars = ax.bar(list(minWidth + individualWidth*idx), [x[0] for x in group['data']], individualWidth,
+                          yerr=[x[1] for x in group['data']], label=group['label'], zorder=3)
 
         ax.set_ylabel('Time (ns)')
         ax.set_title(title)
         ax.set_xticks(index)
         ax.set_xticklabels(xLegends)
         ax.legend()
+        plt.minorticks_on()
+        plt.grid(b=True, which='major', axis='y', linewidth=0.2, color='black', zorder=0)
+        plt.grid(b=True, which='minor', axis='y', linewidth=0.1, color='grey')
         fig.tight_layout()
 
         for format in self.formats:
             plt.savefig(prefix + format, dpi=180)
+
+        try:
+            import mpld3
+            mpld3.save_html(fig, prefix + ".html")
+        except ImportError:
+            pass
