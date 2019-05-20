@@ -21,6 +21,7 @@ compare:
     - build
   script:
     - fetch_data.py --url https://spclgitlab.ethz.ch --token "${GITLAB_API_PRIVATE_TOKEN}" --config experiments.json
+    - plot_file.py
   artifacts:
     paths:
       - '*.json'

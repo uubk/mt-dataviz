@@ -38,7 +38,7 @@ assignment = [
     ]
 ]
 
-parser = Parser("../perf-isl.json", defaults)
+parser = Parser("perf-isl.json", defaults)
 parser.parse()
 plotter = Plotter([parser.benchmarks], assignment, axis)
 plotter.groupData()
