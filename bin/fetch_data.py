@@ -5,6 +5,7 @@ import tempfile
 import zipfile
 import filecmp
 import shutil
+from pathlib import Path
 
 parser = argparse.ArgumentParser(description='Fetch files from gitlab')
 parser.add_argument('--url', dest='url', required=True,
@@ -41,9 +42,12 @@ with open(args.config, "r") as cfgFile:
                                 file2.write(content)
                                 file2.flush()
                                 file2.close()
-                                if not filecmp.cmp(file2.name, task["dest"]):
-                                    print ("File has changed!")
-                                    shutil.copyfile(file2.name, task["dest"])
+                                if Path(task["dest"]).is_file():
+                                    if not filecmp.cmp(file2.name, task["dest"]):
+                                        print ("File has changed!")
+                                        shutil.copyfile(file2.name, task["dest"])
+                                print ("File is new!")
+                                shutil.copyfile(file2.name, task["dest"])
 
 
 
