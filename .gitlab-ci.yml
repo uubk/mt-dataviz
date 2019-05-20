@@ -1,0 +1,27 @@
+stages:
+  - build
+  - print
+
+
+build:
+  stage: build
+  tags:
+    - shell
+  script:
+    - docker build -t dataviz .
+    - docker tag dataviz registry.njsm.de/mt/dataviz:latest
+    - docker push registry.njsm.de/mt/dataviz:latest
+
+compare:
+  stage: print
+  image: registry.njsm.de/mt/dataviz:latest
+  tags:
+    - docker
+  dependencies:
+    - build
+  script:
+    - fetch_data.py --url https://spclgitlab.ethz.ch --token "${GITLAB_API_PRIVATE_TOKEN}" --config experiments.json
+  artifacts:
+    paths:
+      - '*.json'
+    expire_in: 6 months
