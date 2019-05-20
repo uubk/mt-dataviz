@@ -43,6 +43,9 @@ class Parser:
                     # Leave the '/'!
                     name = name.replace("_" + parameters['type'], "")
 
+                if parameters['type'] is not None:
+                    parameters['type'] = parameters['type'].replace("_t", "")
+
                 # Step 2: Chomp arguments
                 res = re.search('/.*:.*(?=/|$)', name)
                 if res is not None:
