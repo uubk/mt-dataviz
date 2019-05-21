@@ -1,5 +1,5 @@
 {
-  "name":"AVX512 rowops performance (no sparsity)",
+  "name":"Rowops performance (no sparsity)",
   "filename": "checked_rowops",
   "defaults": {
     "sparsity": "0",
@@ -18,21 +18,13 @@
         "columns": "16",
         "type": "int32"
     },
-    {
-        "sparsity": "0",
-        "columns": "2",
-        "type": "int16"
-    },
-    {
-        "sparsity": "0",
-        "columns": "2",
-        "type": "int32"
-    }
   ],
   "assignment": [
     [
         ["BM_ISL_Rowops_AVX512_checked_.*", "AVX512 checked"],
-        ["BM_ISL_Rowops_AVX512_unchecked_.*", "AVX512 unchecked"]
+        ["BM_ISL_Rowops_AVX512_unchecked_.*", "AVX512 unchecked"],
+        ["BM_ISL_Rowops_scalar_checked_.*", "scalar checked"],
+        ["BM_ISL_Rowops_scalar_unchecked_.*", "scalar unchecked"]
     ]
   ]
 }
