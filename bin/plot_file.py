@@ -1,45 +1,22 @@
-#!/usr/bin/env python3
-
 from dataviz import Parser, Plotter
+import argparse
+import json
 
-defaults = {
-    'sparsity': '0',
-    'columns': '16',
-    'type': 'int16',
-}
+parser = argparse.ArgumentParser(description='Plot files according to config')
+parser.add_argument('--config', dest='config', required=True,
+                    help='Configures which files to plot')
 
-axis = [
-    {
-        'sparsity': '0',
-        'columns': '16',
-        'type': 'int16',
-    },
-    {
-        'sparsity': '0',
-        'columns': '16',
-        'type': 'int32',
-    },
-    {
-        'sparsity': '0',
-        'columns': '2',
-        'type': 'int16',
-    },
-    {
-        'sparsity': '0',
-        'columns': '2',
-        'type': 'int32',
-    }
-]
+args = parser.parse_args()
+with open(args.config, "r") as cfgFile:
+    config = json.loads(cfgFile.read())
+    data = []
+    for file in config['files']:
+        parser = Parser(file, config['defaults'])
+        parser.parse()
+        data.append(parser.benchmarks)
 
-assignment = [
-    [
-        ('BM_ISL_Rowops_AVX512_checked_.*', 'AVX512 checked'),
-        ('BM_ISL_Rowops_AVX512_unchecked_.*', 'AVX512 unchecked')
-    ]
-]
-
-parser = Parser("perf-isl.json", defaults)
-parser.parse()
-plotter = Plotter([parser.benchmarks], assignment, axis)
-plotter.groupData()
-plotter.plot("AVX512 rowops performance (no sparsity)", "checked_rowops")
+    assignment = [list((x[0], x[1]) for x in z) for z in config['assignment']]
+    assignment = list(assignment)
+    plotter = Plotter(data, assignment, config['axis'])
+    plotter.groupData()
+    plotter.plot(config['name'], config['filename'])

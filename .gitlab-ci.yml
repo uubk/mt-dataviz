@@ -2,7 +2,6 @@ stages:
   - build
   - print
 
-
 build:
   stage: build
   tags:
@@ -20,9 +19,12 @@ compare:
   dependencies:
     - build
   script:
-    - fetch_data.py --url https://spclgitlab.ethz.ch --token "${GITLAB_API_PRIVATE_TOKEN}" --config experiments.json
-    - plot_file.py
+    - ./run.sh
   artifacts:
     paths:
-      - '*.json'
+      - 'data/*.json'
+      - 'jobs/*.json'
+      - '*.png'
+      - '*.eps'
+      - '*.html'
     expire_in: 6 months

@@ -3,6 +3,6 @@
     "project": 266,
     "branch": "isl",
     "job": "benchmark",
-    "dest": "perf-isl.json"
+    "dest": "data/perf-isl.json"
   }
 ]

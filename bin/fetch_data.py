@@ -48,6 +48,3 @@ with open(args.config, "r") as cfgFile:
                                         shutil.copyfile(file2.name, task["dest"])
                                 print ("File is new!")
                                 shutil.copyfile(file2.name, task["dest"])
-
-
-
