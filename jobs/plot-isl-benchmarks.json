@@ -23,8 +23,8 @@
     [
         ["BM_ISL_Rowops_AVX512_checked_.*", "AVX512 checked"],
         ["BM_ISL_Rowops_AVX512_unchecked_.*", "AVX512 unchecked"],
-        ["BM_ISL_Rowops_scalar_checked_.*", "scalar checked"],
-        ["BM_ISL_Rowops_scalar_unchecked_.*", "scalar unchecked"]
+        ["BM_ISL_Rowops_scalar_checked.*", "scalar checked"],
+        ["BM_ISL_Rowops_scalar_unchecked.*", "scalar unchecked"]
     ]
   ]
 }
