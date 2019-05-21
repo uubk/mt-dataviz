@@ -17,7 +17,7 @@
         "sparsity": "0",
         "columns": "16",
         "type": "int32"
-    },
+    }
   ],
   "assignment": [
     [
