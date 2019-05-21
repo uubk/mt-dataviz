@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Enable globbing
+shopt -s extglob
+
 for job in jobs/fetch*.json ; do
     echo "Found job ${job}"
     fetch_data.py --url https://spclgitlab.ethz.ch --token "${GITLAB_API_PRIVATE_TOKEN}" --config "${job}"
