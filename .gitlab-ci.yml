@@ -1,6 +1,5 @@
 stages:
   - build
-  - print
 
 build:
   stage: build
@@ -10,21 +9,3 @@ build:
     - docker build -t dataviz .
     - docker tag dataviz registry.njsm.de/mt/dataviz:latest
     - docker push registry.njsm.de/mt/dataviz:latest
-
-compare:
-  stage: print
-  image: registry.njsm.de/mt/dataviz:latest
-  tags:
-    - docker
-  dependencies:
-    - build
-  script:
-    - ./run.sh
-  artifacts:
-    paths:
-      - 'data/*.json'
-      - 'jobs/*.json'
-      - '*.png'
-      - '*.eps'
-      - '*.html'
-    expire_in: 6 months
