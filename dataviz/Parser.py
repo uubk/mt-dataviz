@@ -43,7 +43,7 @@ class Parser:
                     # Leave the '/'!
                     name = name.replace("_" + parameters['type'], "")
 
-                if parameters['type'] is not None:
+                if "type" in parameters:
                     parameters['type'] = parameters['type'].replace("_t", "")
 
                 # Step 2: Chomp arguments

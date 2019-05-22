@@ -16,6 +16,7 @@ class Plotter():
         self._groups = []
         self.formats = [".png", ".eps"]
         self._history = False
+        self._speedup = False
 
     def groupData(self):
         for i in range(len(self._data)):
@@ -83,9 +84,10 @@ class Plotter():
             })
 
     def groupToSpeedup(self):
+        self._speedup = True
         for group in self._groups:
-            reference = group["data"][0]
-            group["data"] = [(x[0]/reference, 0) for x in group["data"]]
+            reference = group["data"][0][0]
+            group["data"] = [(reference/x[0], 0) for x in group["data"]]
 
     def plot(self, title, prefix):
         # We're plotting different experiments. Figure out which parameters change from run to run
@@ -124,7 +126,10 @@ class Plotter():
             bars = ax.bar(list(minWidth + individualWidth*idx), [x[0] for x in group['data']], individualWidth,
                           yerr=[x[1] for x in group['data']], label=group['label'], zorder=3)
 
-        ax.set_ylabel('Time (ns)')
+        if self._speedup:
+            ax.set_ylabel('Speedup')
+        else:
+            ax.set_ylabel('Time (ns)')
         ax.set_title(title)
         ax.set_xticks(index)
         ax.set_xticklabels(xLegends)
