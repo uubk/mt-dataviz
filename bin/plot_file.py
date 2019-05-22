@@ -22,4 +22,6 @@ with open(args.config, "r") as cfgFile:
         plotter.groupDataByFile()
     else:
         plotter.groupData()
+    if "preprocess" in config and config["preprocess"] == "speedup":
+        plotter.groupToSpeedup()
     plotter.plot(config['name'], config['filename'])

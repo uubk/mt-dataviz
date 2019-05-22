@@ -82,6 +82,11 @@ class Plotter():
                 "data": experiment
             })
 
+    def groupToSpeedup(self):
+        for group in self._groups:
+            reference = group["data"][0]
+            group["data"] = [(x[0]/reference, 0) for x in group["data"]]
+
     def plot(self, title, prefix):
         # We're plotting different experiments. Figure out which parameters change from run to run
         numberOfExperiments = len(self._groups[0]['data'])
