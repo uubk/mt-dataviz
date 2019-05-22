@@ -15,6 +15,7 @@ class Plotter():
         self._axis = axis
         self._groups = []
         self.formats = [".png", ".eps"]
+        self._history = False
 
     def groupData(self):
         for i in range(len(self._data)):
@@ -45,26 +46,66 @@ class Plotter():
                     "data": experimentData,
                 })
 
+    def groupDataByFile(self):
+        self._history = True
+        experiments = [[] for _ in range(len(self._assignment[0]))]
+        # For each file
+        for i in range(len(self._data)):
+            data = self._data[i]
+            experimentsToUse = self._assignment[0]
+            # For each experiment in that file
+            for index, (experimentRegex, experimentLabel) in enumerate(experimentsToUse):
+                # experimentData = [[] for _ in range(len(self._axis))]
+                foundOne = False
+                for someExperimentName in data:
+                    if re.match(experimentRegex, someExperimentName) is not None:
+                        for idx, elem in enumerate(self._axis):
+                            matching = True
+                            experiment = data[someExperimentName]
+                            for key, value in elem.items():
+                                if key not in experiment['parameters'] or experiment['parameters'][key] != value:
+                                    matching = False
+                                    break
+                            if matching:
+                                if foundOne:
+                                    raise DuplicateDataException("Already populated!")
+                                # We're to use this experiment
+                                dataArr = [x.delta for x in experiment['data']]
+                                datapoint = (np.mean(dataArr), np.std(dataArr))
+                                experiments[index].append(datapoint)
+                                foundOne = True
+                if not foundOne:
+                    experiments[index].append((0, 0))
+        for index, experiment in enumerate(experiments):
+            self._groups.append({
+                "label": self._assignment[0][index][1],
+                "data": experiment
+            })
+
     def plot(self, title, prefix):
         # We're plotting different experiments. Figure out which parameters change from run to run
         numberOfExperiments = len(self._groups[0]['data'])
-        mask = {}
-        values = {}
-        for details in self._axis:
-            for key, value in details.items():
-                if key not in mask:
-                    mask[key] = False
-                    values[key] = value
-                else:
-                    if values[key] != value:
-                        mask[key] = True
-        xLegends = [[] for _ in range(numberOfExperiments)]
-        for key, changes in mask.items():
-            if changes:
-                for idx, details in enumerate(self._axis):
-                    value = details[key]
-                    xLegends[idx].append(key + ": " + value + " ")
-        xLegends = [reduce((lambda x, y: x + "\n" + y), x).strip() for x in xLegends]
+        if not self._history:
+            mask = {}
+            values = {}
+            for details in self._axis:
+                for key, value in details.items():
+                    if key not in mask:
+                        mask[key] = False
+                        values[key] = value
+                    else:
+                        if values[key] != value:
+                            mask[key] = True
+            xLegends = [[] for _ in range(numberOfExperiments)]
+            for key, changes in mask.items():
+                if changes:
+                    for idx, details in enumerate(self._axis):
+                        value = details[key]
+                        xLegends[idx].append(key + ": " + value + " ")
+            xLegends = [reduce((lambda x, y: x + "\n" + y), x).strip() for x in xLegends]
+        else:
+            # Todo something useful
+            xLegends = ["HEAD~" + str(numberOfExperiments-x-1) for x in range(numberOfExperiments)]
 
         index = np.arange(len(self._groups[0]['data']))
         width = 0.4

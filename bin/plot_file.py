@@ -18,5 +18,8 @@ with open(args.config, "r") as cfgFile:
     assignment = [list((x[0], x[1]) for x in z) for z in config['assignment']]
     assignment = list(assignment)
     plotter = Plotter(data, assignment, config['axis'])
-    plotter.groupData()
+    if "mode" in config and config["mode"] == "history":
+        plotter.groupDataByFile()
+    else:
+        plotter.groupData()
     plotter.plot(config['name'], config['filename'])

@@ -27,24 +27,28 @@ with open(args.config, "r") as cfgFile:
         pipelines = project.pipelines.list(ref=task["branch"], status='success')
         # Find last pipeline
         pipelines = sorted(pipelines, reverse=True, key=lambda x: x.id)
-        print ("Newest pipeline for project " + project.name + " on branch " + task["branch"] + " is " + str(pipelines[0].id) + " for commit " + pipelines[0].sha)
-        pipeline = pipelines[0]
-        for job in pipeline.jobs.list():
-            if job.name == task["job"]:
-                with tempfile.TemporaryFile(mode="w+b") as file:
-                    job = project.jobs.get(job.id)
-                    job.artifacts(streamed=True, action=file.write)
-                    zip = zipfile.ZipFile(file)
-                    for file in zip.filelist:
-                        if file.filename.endswith(".json"):
-                            content = zip.read(file)
-                            with tempfile.NamedTemporaryFile(mode="w+b", delete=False) as file2:
-                                file2.write(content)
-                                file2.flush()
-                                file2.close()
-                                if Path(task["dest"]).is_file():
-                                    if not filecmp.cmp(file2.name, task["dest"]):
-                                        print ("File has changed!")
-                                        shutil.copyfile(file2.name, task["dest"])
-                                print ("File is new!")
-                                shutil.copyfile(file2.name, task["dest"])
+        pipelineIndex = 0
+        if 'nth' in task:
+            pipelineIndex = task['nth']
+        if pipelineIndex < len(pipelines):
+            print ("Pipeline for project " + project.name + " on branch " + task["branch"] + " is " + str(pipelines[pipelineIndex].id) + " for commit " + pipelines[pipelineIndex].sha)
+            pipeline = pipelines[pipelineIndex]
+            for job in pipeline.jobs.list():
+                if job.name == task["job"]:
+                    with tempfile.TemporaryFile(mode="w+b") as file:
+                        job = project.jobs.get(job.id)
+                        job.artifacts(streamed=True, action=file.write)
+                        zip = zipfile.ZipFile(file)
+                        for file in zip.filelist:
+                            if file.filename.endswith(".json"):
+                                content = zip.read(file)
+                                with tempfile.NamedTemporaryFile(mode="w+b", delete=False) as file2:
+                                    file2.write(content)
+                                    file2.flush()
+                                    file2.close()
+                                    if Path(task["dest"]).is_file():
+                                        if not filecmp.cmp(file2.name, task["dest"]):
+                                            print ("File has changed!")
+                                            shutil.copyfile(file2.name, task["dest"])
+                                    print ("File is new!")
+                                    shutil.copyfile(file2.name, task["dest"])

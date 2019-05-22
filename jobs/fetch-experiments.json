@@ -1,8 +1,0 @@
-[
-  {
-    "project": 266,
-    "branch": "isl",
-    "job": "benchmark-isl",
-    "dest": "data/perf-isl.json"
-  }
-]
