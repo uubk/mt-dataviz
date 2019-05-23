@@ -87,7 +87,7 @@ class Plotter():
         self._speedup = True
         for group in self._groups:
             reference = group["data"][0][0]
-            group["data"] = [(reference/x[0], 0) for x in group["data"]]
+            group["data"] = [(x[0]/reference, 0) for x in group["data"]]
 
     def plot(self, title, prefix):
         # We're plotting different experiments. Figure out which parameters change from run to run
