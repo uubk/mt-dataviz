@@ -85,9 +85,9 @@ class Plotter():
 
     def groupToSpeedup(self):
         self._speedup = True
+        reference = self._groups[0]["data"]
         for group in self._groups:
-            reference = group["data"][0][0]
-            group["data"] = [(x[0]/reference, 0) for x in group["data"]]
+            group["data"] = [(reference[index][0]/x[0], 0) for index, x in enumerate(group["data"])]
 
     def plot(self, title, prefix):
         # We're plotting different experiments. Figure out which parameters change from run to run
@@ -131,6 +131,8 @@ class Plotter():
         else:
             ax.set_ylabel('Time (ns)')
         ax.set_title(title)
+        if numberOfExperiments > 5:
+            plt.xticks(rotation=90)
         ax.set_xticks(index)
         ax.set_xticklabels(xLegends)
         ax.legend()

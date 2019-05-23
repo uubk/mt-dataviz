@@ -46,7 +46,17 @@ class Parser:
                 if "type" in parameters:
                     parameters['type'] = parameters['type'].replace("_t", "")
 
-                # Step 2: Chomp arguments
+                # Step 2: Check for templated single argument (_/ syntax)
+                res = re.search("/[0-9]{1,2}", name)
+                if res is not None:
+                    parameters['columns'] = res.group().replace('/', '')
+                    # Leave the '/'!
+                    name = name.replace("/" + parameters['columns'], "")
+
+                if "type" in parameters:
+                    parameters['type'] = parameters['type'].replace("_t", "")
+
+                # Step 3: Chomp arguments
                 res = re.search('/.*:.*(?=/|$)', name)
                 if res is not None:
                     # We have parameters
