@@ -109,7 +109,10 @@ class Plotter():
                     for idx, details in enumerate(self._axis):
                         value = details[key]
                         xLegends[idx].append(key + ": " + value + " ")
-            xLegends = [reduce((lambda x, y: x + "\n" + y), x).strip() for x in xLegends]
+            if len(xLegends[0]) == 1:
+                xLegends = [re.sub(".*:", "", x[0]) for x in xLegends]
+            else:
+                xLegends = [reduce((lambda x, y: x + "\n" + y), x).strip() for x in xLegends]
         else:
             # Todo something useful
             xLegends = ["HEAD~" + str(numberOfExperiments-x-1) for x in range(numberOfExperiments)]
@@ -131,7 +134,7 @@ class Plotter():
         else:
             ax.set_ylabel('Time (ns)')
         ax.set_title(title)
-        if numberOfExperiments > 5:
+        if numberOfExperiments > 5 and ":" in xLegends[0]:
             plt.xticks(rotation=90)
         ax.set_xticks(index)
         ax.set_xticklabels(xLegends)
