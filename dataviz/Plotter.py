@@ -9,7 +9,7 @@ class DuplicateDataException(Exception):
 
 
 class Plotter():
-    def __init__(self, data, assignment, axis):
+    def __init__(self, data, assignment, axis, lineplot):
         self._data = data
         self._assignment = assignment
         self._axis = axis
@@ -17,6 +17,7 @@ class Plotter():
         self.formats = [".png", ".eps", ".pdf"]
         self._history = False
         self._speedup = False
+        self.bars = not lineplot
 
     def groupData(self):
         for i in range(len(self._data)):
@@ -126,8 +127,16 @@ class Plotter():
 
         fig, ax = plt.subplots()
         for idx, group in enumerate(self._groups):
-            bars = ax.bar(list(minWidth + individualWidth*idx), [x[0] for x in group['data']], individualWidth,
+            if self.bars:
+                ax.bar(list(minWidth + individualWidth*idx), [x[0] for x in group['data']], individualWidth,
                           yerr=[x[1] for x in group['data']], label=group['label'], zorder=3)
+            else:
+                ax.errorbar(list(minWidth + individualWidth*idx), [x[0] for x in group['data']],
+                          yerr=[x[1] for x in group['data']], label=group['label'], zorder=3, marker=".")
+                #ax.plot(list(minWidth + individualWidth*idx), [x[0] for x in group['data']],
+                #          label=group['label'], zorder=3)
+                #ax.errorbar(list(minWidth + individualWidth*idx), [x[0] for x in group['data']],
+                #          yerr=[x[1] for x in group['data']],)
 
         if self._speedup:
             ax.set_ylabel('Speedup')
@@ -137,7 +146,7 @@ class Plotter():
         if numberOfExperiments > 5 and ":" in xLegends[0]:
             plt.xticks(rotation=90)
         ax.set_xticks(index)
-        ax.set_xticklabels(xLegends)
+        ax.set_xticklabels(xLegends, fontsize=8)
         ax.legend()
         plt.minorticks_on()
         plt.grid(b=True, which='major', axis='y', linewidth=0.2, color='black', zorder=0)
