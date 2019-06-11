@@ -144,11 +144,7 @@ class Plotter():
             else:
                 if "marker" not in plotOptions:
                     plotOptions["marker"] = "."
-                ax.errorbar(list(minWidth + individualWidth*idx), [x[0] for x in group['data']], **plotOptions)
-                #ax.plot(list(minWidth + individualWidth*idx), [x[0] for x in group['data']],
-                #          label=group['label'], zorder=3)
-                #ax.errorbar(list(minWidth + individualWidth*idx), [x[0] for x in group['data']],
-                #          yerr=[x[1] for x in group['data']],)
+                ax.errorbar(index, [x[0] for x in group['data']], **plotOptions)
 
         if self._speedup:
             ax.set_ylabel('Speedup')
