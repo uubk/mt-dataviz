@@ -9,7 +9,7 @@ class DuplicateDataException(Exception):
 
 
 class Plotter():
-    def __init__(self, data, assignment, axis, lineplot):
+    def __init__(self, data, assignment, axis, lineplot, perAxisOptions):
         self._data = data
         self._assignment = assignment
         self._axis = axis
@@ -17,6 +17,7 @@ class Plotter():
         self.formats = [".png", ".eps", ".pdf"]
         self._history = False
         self._speedup = False
+        self._perAxisOptions = perAxisOptions
         self.bars = not lineplot
 
     def groupData(self):
@@ -122,17 +123,28 @@ class Plotter():
         width = 0.4
         numExps = len(self._groups)
         individualWidth = width/numExps
-        minWidth = index-individualWidth/2
+        minWidth = index-individualWidth*(numExps/2)
         index = list(index)
 
         fig, ax = plt.subplots()
         for idx, group in enumerate(self._groups):
+            plotOptions = {
+                "yerr": [x[1] for x in group['data']],
+                "label": group['label'],
+                "zorder":  3
+            }
+
+            name = group['label']
+            if name in self._perAxisOptions:
+                for key, value in self._perAxisOptions[name].items():
+                    plotOptions[key] = value
+
             if self.bars:
-                ax.bar(list(minWidth + individualWidth*idx), [x[0] for x in group['data']], individualWidth,
-                          yerr=[x[1] for x in group['data']], label=group['label'], zorder=3)
+                ax.bar(list(minWidth + individualWidth*idx), [x[0] for x in group['data']], individualWidth, **plotOptions)
             else:
-                ax.errorbar(list(minWidth + individualWidth*idx), [x[0] for x in group['data']],
-                          yerr=[x[1] for x in group['data']], label=group['label'], zorder=3, marker=".")
+                if "marker" not in plotOptions:
+                    plotOptions["marker"] = "."
+                ax.errorbar(list(minWidth + individualWidth*idx), [x[0] for x in group['data']], **plotOptions)
                 #ax.plot(list(minWidth + individualWidth*idx), [x[0] for x in group['data']],
                 #          label=group['label'], zorder=3)
                 #ax.errorbar(list(minWidth + individualWidth*idx), [x[0] for x in group['data']],

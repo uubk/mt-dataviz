@@ -17,12 +17,18 @@ with open(args.config, "r") as cfgFile:
 
     assignment = [list((x[0], x[1]) for x in z) for z in config['assignment']]
     assignment = list(assignment)
+    options = {}
+    for outer in config['assignment']:
+        for item in outer:
+            if len(item) > 2:
+                # We have custom draw options
+                options[item[1]] = item[2]
 
     lineplot = False
     if "style" in config and config["style"] == "line":
         lineplot = True
 
-    plotter = Plotter(data, assignment, config['axis'], lineplot)
+    plotter = Plotter(data, assignment, config['axis'], lineplot, options)
     if "mode" in config and config["mode"] == "history":
         plotter.groupDataByFile()
     else:
