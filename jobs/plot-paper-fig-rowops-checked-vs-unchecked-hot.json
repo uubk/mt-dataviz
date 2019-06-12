@@ -17,7 +17,7 @@
   "assignment": [
     [
       ["BM_ISL_Rowops_hot_vector_checked<int8_t>.*", "checked int8_t", {
-        "color": "#225ea8",
+        "color": "#2c7fb8",
         "hatch": "/"
       }],
       ["BM_ISL_Rowops_hot_vector_checked<int16_t>.*", "checked int16_t", {
@@ -25,15 +25,15 @@
         "hatch": "/"
       }],
       ["BM_ISL_Rowops_hot_vector_checked<int32_t>.*", "checked int32_t", {
-        "color": "#a1dab4",
+        "color": "#2c7fb8",
         "hatch": "/"
       }],
       ["BM_ISL_Rowops_hot_vector_checked<int64_t>.*", "checked int64_t", {
-        "color": "#ffffcc",
+        "color": "#253494",
         "hatch": "/"
       }],
       ["BM_ISL_Rowops_hot_vector_unchecked<int8_t>.*", "unchecked int8_t", {
-        "color": "#225ea8",
+        "color": "#2c7fb8",
         "hatch": "\\"
       }],
       ["BM_ISL_Rowops_hot_vector_unchecked<int16_t>.*", "unchecked int16_t", {
@@ -41,11 +41,11 @@
         "hatch": "\\"
       }],
       ["BM_ISL_Rowops_hot_vector_unchecked<int32_t>.*", "unchecked int32_t", {
-        "color": "#a1dab4",
+        "color": "#2c7fb8",
         "hatch": "\\"
       }],
       ["BM_ISL_Rowops_hot_vector_unchecked<int64_t>.*", "unchecked int64_t", {
-        "color": "#ffffcc",
+        "color": "#253494",
         "hatch": "\\"
       }]
     ]
