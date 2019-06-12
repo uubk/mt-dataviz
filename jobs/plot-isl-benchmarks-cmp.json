@@ -1,0 +1,34 @@
+{
+  "name":"Rowops performance (experimental vector version)",
+  "filename": "plots/vector_bench",
+  "defaults": {
+    "sparsity": "0",
+    "columns": "16",
+    "type": "int16"
+  },
+  "files": ["data/perf-isl.json"],
+  "axis": [
+    {
+        "sparsity": "0",
+        "columns": "4",
+        "type": "int16"
+    },
+    {
+      "sparsity": "0",
+      "columns": "8",
+      "type": "int16"
+    },
+    {
+      "sparsity": "0",
+      "columns": "16",
+      "type": "int16"
+    }
+  ],
+  "assignment": [
+    [
+        ["BM_ISL_Rowops_scalar_unchecked.*", "scalar unchecked"],
+        ["BM_ISL_Rowops_AVX512_unchecked_.*", "AVX512 unchecked"],
+        ["BM_ISL_Rowops_vectortype_unchecked<int16_t>.*", "vector unchecked"]
+    ]
+  ]
+}

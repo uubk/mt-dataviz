@@ -1,9 +1,6 @@
 *.egg-info
 dist
 build
-*.html
-*.eps
-*.png
 *.pyc
 .idea
 venv

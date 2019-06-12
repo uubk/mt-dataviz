@@ -1,0 +1,29 @@
+{
+  "name":"Matrix class performance, last 5 commits",
+  "filename": "plots/matrix",
+  "defaults": {
+    "sparsity": "0",
+    "columns": "16",
+    "type": "int16"
+  },
+  "files": [
+    "data/perf-normal-4.json",
+    "data/perf-normal-3.json",
+    "data/perf-normal-2.json",
+    "data/perf-normal-1.json",
+    "data/perf-base.json"
+  ],
+  "mode": "history",
+  "axis": [
+    {
+        "type": "int16"
+    }
+  ],
+  "assignment": [
+    [
+        ["BM_Rowmult_scalar.*", "scalar rowop"],
+        ["BM_Rowmult_vector.*", "vectorized rowop"],
+        ["BM_RandomGet.*", "random get"]
+    ]
+  ]
+}

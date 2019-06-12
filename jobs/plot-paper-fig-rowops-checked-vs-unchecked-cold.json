@@ -1,0 +1,53 @@
+{
+  "name":"Checked vs unchecked vectorization (cold cache)",
+  "filename": "plots/rowops_checked_unchecked_cold",
+  "defaults": {},
+  "files": ["data/perf-isl.json"],
+  "axis": [
+    {
+      "columns": "8"
+    },
+    {
+      "columns": "16"
+    },
+    {
+      "columns": "32"
+    }
+  ],
+  "assignment": [
+    [
+        ["BM_ISL_Rowops_cold_vector_checked<int8_t>.*", "checked int8_t", {
+          "color": "#225ea8",
+          "hatch": "/"
+        }],
+        ["BM_ISL_Rowops_cold_vector_checked<int16_t>.*", "checked int16_t", {
+          "color": "#41b6c4",
+          "hatch": "/"
+        }],
+        ["BM_ISL_Rowops_cold_vector_checked<int32_t>.*", "checked int32_t", {
+          "color": "#a1dab4",
+          "hatch": "/"
+        }],
+        ["BM_ISL_Rowops_cold_vector_checked<int64_t>.*", "checked int64_t", {
+          "color": "#ffffcc",
+          "hatch": "/"
+        }],
+        ["BM_ISL_Rowops_cold_vector_unchecked<int8_t>.*", "unchecked int8_t", {
+          "color": "#225ea8",
+          "hatch": "\\"
+        }],
+        ["BM_ISL_Rowops_cold_vector_unchecked<int16_t>.*", "unchecked int16_t", {
+          "color": "#41b6c4",
+          "hatch": "\\"
+        }],
+        ["BM_ISL_Rowops_cold_vector_unchecked<int32_t>.*", "unchecked int32_t", {
+          "color": "#a1dab4",
+          "hatch": "\\"
+        }],
+        ["BM_ISL_Rowops_cold_vector_unchecked<int64_t>.*", "unchecked int64_t", {
+          "color": "#ffffcc",
+          "hatch": "\\"
+        }]
+    ]
+  ]
+}
