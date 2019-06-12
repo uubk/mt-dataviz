@@ -106,11 +106,11 @@
   "assignment": [
     [
         ["BM_ISL_Rowops_cold_scalar_unchecked<int64_t>.*", "scalar int64_t", {
-          "color": "#ffffcc",
+          "color": "#253494",
           "linestyle": "-"
         }],
         ["BM_ISL_Rowops_cold_scalar_unchecked<int32_t>.*", "scalar int32_t", {
-          "color": "#a1dab4",
+          "color": "#2c7fb8",
           "linestyle": "-"
         }],
         ["BM_ISL_Rowops_cold_scalar_unchecked<int16_t>.*", "scalar int16_t", {
@@ -118,15 +118,15 @@
           "linestyle": "-"
         }],
         ["BM_ISL_Rowops_cold_scalar_unchecked<int8_t>.*", "scalar int8_t", {
-          "color": "#225ea8",
+          "color": "#a1dab4",
           "linestyle": "-"
         }],
         ["BM_ISL_Rowops_cold_vector_unchecked<int64_t>.*", "vectorized int64_t", {
-          "color": "#ffffcc",
+          "color": "#253494",
           "linestyle": ":"
         }],
         ["BM_ISL_Rowops_cold_vector_unchecked<int32_t>.*", "vectorized int32_t", {
-          "color": "#a1dab4",
+          "color": "#2c7fb8",
           "linestyle": ":"
         }],
         ["BM_ISL_Rowops_cold_vector_unchecked<int16_t>.*", "vectorized int16_t", {
@@ -134,7 +134,7 @@
           "linestyle": ":"
         }],
         ["BM_ISL_Rowops_cold_vector_unchecked<int8_t>.*", "vectorized int8_t", {
-          "color": "#225ea8",
+          "color": "#a1dab4",
           "linestyle": ":"
         }]
     ]
