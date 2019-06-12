@@ -1,3 +1,5 @@
+import os
+
 import gitlab
 import argparse
 import json
@@ -31,10 +33,27 @@ with open(args.config, "r") as cfgFile:
         if 'nth' in task:
             pipelineIndex = task['nth']
         if pipelineIndex < len(pipelines):
-            print ("Pipeline for project " + project.name + " on branch " + task["branch"] + " is " + str(pipelines[pipelineIndex].id) + " for commit " + pipelines[pipelineIndex].sha)
-            pipeline = pipelines[pipelineIndex]
+            foundWorking = False
+            while not foundWorking:
+                print("Pipeline for project " + project.name + " on branch " + task["branch"] + " is " + str(
+                    pipelines[pipelineIndex].id) + " for commit " + pipelines[pipelineIndex].sha)
+                pipeline = pipelines[pipelineIndex]
+                for job in pipeline.jobs.list():
+                    if job.name == task["job"]:
+                        if job.status == 'success':
+                            foundWorking = True
+                            break
+
+                if not foundWorking:
+                    print(
+                        "Warning: The pipeline has succeeded but the job you want has failed, offsetting all pipelines by 1!")
+                    pipelineIndex -= 1
+                    if pipelineIndex < 0:
+                        print("Error: No run left!")
+                    pipeline = pipelines[pipelineIndex]
+
             for job in pipeline.jobs.list():
-                if job.name == task["job"]:
+                if job.name == task["job"] and job.status == 'success':
                     with tempfile.TemporaryFile(mode="w+b") as file:
                         job = project.jobs.get(job.id)
                         job.artifacts(streamed=True, action=file.write)
@@ -50,5 +69,8 @@ with open(args.config, "r") as cfgFile:
                                         if not filecmp.cmp(file2.name, task["dest"]):
                                             print ("File has changed!")
                                             shutil.copyfile(file2.name, task["dest"])
-                                    print ("File is new!")
-                                    shutil.copyfile(file2.name, task["dest"])
+                                    elif Path(task["dest"]).is_dir():
+                                        shutil.copyfile(file2.name, task["dest"] + "/" + os.path.basename(file.filename))
+                                    else:
+                                        print ("File is new!")
+                                        shutil.copyfile(file2.name, task["dest"])
