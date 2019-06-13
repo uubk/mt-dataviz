@@ -27,8 +27,11 @@ with open(args.config, "r") as cfgFile:
     lineplot = False
     if "style" in config and config["style"] == "line":
         lineplot = True
+    logplot = False
+    if "scale" in config and config["scale"] == "log":
+        logplot = True
 
-    plotter = Plotter(data, assignment, config['axis'], lineplot, options)
+    plotter = Plotter(data, assignment, config['axis'], lineplot, options, logplot)
     if "mode" in config and config["mode"] == "history":
         plotter.groupDataByFile()
     else:

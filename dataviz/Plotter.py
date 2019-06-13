@@ -9,7 +9,7 @@ class DuplicateDataException(Exception):
 
 
 class Plotter():
-    def __init__(self, data, assignment, axis, lineplot, perAxisOptions):
+    def __init__(self, data, assignment, axis, lineplot, perAxisOptions, logplot):
         self._data = data
         self._assignment = assignment
         self._axis = axis
@@ -19,6 +19,7 @@ class Plotter():
         self._speedup = False
         self._perAxisOptions = perAxisOptions
         self.bars = not lineplot
+        self._logplot = logplot
 
     def groupData(self):
         for i in range(len(self._data)):
@@ -127,6 +128,9 @@ class Plotter():
         index = list(index)
 
         fig, ax = plt.subplots()
+        if self._logplot:
+            ax.set_yscale("log", nonposy='clip')
+
         for idx, group in enumerate(self._groups):
             plotOptions = {
                 "yerr": [x[1] for x in group['data']],
