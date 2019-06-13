@@ -4,6 +4,7 @@
   "defaults": {},
   "files": ["data/perf-isl.json"],
   "style": "line",
+  "scale": "log",
   "axis": [
     {
       "columns": "1"
