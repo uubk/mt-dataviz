@@ -1,5 +1,5 @@
 {
-  "name":"Rowops performance (experimental vector version)",
+  "name":"Rowops performance for 16 columns",
   "filename": "plots/vector_bench",
   "defaults": {
     "sparsity": "0",
@@ -26,9 +26,30 @@
   ],
   "assignment": [
     [
-        ["BM_ISL_Rowops_scalar_unchecked.*", "scalar unchecked"],
-        ["BM_ISL_Rowops_AVX512_unchecked_.*", "AVX512 unchecked"],
-        ["BM_ISL_Rowops_vectortype_unchecked<int16_t>.*", "vector unchecked"]
+        ["BM_ISL_Rowops_hot_scalar_unchecked.*", "scalar unchecked",{
+          "color": "#a6cee3",
+          "hatch": "/"
+        }],
+        ["BM_ISL_Rowops_AVX512_unchecked_.*", "AVX512 unchecked",{
+          "color": "#41b6c4",
+          "hatch": "/"
+        }],
+        ["BM_ISL_Rowops_hot_vector_unchecked.*", "vector unchecked",{
+          "color": "#2c7fb8",
+          "hatch": "/"
+        }],
+        ["BM_ISL_Rowops_hot_scalar_checked.*", "scalar checked",{
+          "color": "#a6cee3",
+          "hatch": "\\"
+        }],
+        ["BM_ISL_Rowops_AVX512_checked_.*", "AVX512 checked",{
+          "color": "#41b6c4",
+          "hatch": "\\"
+        }],
+        ["BM_ISL_Rowops_hot_vector_checked.*", "vector checked",{
+          "color": "#2c7fb8",
+          "hatch": "\\"
+        }]
     ]
   ]
 }
