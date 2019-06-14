@@ -1,0 +1,16 @@
+[
+  {
+    "project": 266,
+    "branch": "isl",
+    "job": "benchmark-isl",
+    "dest": "data/perf-isl.json",
+    "nth": 0
+  },
+  {
+    "project": 266,
+    "branch": "isl",
+    "job": "benchmark-normal",
+    "dest": "data/perf-base.json",
+    "nth": 0
+  }
+]
