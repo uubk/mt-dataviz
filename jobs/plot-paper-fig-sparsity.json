@@ -1,45 +1,41 @@
 {
-  "name": "Impact of sparsity",
+  "name": "Impact of sparsity vs number of columns",
   "filename": "plots/rowops_sparsity_time",
   "defaults": {},
   "files": ["data/perf-isl.json"],
-  "style": "line",
   "axis": [
     {
       "columns": "4"
     },
     {
       "columns": "16"
-    },
-    {
-      "columns": "32"
     }
   ],
   "assignment": [
     [
-        ["BM_ISL_Rowops_hot_avx512_unchecked_int32/sparsity:0.*", "int32_t 0% sparse", {
+        ["BM_ISL_Rowops_hot_avx512_checked_int32/sparsity:0.*", "int32_t 0% sparse", {
           "color": "#a1dab4",
-          "linestyle": "-"
+          "hatch": "/"
         }],
-        ["BM_ISL_Rowops_hot_avx512_unchecked_int32/sparsity:20.*", "int32_t 20% sparse", {
+        ["BM_ISL_Rowops_hot_avx512_checked_int32/sparsity:20.*", "int32_t 20% sparse", {
           "color": "#41b6c4",
-          "linestyle": "-"
+          "hatch": "/"
         }],
-        ["BM_ISL_Rowops_hot_avx512_unchecked_int32/sparsity:40.*", "int32_t 40% sparse", {
+        ["BM_ISL_Rowops_hot_avx512_checked_int32/sparsity:40.*", "int32_t 40% sparse", {
           "color": "#2c7fb8",
-          "linestyle": "-"
+          "hatch": "/"
         }],
-        ["BM_ISL_Rowops_hot_avx512_unchecked_int16/sparsity:0.*", "int16_t 0% sparse", {
+        ["BM_ISL_Rowops_hot_avx512_checked_int16/sparsity:0.*", "int16_t 0% sparse", {
           "color": "#a1dab4",
-          "linestyle": ":"
+          "hatch": "\\"
         }],
-        ["BM_ISL_Rowops_hot_avx512_unchecked_int16/sparsity:20.*", "int16_t 20% sparse", {
+        ["BM_ISL_Rowops_hot_avx512_checked_int16/sparsity:20.*", "int16_t 20% sparse", {
           "color": "#41b6c4",
-          "linestyle": ":"
+          "hatch": "\\"
         }],
-        ["BM_ISL_Rowops_hot_avx512_unchecked_int16/sparsity:40.*", "int16_t 40% sparse", {
+        ["BM_ISL_Rowops_hot_avx512_checked_int16/sparsity:40.*", "int16_t 40% sparse", {
           "color": "#2c7fb8",
-          "linestyle": ":"
+          "hatch": "\\"
         }]
     ]
   ]

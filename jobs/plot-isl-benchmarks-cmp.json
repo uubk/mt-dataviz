@@ -9,9 +9,9 @@
   "files": ["data/perf-isl.json"],
   "axis": [
     {
-        "sparsity": "0",
-        "columns": "4",
-        "type": "int16"
+      "sparsity": "0",
+      "columns": "4",
+      "type": "int16"
     },
     {
       "sparsity": "0",
@@ -30,10 +30,6 @@
           "color": "#a6cee3",
           "hatch": "/"
         }],
-        ["BM_ISL_Rowops_AVX512_unchecked_.*", "AVX512 unchecked",{
-          "color": "#41b6c4",
-          "hatch": "/"
-        }],
         ["BM_ISL_Rowops_hot_vector_unchecked.*", "vector unchecked",{
           "color": "#2c7fb8",
           "hatch": "/"
@@ -42,7 +38,7 @@
           "color": "#a6cee3",
           "hatch": "\\"
         }],
-        ["BM_ISL_Rowops_AVX512_checked_.*", "AVX512 checked",{
+        ["BM_ISL_Rowops_hot_avx512_checked_.*", "AVX512 checked",{
           "color": "#41b6c4",
           "hatch": "\\"
         }],
