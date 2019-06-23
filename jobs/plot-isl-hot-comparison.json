@@ -1,0 +1,53 @@
+{
+  "name":"Rowops performance for 16 columns",
+  "filename": "plots/vector_bench",
+  "defaults": {
+    "sparsity": "0",
+    "columns": "16",
+    "type": "int16"
+  },
+  "files": ["data/perf-isl-hot.json", "data/perf-isl-hot-zerocheck.json"],
+  "axis": [
+    {
+      "sparsity": "0",
+      "columns": "4",
+      "type": "int16"
+    },
+    {
+      "sparsity": "0",
+      "columns": "8",
+      "type": "int16"
+    },
+    {
+      "sparsity": "0",
+      "columns": "16",
+      "type": "int16"
+    }
+  ],
+  "assignment": [
+    [
+      ["BM_ISL_Rowops_hot_scalar_unchecked.*", "scalar unchecked",{
+        "color": "#a6cee3",
+        "hatch": "/"
+      }],
+      ["BM_ISL_Rowops_hot_vector_unchecked.*", "vector unchecked",{
+        "color": "#2c7fb8",
+        "hatch": "/"
+      }],
+      ["BM_ISL_Rowops_hot_scalar_checked.*", "scalar checked",{
+        "color": "#a6cee3",
+        "hatch": "\\"
+      }],
+        ["BM_ISL_Rowops_hot_vector_checked.*", "vector checked",{
+          "color": "#2c7fb8",
+          "hatch": "\\"
+        }]
+    ],
+    [
+      ["BM_Zerocheck_ISL_Rowops_hot_avx512_checked_.*", "AVX512 checked",{
+        "color": "#41b6c4",
+        "hatch": "\\"
+      }]
+    ]
+  ]
+}

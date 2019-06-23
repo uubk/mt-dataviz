@@ -2,8 +2,43 @@
   {
     "project": 266,
     "branch": "isl",
-    "job": "benchmark-isl",
-    "dest": "data/perf-isl.json",
+    "job": "benchmark-isl-hot-zerocheck-sparsity",
+    "dest": "data/perf-isl-hot-zerocheck-sparsity.json",
+    "nth": 0
+  },
+  {
+    "project": 266,
+    "branch": "isl",
+    "job": "benchmark-isl-cold-zerocheck-sparsity",
+    "dest": "data/perf-isl-cold-zerocheck-sparsity.json",
+    "nth": 0
+  },
+  {
+    "project": 266,
+    "branch": "isl",
+    "job": "benchmark-isl-hot-zerocheck",
+    "dest": "data/perf-isl-hot-zerocheck.json",
+    "nth": 0
+  },
+  {
+    "project": 266,
+    "branch": "isl",
+    "job": "benchmark-isl-cold-zerocheck",
+    "dest": "data/perf-isl-cold-zerocheck.json",
+    "nth": 0
+  },
+  {
+    "project": 266,
+    "branch": "isl",
+    "job": "benchmark-isl-hot",
+    "dest": "data/perf-isl-hot.json",
+    "nth": 0
+  },
+  {
+    "project": 266,
+    "branch": "isl",
+    "job": "benchmark-isl-cold",
+    "dest": "data/perf-isl-cold.json",
     "nth": 0
   },
   {

@@ -2,7 +2,7 @@
   {
     "project": 266,
     "branch": "isl",
-    "job": "graph-isl",
+    "job": "graph",
     "dest": "jobs",
     "nth": 0
   }
