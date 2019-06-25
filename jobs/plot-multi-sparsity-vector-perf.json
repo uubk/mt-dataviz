@@ -6,7 +6,7 @@
   },
   "style": "line",
   "scale": "log",
-  "files": ["data/perf-isl-hot.json", "data/perf-isl-hot-zerocheck.json", "data/perf-isl-hot-zerocheck-sparsity.json"],
+  "files": ["data/perf-isl-hot-zerocheck.json", "data/perf-isl-hot-zerocheck-sparsity.json"],
   "axis": [
     {
       "columns": "1"
@@ -106,11 +106,6 @@
     }
   ],
   "assignment": [
-    [
-      ["BM_ISL_Rowops_hot_scalar_gmp", "GMP", {
-          "color": "black"
-      }]
-    ],
     [
       ["BM_Zerocheck_ISL_Rowops_hot_vector_unchecked<int16_t>/sparsity:1", "zerocheck 0%", {
         "color": "#a1dab4",
