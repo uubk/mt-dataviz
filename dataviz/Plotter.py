@@ -3,6 +3,8 @@ import numpy as np
 from functools import reduce
 import re
 
+from matplotlib.ticker import MaxNLocator
+
 
 class DuplicateDataException(Exception):
     pass
@@ -127,46 +129,112 @@ class Plotter():
         minWidth = index-individualWidth*(numExps/2)
         index = list(index)
 
-        fig, ax = plt.subplots()
+        fig, ax = plt.subplots(figsize=(5, 8))
         if self._logplot:
             ax.set_yscale("log", nonposy='clip')
 
+        legendGroups = {}
+        argumentGroups = {}
         for idx, group in enumerate(self._groups):
             plotOptions = {
                 "yerr": [x[1] for x in group['data']],
                 "label": group['label'],
-                "zorder":  3
+                "zorder":  3,
+                #"fontsize": 20
             }
 
             name = group['label']
+            legendGroup = None
+            argumentGroup = None
             if name in self._perAxisOptions:
                 for key, value in self._perAxisOptions[name].items():
-                    plotOptions[key] = value
+                    if key == "legendGroup":
+                        if not value in legendGroups:
+                            legendGroups[value] = []
+                        legendGroup = value
+                    elif key == "argGroup":
+                        if not value in argumentGroups:
+                            argumentGroups[value] = []
+                        argumentGroup = value
+                    else:
+                        plotOptions[key] = value
 
-            if self.bars:
-                ax.bar(list(minWidth + individualWidth*idx), [x[0] for x in group['data']], individualWidth, **plotOptions)
-            else:
-                if "marker" not in plotOptions:
-                    plotOptions["marker"] = "."
-                ax.errorbar(index, [x[0] for x in group['data']], **plotOptions)
+            if legendGroup:
+                # remove label
+                plotOptions.pop('label', None)
+
+            if "skip" not in plotOptions:
+                if self.bars:
+                    currentPlot = ax.bar(list(minWidth + individualWidth*idx), [x[0] for x in group['data']], individualWidth, **plotOptions)
+                else:
+                    if "marker" not in plotOptions:
+                        plotOptions["marker"] = "."
+                    currentPlot = ax.errorbar(index, [x[0] for x in group['data']], **plotOptions)
+
+                if legendGroup:
+                    legendGroups[legendGroup].append(currentPlot)
+                if argumentGroup:
+                    argumentGroups[argumentGroup].append(currentPlot)
+
 
         if self._speedup:
-            ax.set_ylabel('Speedup')
+            ax.set_ylabel('Speedup', fontsize=20)
         else:
-            ax.set_ylabel('Time (ns)')
+            ax.set_ylabel('Time (ns)', fontsize=20)
         ax.set_title(title)
+
         if numberOfExperiments > 5 and ":" in xLegends[0]:
             plt.xticks(rotation=90)
         ax.set_xticks(index)
-        ax.set_xticklabels(xLegends, fontsize=8)
-        ax.legend()
-        plt.minorticks_on()
-        plt.grid(b=True, which='major', axis='y', linewidth=0.2, color='black', zorder=0)
-        plt.grid(b=True, which='minor', axis='y', linewidth=0.1, color='grey')
-        fig.tight_layout()
+        ax.set_xticklabels(xLegends, fontsize=20)
+        extraArtists = []
+        if legendGroups:
+            # Legend group
+            names = []
+            items = []
+            for name, axes in legendGroups.items():
+                names.append(name)
+                items.append(axes[0])
+            offset = 0.05*len(names)
+            legend = plt.legend(items, names, loc=3, fontsize=14, bbox_to_anchor=(0., 1.02, 1., .102), ncol=2, mode="expand", borderaxespad=0.)
+            plt.gca().add_artist(legend)
+            extraArtists.append(legend)
+            # Argument group
+            names = []
+            items = []
+            for name, axes in argumentGroups.items():
+                names.append(name)
+                items.append(axes[0])
+            offset = 0.05*len(names)
+            legend = plt.legend(items, names, loc=2, fontsize=14)
+            plt.gca().add_artist(legend)
+            extraArtists.append(legend)
+        else:
+            ax.legend()
+
+        plt.grid(b=True, which='major', axis='y', linewidth=0.3, color='grey', zorder=0)
+        plt.grid(b=True, which='minor', axis='y', linewidth=0.2, color='lightgrey')
+        ax.tick_params(axis='x', colors='grey')
+        ax.tick_params(axis='y', colors='grey')
+        for idx, label in enumerate(ax.xaxis.get_ticklabels()):
+            xValue = xLegends[idx]
+            try:
+                intVal = int(xValue)
+                if intVal % 8 != 0:
+                    label.set_visible(False)
+                else:
+                    label.set_color('black')
+            except ValueError:
+                label.set_color('black')
+        for idx, label in enumerate(ax.yaxis.get_ticklabels()):
+            label.set_color('black')
+            label.set_size(14)
 
         for format in self.formats:
-            plt.savefig(prefix + format, dpi=180)
+            if format == ".eps":
+                ax.set_title("")
+                ax.set_ylabel("")
+            plt.savefig(prefix + format, dpi=180, extraArtists=extraArtists)
 
         try:
             import mpld3
