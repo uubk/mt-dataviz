@@ -16,7 +16,7 @@ class Plotter():
         self._assignment = assignment
         self._axis = axis
         self._groups = []
-        self.formats = [".png", ".eps", ".pdf"]
+        self.formats = [".png", ".pdf"]
         self._history = False
         self._speedup = False
         self._perAxisOptions = perAxisOptions
@@ -231,7 +231,7 @@ class Plotter():
             label.set_size(14)
 
         for format in self.formats:
-            if format == ".eps":
+            if format == ".pdf":
                 ax.set_title("")
                 ax.set_ylabel("")
             plt.savefig(prefix + format, dpi=180, extraArtists=extraArtists)
