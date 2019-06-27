@@ -193,9 +193,10 @@ class Plotter():
             names = []
             items = []
             for name, axes in legendGroups.items():
+                if len(axes) < 1:
+                    continue
                 names.append(name)
                 items.append(axes[0])
-            offset = 0.05*len(names)
             legend = plt.legend(items, names, loc=3, fontsize=14, bbox_to_anchor=(0., 1.02, 1., .102), ncol=2, mode="expand", borderaxespad=0.)
             plt.gca().add_artist(legend)
             extraArtists.append(legend)
@@ -203,9 +204,10 @@ class Plotter():
             names = []
             items = []
             for name, axes in argumentGroups.items():
+                if len(axes) < 1:
+                    continue
                 names.append(name)
                 items.append(axes[0])
-            offset = 0.05*len(names)
             legend = plt.legend(items, names, loc=2, fontsize=14)
             plt.gca().add_artist(legend)
             extraArtists.append(legend)
