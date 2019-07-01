@@ -1,6 +1,6 @@
 {
-  "name": "Speedup (unchecked, hot, int16_t)",
-  "filename": "plots/rowops_sparsity_vector",
+  "name": "Speedup (checked, hot, 50% sparsity)",
+  "filename": "plots/rowops_sparsity_50",
   "defaults": {
       "sparsity": "2"
   },
@@ -104,64 +104,76 @@
   ],
   "assignment": [
     [
-      ["BM_ISL_Rowops_hot_vector_unchecked<int16_t>", "simplified 0%", {
+      ["BM_ISL_Rowops_hot_scalar_gmp", "simplified int16_t", {
         "color": "black",
         "linestyle": "-.",
         "skip": true,
         "legendGroup": "simplified",
-        "argGroup": "baseline"
+        "argGroup": "gmp"
       }]
     ],
     [
-      ["BM_Zerocheck_ISL_Rowops_hot_vector_unchecked<int16_t>/sparsity:8", "zerocheck 87.5%", {
+      ["BM_Zerocheck_ISL_Rowops_hot_vector_checked<int64_t>/sparsity:2", "zerocheck int64_t", {
         "color": "#253494",
         "linestyle": "-",
         "legendGroup": "Zerocheck",
-        "argGroup": "87.5% Sparse"
+        "argGroup": "int64"
       }],
-      ["BM_Zerocheck_ISL_Rowops_hot_vector_unchecked<int16_t>/sparsity:4", "zerocheck 75%", {
+      ["BM_Zerocheck_ISL_Rowops_hot_vector_checked<int32_t>/sparsity:2", "zerocheck int32_t", {
         "color": "#2c7fb8",
         "linestyle": "-",
         "legendGroup": "Zerocheck",
-        "argGroup": "75% Sparse"
+        "argGroup": "int32"
       }],
-      ["BM_Zerocheck_ISL_Rowops_hot_vector_unchecked<int16_t>/sparsity:2", "zerocheck 50%", {
+      ["BM_Zerocheck_ISL_Rowops_hot_vector_checked<int16_t>/sparsity:2", "zerocheck int16_t", {
         "color": "#41b6c4",
         "linestyle": "-",
         "legendGroup": "Zerocheck",
-        "argGroup": "50% Sparse"
+        "argGroup": "int16"
       }],
-      ["BM_Zerocheck_ISL_Rowops_hot_vector_unchecked<int16_t>/sparsity:1", "zerocheck 0%", {
+      ["BM_Zerocheck_ISL_Rowops_hot_vector_checked<int8_t>/sparsity:2", "zerocheck int8_t", {
         "color": "#a1dab4",
         "linestyle": "-",
         "legendGroup": "Zerocheck",
-        "argGroup": "0% Sparse"
+        "argGroup": "int8"
+      }],
+      ["BM_Zerocheck_ISL_Rowops_hot_scalar_gmp/sparsity:2", "zerocheck int8_t", {
+        "color": "black",
+        "linestyle": "-",
+        "legendGroup": "Zerocheck",
+        "argGroup": "gmp"
       }]
     ],
     [
-      ["BM_Zerocheck_Sparsity_ISL_Rowops_hot_vector_unchecked<int16_t>/sparsity:8", "sparsity 87.5%", {
+      ["BM_Zerocheck_Sparsity_ISL_Rowops_hot_vector_checked<int64_t>/sparsity:2", "sparsity int64_t", {
         "color": "#253494",
         "linestyle": ":",
         "legendGroup": "Sparsity",
-        "argGroup": "87.5% Sparse"
+        "argGroup": "int64"
       }],
-      ["BM_Zerocheck_Sparsity_ISL_Rowops_hot_vector_unchecked<int16_t>/sparsity:4", "sparsity 75%", {
+      ["BM_Zerocheck_Sparsity_ISL_Rowops_hot_vector_checked<int32_t>/sparsity:2", "sparsity int32_t", {
         "color": "#2c7fb8",
         "linestyle": ":",
         "legendGroup": "Sparsity",
-        "argGroup": "75% Sparse"
+        "argGroup": "int32"
       }],
-      ["BM_Zerocheck_Sparsity_ISL_Rowops_hot_vector_unchecked<int16_t>/sparsity:2", "sparsity 50%", {
+      ["BM_Zerocheck_Sparsity_ISL_Rowops_hot_vector_checked<int16_t>/sparsity:2", "sparsity int16_t", {
         "color": "#41b6c4",
         "linestyle": ":",
         "legendGroup": "Sparsity",
-        "argGroup": "50% Sparse"
+        "argGroup": "int16"
       }],
-      ["BM_Zerocheck_Sparsity_ISL_Rowops_hot_vector_unchecked<int16_t>/sparsity:1", "sparsity 0%", {
+      ["BM_Zerocheck_Sparsity_ISL_Rowops_hot_vector_checked<int8_t>/sparsity:2", "sparsity int8_t", {
         "color": "#a1dab4",
         "linestyle": ":",
         "legendGroup": "Sparsity",
-        "argGroup": "0% Sparse"
+        "argGroup": "int8"
+      }],
+      ["BM_Zerocheck_Sparsity_ISL_Rowops_hot_scalar_gmp/sparsity:2", "zerocheck int8_t", {
+        "color": "black",
+        "linestyle": "-",
+        "legendGroup": "Zerocheck",
+        "argGroup": "gmp"
       }]
     ]
   ]
