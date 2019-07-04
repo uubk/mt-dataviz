@@ -120,12 +120,6 @@
         "legendGroup": "Scalar",
         "argGroup": "16 bits"
       }],
-      ["BM_ISL_Rowops_cold_scalar_unchecked<int8_t>.*", "scalar int8_t", {
-        "color": "#a1dab4",
-        "linestyle": "-",
-        "legendGroup": "Scalar",
-        "argGroup": "8 bits"
-      }],
       ["BM_ISL_Rowops_cold_vector_unchecked<int64_t>.*", "vectorized int64_t", {
         "color": "#253494",
         "linestyle": ":",
@@ -143,12 +137,6 @@
         "linestyle": ":",
         "legendGroup": "Vector",
         "argGroup": "16 bits"
-      }],
-      ["BM_ISL_Rowops_cold_vector_unchecked<int8_t>.*", "vectorized int8_t", {
-        "color": "#a1dab4",
-        "linestyle": ":",
-        "legendGroup": "Vector",
-        "argGroup": "8 bits"
       }]
     ]
   ]
