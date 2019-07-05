@@ -110,40 +110,52 @@
     ],
     [
       ["BM_ISL_Rowops_cold_scalar_checked<int64_t>.*", "scalar int64_t", {
-        "color": "#253494",
+        "color": "#b2df8a",
         "linestyle": "-",
         "legendGroup": "Scalar",
         "argGroup": "64 bits"
       }],
       ["BM_ISL_Rowops_cold_scalar_checked<int32_t>.*", "scalar int32_t", {
-        "color": "#2c7fb8",
+        "color": "#b2df8a",
         "linestyle": "-",
         "legendGroup": "Scalar",
         "argGroup": "32 bits"
       }],
       ["BM_ISL_Rowops_cold_scalar_checked<int16_t>.*", "scalar int16_t", {
-        "color": "#41b6c4",
+        "color": "#a6cee3",
         "linestyle": "-",
         "legendGroup": "Scalar",
         "argGroup": "16 bits"
       }],
+      ["BM_ISL_Rowops_cold_scalar_checked<int8_t>.*", "scalar int8_t", {
+        "color": "#a6cee3",
+        "linestyle": "-",
+        "legendGroup": "Scalar",
+        "argGroup": "8 bits"
+      }],
       ["BM_ISL_Rowops_cold_vector_checked<int64_t>.*", "vectorized int64_t", {
-        "color": "#253494",
+        "color": "#33a02c",
         "linestyle": ":",
         "legendGroup": "Vector",
         "argGroup": "64 bits"
       }],
       ["BM_ISL_Rowops_cold_vector_checked<int32_t>.*", "vectorized int32_t", {
-        "color": "#2c7fb8",
+        "color": "#33a02c",
         "linestyle": ":",
         "legendGroup": "Vector",
         "argGroup": "32 bits"
       }],
       ["BM_ISL_Rowops_cold_vector_checked<int16_t>.*", "vectorized int16_t", {
-        "color": "#41b6c4",
+        "color": "#1f78b4",
         "linestyle": ":",
         "legendGroup": "Vector",
         "argGroup": "16 bits"
+      }],
+      ["BM_ISL_Rowops_cold_vector_checked<int8_t>.*", "vectorized int8_t", {
+        "color": "#1f78b4",
+        "linestyle": ":",
+        "legendGroup": "Vector",
+        "argGroup": "8 bits"
       }]
     ]
   ]
