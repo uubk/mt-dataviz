@@ -100,7 +100,7 @@ class Plotter():
         self._diff = True
 
         def unifyGroups(groupA, groupB):
-            groupB["data"] = [(groupA["data"][index][0]/x[0], 0) for index, x in enumerate(groupB["data"])]
+            groupB["data"] = [(1-groupA["data"][index][0]/x[0], 0) for index, x in enumerate(groupB["data"])]
             return groupB
 
         self._groups = [unifyGroups(grouptuple[0], grouptuple[1]) for grouptuple in
@@ -191,6 +191,8 @@ class Plotter():
 
         if self._speedup:
             ax.set_ylabel('Speedup', fontsize=20)
+        elif self._diff:
+            ax.set_ylabel('Slowdown (%)', fontsize=20)
         else:
             ax.set_ylabel('Time (ns)', fontsize=20)
         ax.set_title(title)
