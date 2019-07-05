@@ -106,7 +106,7 @@ class Plotter():
         self._groups = [unifyGroups(grouptuple[0], grouptuple[1]) for grouptuple in
                         zip(self._groups[::2], self._groups[1::2])]
 
-    def plot(self, title, prefix):
+    def plot(self, title, prefix, size):
         # We're plotting different experiments. Figure out which parameters change from run to run
         numberOfExperiments = len(self._groups[0]['data'])
         if not self._history:
@@ -141,7 +141,7 @@ class Plotter():
         minWidth = index-individualWidth*(numExps/2)
         index = list(index)
 
-        fig, ax = plt.subplots(figsize=(5, 8))
+        fig, ax = plt.subplots(figsize=size)
         if self._logplot:
             ax.set_yscale("log", nonposy='clip')
 

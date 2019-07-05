@@ -43,4 +43,9 @@ with open(args.config, "r") as cfgFile:
         plotter.groupToSpeedup()
     if "preprocess" in config and config["preprocess"] == "diff":
         plotter.groupToDiff()
-    plotter.plot(config['name'], config['filename'])
+
+    size = [5, 8]
+    if "size" in config and len(size) == 2:
+        size = config["size"]
+
+    plotter.plot(config['name'], config['filename'], size)

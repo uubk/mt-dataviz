@@ -5,7 +5,7 @@
   "files": ["data/perf-isl-hot.json"],
   "style": "line",
   "preprocess": "diff",
-  "yfix": "zero",
+  "size": [8,4],
   "axis": [
     {
       "columns": "2"
