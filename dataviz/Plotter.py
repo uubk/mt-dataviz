@@ -11,7 +11,7 @@ class DuplicateDataException(Exception):
 
 
 class Plotter():
-    def __init__(self, data, assignment, axis, lineplot, perAxisOptions, logplot):
+    def __init__(self, data, assignment, axis, lineplot, perAxisOptions, logplot, zero):
         self._data = data
         self._assignment = assignment
         self._axis = axis
@@ -19,9 +19,11 @@ class Plotter():
         self.formats = [".png", ".pdf"]
         self._history = False
         self._speedup = False
+        self._diff = False
         self._perAxisOptions = perAxisOptions
         self.bars = not lineplot
         self._logplot = logplot
+        self._zero = zero
 
     def groupData(self):
         for i in range(len(self._data)):
@@ -93,6 +95,16 @@ class Plotter():
         reference = self._groups[0]["data"]
         for group in self._groups:
             group["data"] = [(reference[index][0]/x[0], 0) for index, x in enumerate(group["data"])]
+
+    def groupToDiff(self):
+        self._diff = True
+
+        def unifyGroups(groupA, groupB):
+            groupB["data"] = [(groupA["data"][index][0]/x[0], 0) for index, x in enumerate(groupB["data"])]
+            return groupB
+
+        self._groups = [unifyGroups(grouptuple[0], grouptuple[1]) for grouptuple in
+                        zip(self._groups[::2], self._groups[1::2])]
 
     def plot(self, title, prefix):
         # We're plotting different experiments. Figure out which parameters change from run to run
@@ -212,7 +224,7 @@ class Plotter():
             plt.gca().add_artist(legend)
             extraArtists.append(legend)
         else:
-            ax.legend()
+            ax.legend(fontsize=14)
 
         plt.grid(b=True, which='major', axis='y', linewidth=0.3, color='grey', zorder=0)
         plt.grid(b=True, which='minor', axis='y', linewidth=0.2, color='lightgrey')
@@ -231,6 +243,9 @@ class Plotter():
         for idx, label in enumerate(ax.yaxis.get_ticklabels()):
             label.set_color('black')
             label.set_size(14)
+
+        if self._zero:
+            ax.set_ylim(ymin=0)
 
         for format in self.formats:
             if format == ".pdf":

@@ -30,12 +30,17 @@ with open(args.config, "r") as cfgFile:
     logplot = False
     if "scale" in config and config["scale"] == "log":
         logplot = True
+    zero = False
+    if "yfix" in config and config["yfix"] == "zero":
+        zero = True
 
-    plotter = Plotter(data, assignment, config['axis'], lineplot, options, logplot)
+    plotter = Plotter(data, assignment, config['axis'], lineplot, options, logplot, zero)
     if "mode" in config and config["mode"] == "history":
         plotter.groupDataByFile()
     else:
         plotter.groupData()
     if "preprocess" in config and config["preprocess"] == "speedup":
         plotter.groupToSpeedup()
+    if "preprocess" in config and config["preprocess"] == "diff":
+        plotter.groupToDiff()
     plotter.plot(config['name'], config['filename'])

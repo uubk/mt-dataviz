@@ -1,5 +1,5 @@
 {
-  "name": "Speedup (87.5% sparsity, unchecked, int16, hot)",
+  "name": "Speedup (checked, hot, 87.5% sparsity)",
   "filename": "plots/rowops_sparsity_87",
   "defaults": {
       "sparsity": "8"
@@ -9,170 +9,171 @@
   "files": ["data/perf-isl-hot.json", "data/perf-isl-hot-zerocheck.json", "data/perf-isl-hot-zerocheck-sparsity.json"],
   "axis": [
     {
-      "columns": "1",
-      "sparsity": "8"
+      "columns": "2"
     },
     {
-      "columns": "2",
-      "sparsity": "8"
+      "columns": "3"
     },
     {
-      "columns": "3",
-      "sparsity": "8"
+      "columns": "4"
     },
     {
-      "columns": "4",
-      "sparsity": "8"
+      "columns": "5"
     },
     {
-      "columns": "5",
-      "sparsity": "8"
+      "columns": "6"
     },
     {
-      "columns": "6",
-      "sparsity": "8"
+      "columns": "7"
     },
     {
-      "columns": "7",
-      "sparsity": "8"
+      "columns": "8"
     },
     {
-      "columns": "8",
-      "sparsity": "8"
+      "columns": "9"
     },
     {
-      "columns": "9",
-      "sparsity": "8"
+      "columns": "10"
     },
     {
-      "columns": "10",
-      "sparsity": "8"
+      "columns": "11"
     },
     {
-      "columns": "11",
-      "sparsity": "8"
+      "columns": "12"
     },
     {
-      "columns": "12",
-      "sparsity": "8"
+      "columns": "13"
     },
     {
-      "columns": "13",
-      "sparsity": "8"
+      "columns": "14"
     },
     {
-      "columns": "14",
-      "sparsity": "8"
+      "columns": "15"
     },
     {
-      "columns": "15",
-      "sparsity": "8"
+      "columns": "16"
     },
     {
-      "columns": "16",
-      "sparsity": "8"
+      "columns": "17"
     },
     {
-      "columns": "17",
-      "sparsity": "8"
+      "columns": "18"
     },
     {
-      "columns": "18",
-      "sparsity": "8"
+      "columns": "19"
     },
     {
-      "columns": "19",
-      "sparsity": "8"
+      "columns": "20"
     },
     {
-      "columns": "20",
-      "sparsity": "8"
+      "columns": "21"
     },
     {
-      "columns": "21",
-      "sparsity": "8"
+      "columns": "22"
     },
     {
-      "columns": "22",
-      "sparsity": "8"
+      "columns": "23"
     },
     {
-      "columns": "23",
-      "sparsity": "8"
+      "columns": "24"
     },
     {
-      "columns": "24",
-      "sparsity": "8"
+      "columns": "25"
     },
     {
-      "columns": "25",
-      "sparsity": "8"
+      "columns": "26"
     },
     {
-      "columns": "26",
-      "sparsity": "8"
+      "columns": "27"
     },
     {
-      "columns": "27",
-      "sparsity": "8"
+      "columns": "28"
     },
     {
-      "columns": "28",
-      "sparsity": "8"
+      "columns": "29"
     },
     {
-      "columns": "29",
-      "sparsity": "8"
+      "columns": "30"
     },
     {
-      "columns": "30",
-      "sparsity": "8"
+      "columns": "31"
     },
     {
-      "columns": "31",
-      "sparsity": "8"
-    },
-    {
-      "columns": "32",
-      "sparsity": "8"
+      "columns": "32"
     }
   ],
   "assignment": [
     [
-      ["BM_ISL_Rowops_hot_scalar_gmp", "GMP", {
-          "color": "black"
+      ["BM_ISL_Rowops_hot_scalar_gmp", "simplified int16_t", {
+        "color": "black",
+        "linestyle": "-.",
+        "skip": true,
+        "legendGroup": "simplified",
+        "argGroup": "gmp"
       }]
     ],
     [
-      ["BM_Zerocheck_ISL_Rowops_hot_scalar_gmp", "GMP using zerochecks", {
-        "color": "#a1dab4",
-        "linestyle": "-"
+      ["BM_Zerocheck_ISL_Rowops_hot_vector_checked<int64_t>/sparsity:8", "zerocheck int64_t", {
+        "color": "#253494",
+        "linestyle": "-",
+        "legendGroup": "Zerocheck",
+        "argGroup": "int64"
       }],
-      ["BM_Zerocheck_ISL_Rowops_hot_avx512_unchecked_int16", "AVX-512 using sparsity", {
+      ["BM_Zerocheck_ISL_Rowops_hot_vector_checked<int32_t>/sparsity:8", "zerocheck int32_t", {
+        "color": "#2c7fb8",
+        "linestyle": "-",
+        "legendGroup": "Zerocheck",
+        "argGroup": "int32"
+      }],
+      ["BM_Zerocheck_ISL_Rowops_hot_vector_checked<int16_t>/sparsity:8", "zerocheck int16_t", {
         "color": "#41b6c4",
-        "linestyle": "-"
+        "linestyle": "-",
+        "legendGroup": "Zerocheck",
+        "argGroup": "int16"
       }],
-      ["BM_Zerocheck_ISL_Rowops_hot_vector_unchecked<int16_t>", "vectorized using zerochecks", {
-        "color": "#2c7fb8",
-        "linestyle": "-"
+      ["BM_Zerocheck_ISL_Rowops_hot_vector_checked<int8_t>/sparsity:8", "zerocheck int8_t", {
+        "color": "#a1dab4",
+        "linestyle": "-",
+        "legendGroup": "Zerocheck",
+        "argGroup": "int8"
       }],
-      ["BM_Zerocheck_Sparsity_ISL_Rowops_hot_scalar_unchecked<int16_t>", "scalar using zerochecks", {
-        "color": "#253494",
-        "linestyle": "-"
+      ["BM_Zerocheck_ISL_Rowops_hot_scalar_gmp/sparsity:8", "zerocheck int8_t", {
+        "color": "black",
+        "linestyle": "-",
+        "legendGroup": "Zerocheck",
+        "argGroup": "gmp"
       }]
     ],
     [
-      ["BM_Zerocheck_Sparsity_ISL_Rowops_hot_scalar_gmp", "GMP using sparsity", {
-        "color": "#a1dab4",
-        "linestyle": ":"
-      }],
-      ["BM_Zerocheck_Sparsity_ISL_Rowops_hot_vector_unchecked<int16_t>", "vectorized using sparsity", {
-        "color": "#2c7fb8",
-        "linestyle": ":"
-      }],
-      ["BM_Zerocheck_Sparsity_ISL_Rowops_hot_scalar_unchecked<int16_t>", "scalar using sparsity", {
+      ["BM_Zerocheck_Sparsity_ISL_Rowops_hot_vector_checked<int64_t>/sparsity:8", "sparsity int64_t", {
         "color": "#253494",
-        "linestyle": ":"
+        "linestyle": ":",
+        "legendGroup": "Sparsity",
+        "argGroup": "int64"
+      }],
+      ["BM_Zerocheck_Sparsity_ISL_Rowops_hot_vector_checked<int32_t>/sparsity:8", "sparsity int32_t", {
+        "color": "#2c7fb8",
+        "linestyle": ":",
+        "legendGroup": "Sparsity",
+        "argGroup": "int32"
+      }],
+      ["BM_Zerocheck_Sparsity_ISL_Rowops_hot_vector_checked<int16_t>/sparsity:8", "sparsity int16_t", {
+        "color": "#41b6c4",
+        "linestyle": ":",
+        "legendGroup": "Sparsity",
+        "argGroup": "int16"
+      }],
+      ["BM_Zerocheck_Sparsity_ISL_Rowops_hot_vector_checked<int8_t>/sparsity:8", "sparsity int8_t", {
+        "color": "#a1dab4",
+        "linestyle": ":",
+        "legendGroup": "Sparsity",
+        "argGroup": "int8"
+      }],
+      ["BM_Zerocheck_Sparsity_ISL_Rowops_hot_scalar_gmp/sparsity:8", "zerocheck int8_t", {
+        "color": "black",
+        "linestyle": "-",
+        "legendGroup": "Zerocheck",
+        "argGroup": "gmp"
       }]
     ]
   ]
