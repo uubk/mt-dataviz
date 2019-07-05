@@ -1,8 +1,8 @@
 {
   "name": "Rowops total execution time (checked, hot cache)",
-  "filename": "plots/rowops_hot_checked_unchecked_vector_perf",
+  "filename": "plots/rowops_hot_checked_unchecked_perf_zerocheck",
   "defaults": {},
-  "files": ["data/perf-isl-hot.json"],
+  "files": ["data/perf-isl-hot-zerocheck.json"],
   "style": "line",
   "axis": [
     {
@@ -101,49 +101,49 @@
   ],
   "assignment": [
     [
-      ["BM_ISL_Rowops_hot_vector_unchecked<int64_t>.*", "checked int64_t", {
+      ["BM_Zerocheck_ISL_Rowops_hot_scalar_unchecked<int64_t>/sparsity:1.*", "checked int64_t", {
         "color": "#253494",
         "linestyle": "-",
         "legendGroup": "Unchecked",
         "argGroup": "64 bits"
       }],
-      ["BM_ISL_Rowops_hot_vector_unchecked<int32_t>.*", "checked int32_t", {
+      ["BM_Zerocheck_ISL_Rowops_hot_scalar_unchecked<int32_t>/sparsity:1.*", "checked int32_t", {
         "color": "#2c7fb8",
         "linestyle": "-",
         "legendGroup": "Unchecked",
         "argGroup": "32 bits"
       }],
-      ["BM_ISL_Rowops_hot_vector_unchecked<int16_t>.*", "checked int16_t", {
+      ["BM_Zerocheck_ISL_Rowops_hot_scalar_unchecked<int16_t>/sparsity:1.*", "checked int16_t", {
         "color": "#41b6c4",
         "linestyle": "-",
         "legendGroup": "Unchecked",
         "argGroup": "16 bits"
       }],
-      ["BM_ISL_Rowops_hot_scalar_unchecked<int8_t>.*", "checked int16_t", {
+      ["BM_Zerocheck_ISL_Rowops_hot_scalar_unchecked<int8_t>/sparsity:1.*", "checked int16_t", {
         "color": "#a1dab4",
         "linestyle": "-",
         "legendGroup": "Unchecked",
         "argGroup": "8 bits"
       }],
-      ["BM_ISL_Rowops_hot_vector_checked<int64_t>.*", "unchecked int64_t", {
+      ["BM_Zerocheck_ISL_Rowops_hot_scalar_checked<int64_t>/sparsity:1.*", "unchecked int64_t", {
         "color": "#253494",
         "linestyle": ":",
         "legendGroup": "Checked",
         "argGroup": "64 bits"
       }],
-      ["BM_ISL_Rowops_hot_vector_checked<int32_t>.*", "unchecked int32_t", {
+      ["BM_Zerocheck_ISL_Rowops_hot_scalar_checked<int32_t>/sparsity:1.*", "unchecked int32_t", {
         "color": "#2c7fb8",
         "linestyle": ":",
         "legendGroup": "Checked",
         "argGroup": "32 bits"
       }],
-      ["BM_ISL_Rowops_hot_vector_checked<int16_t>.*", "unchecked int16_t", {
+      ["BM_Zerocheck_ISL_Rowops_hot_scalar_checked<int16_t>/sparsity:1.*", "unchecked int16_t", {
         "color": "#41b6c4",
         "linestyle": ":",
         "legendGroup": "Checked",
         "argGroup": "16 bits"
       }],
-      ["BM_ISL_Rowops_hot_scalar_checked<int8_t>.*", "unchecked int16_t", {
+      ["BM_Zerocheck_ISL_Rowops_hot_scalar_checked<int8_t>/sparsity:1.*", "unchecked int16_t", {
         "color": "#a1dab4",
         "linestyle": ":",
         "legendGroup": "Checked",
