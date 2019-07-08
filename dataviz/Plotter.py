@@ -106,6 +106,17 @@ class Plotter():
         self._groups = [unifyGroups(grouptuple[0], grouptuple[1]) for grouptuple in
                         zip(self._groups[::2], self._groups[1::2])]
 
+    def groupToDiffSpeedup(self):
+        self._diff = True
+        self._speedup = True
+
+        def unifyGroups(groupA, groupB):
+            groupB["data"] = [(groupA["data"][index][0]/x[0], 0) for index, x in enumerate(groupB["data"])]
+            return groupB
+
+        self._groups = [unifyGroups(grouptuple[0], grouptuple[1]) for grouptuple in
+                        zip(self._groups[::2], self._groups[1::2])]
+
     def plot(self, title, prefix, size):
         # We're plotting different experiments. Figure out which parameters change from run to run
         numberOfExperiments = len(self._groups[0]['data'])
