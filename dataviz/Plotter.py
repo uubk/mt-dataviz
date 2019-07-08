@@ -1,12 +1,18 @@
+import math
 import matplotlib.pyplot as plt
 import numpy as np
 from functools import reduce
 import re
 
-from matplotlib.ticker import MaxNLocator
+from matplotlib import cm
+from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 
 
 class DuplicateDataException(Exception):
+    pass
+
+
+class WrongDataShapeException(Exception):
     pass
 
 
@@ -31,28 +37,32 @@ class Plotter():
             experimentsToUse = self._assignment[i]
 
             for (experimentRegex, experimentLabel) in experimentsToUse:
-                experimentData = [[] for _ in range(len(self._axis))]
-                for someExperimentName in data:
-                    if re.match(experimentRegex, someExperimentName) is not None:
-                        experiment = data[someExperimentName]
-                        for idx, elem in enumerate(self._axis):
-                            matching = True
-                            for key, value in elem.items():
-                                if key not in experiment['parameters'] or experiment['parameters'][key] != value:
-                                    matching = False
-                                    break
-                            if matching:
-                                if len(experimentData[idx]) != 0:
-                                    raise DuplicateDataException("Index " + str(idx) + " was already populated!")
-                                experimentData[idx] = experiment['data']
+                for _, axisGroup in enumerate(self._axis):
+                    experimentData = [[] for _ in range(len(axisGroup))]
+                    experiment = None
+                    for someExperimentName in data:
+                        if re.match(experimentRegex, someExperimentName) is not None:
+                            experiment = data[someExperimentName]
+                            for idx, elem in enumerate(axisGroup):
+                                matching = True
+                                for key, value in elem.items():
+                                    if key not in experiment['parameters'] or experiment['parameters'][key] != value:
+                                        matching = False
+                                        break
+                                if matching:
+                                    if len(experimentData[idx]) != 0:
+                                        raise DuplicateDataException("Index " + str(idx) + " was already populated!")
+                                    experimentData[idx] = experiment['data']
 
-                # Map experiment data to axis
-                experimentData = [[y.delta for y in x] for x in experimentData]
-                experimentData = [(np.mean(x), np.std(x)) for x in experimentData]
-                self._groups.append({
-                    "label": experimentLabel,
-                    "data": experimentData,
-                })
+                    if experiment is not None:
+                        # Map experiment data to axis
+                        experimentData = [[y.delta for y in x] for x in experimentData]
+                        experimentData = [(np.mean(x), np.std(x)) for x in experimentData]
+                        if not math.isnan(experimentData[0][0]):
+                            self._groups.append({
+                                "label": experimentLabel,
+                                "data": experimentData,
+                            })
 
     def groupDataByFile(self):
         self._history = True
@@ -284,6 +294,127 @@ class Plotter():
                 ax.set_title("")
                 ax.set_ylabel("")
             plt.savefig(prefix + format, dpi=180, extraArtists=extraArtists)
+
+        try:
+            import mpld3
+            mpld3.save_html(fig, prefix + ".html")
+        except ImportError:
+            pass
+
+
+    def plot2D(self, title, prefix, size):
+        # Okay, so, 2D plots are tricky. We assume that one axis is the number of columns (N) and the other axis is
+        # specified manually via mappings (M).
+        # Matplotlib expects an NxM array, we have len(self._groups) = M and len(self._groups[whatever] = N
+        # Let's use that to construct the array
+        plotM = len (self._groups)
+        plotN = len(self._groups[0]['data'])
+        for group in self._groups:
+            if len(group['data']) != plotN:
+                raise WrongDataShapeException("All columns must have equal length")
+
+        plotData = [[y[0] for y in x['data']] for x in self._groups]
+
+        convertedToUs = False
+        if not self._speedup and not self._diff:
+            # We're plotting time. Switch from ns to us when appropriate
+            min = 1000
+            max = 0
+            for _, group in enumerate(self._groups):
+                for (x, y) in group['data']:
+                    if x > max:
+                        max = x
+                    if x < min:
+                        min = x
+            if min > 100 and max > 1000:
+                convertedToUs = True
+                for _, group in enumerate(self._groups):
+                    group['data'] = [(x/1000, y/1000) for (x, y) in group['data']]
+
+        # We also need to figure out how to label stuff...
+        numberOfExperiments = len(self._groups[0]['data'])
+        numberOfGroups = len(self._groups)
+        if not self._history:
+            xLegends = [[] for _ in range(numberOfExperiments)]
+            yLegends = [[] for _ in range(numberOfGroups)]
+            for axisIdx, axisGroup in enumerate(self._axis):
+                mask = {}
+                values = {}
+                for details in axisGroup:
+                    for key, value in details.items():
+                        if key not in mask:
+                            mask[key] = False
+                            values[key] = value
+                        else:
+                            if values[key] != value:
+                                mask[key] = True
+                for key, changes in mask.items():
+                    if changes:
+                        for idx, details in enumerate(axisGroup):
+                            value = details[key]
+                            strVal = key + ": " + value + " "
+                            if strVal not in xLegends[idx]:
+                                xLegends[idx].append(strVal)
+                    else:
+                        for idx, details in enumerate(axisGroup):
+                            value = details[key]
+                            strVal = key + ": " + value + " "
+                            if strVal not in yLegends[axisIdx]:
+                                yLegends[axisIdx].append(strVal)
+            if len(xLegends[0]) == 1:
+                xLegends = [re.sub(".*:", "", x[0]) for x in xLegends]
+            else:
+                xLegends = [reduce((lambda x, y: x + "\n" + y), x).strip() for x in xLegends]
+            if len(yLegends[0]) == 1:
+                # Special case: sparsity is percentage-based:
+                if "sparsity" in yLegends[0][0]:
+                    lut = {
+                        1: "0%",
+                        2: "50%",
+                        4: "75%",
+                        8: "87.5%",
+                    }
+                    yLegends = [lut[int(re.sub(".*:", "", x[0]))] for x in yLegends]
+                else:
+                    yLegends = [re.sub(".*:", "", x[0]) for x in yLegends]
+            else:
+                yLegends = [reduce((lambda x, y: x + "\n" + y), x).strip() for x in yLegends]
+        else:
+            # Todo something useful
+            xLegends = ["HEAD~" + str(numberOfExperiments - x - 1) for x in range(numberOfExperiments)]
+
+        fig, ax = plt.subplots(figsize=size)
+        im = ax.imshow(plotData, cmap=cm.RdBu)
+        colorbarAxis = inset_axes(ax, loc='upper right', width='100%', height='10%', bbox_to_anchor=(0.01, 0.55, 1., 1.102), bbox_transform=ax.transAxes)
+        plt.colorbar(im, orientation='horizontal', aspect=60, cax=colorbarAxis)
+        xIdx = np.arange(6, len(xLegends)-6, step=8)
+        xIdx = np.insert(xIdx, 0, 0)
+        xLabels = list(filter(lambda x:
+                              int(x.strip())%8 == 0,
+                              xLegends))
+        del xLabels[-1]
+        xLabels.insert(0, xLegends[0])
+        ax.set_xticks(xIdx)
+        ax.set_xticks(np.arange(0.5, len(xLegends)-0.5, step=1), minor=True)
+        ax.set_yticks(np.arange(len(yLegends)))
+        ax.set_yticks(np.arange(0.5, len(yLegends)-0.5, step=1), minor=True)
+        ax.set_xticklabels(xLabels)
+        ax.set_yticklabels(yLegends)
+        plt.grid(b=True, which='minor', axis='y', linewidth=0.5, color='black', zorder=0)
+        plt.grid(b=True, which='minor', axis='x', linewidth=0.5, color='black', zorder=0)
+        #for i in range(plotM):
+        #    for j in range(plotN):
+        #        ax.text(j, i, "{0:.1f}".format(plotData[i][j]),
+        #                       ha="center", va="center", color="black", size="5")
+
+        if self._zero:
+            ax.set_ylim(ymin=0)
+
+        for format in self.formats:
+            if format == ".pdf":
+                ax.set_title("")
+                ax.set_ylabel("")
+            plt.savefig(prefix + format, dpi=180)
 
         try:
             import mpld3

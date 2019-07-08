@@ -24,12 +24,16 @@ with open(args.config, "r") as cfgFile:
                 # We have custom draw options
                 options[item[1]] = item[2]
 
+    # Read flags
     lineplot = False
     if "style" in config and config["style"] == "line":
         lineplot = True
     logplot = False
     if "scale" in config and config["scale"] == "log":
         logplot = True
+    plot2D = False
+    if "style" in config and config["style"] == "2d":
+        plot2D = True
     zero = False
     if "yfix" in config and config["yfix"] == "zero":
         zero = True
@@ -47,7 +51,12 @@ with open(args.config, "r") as cfgFile:
         plotter.groupToDiffSpeedup()
 
     size = [5, 8]
+    if plot2D:
+        size = [8, 3]
     if "size" in config and len(size) == 2:
         size = config["size"]
 
-    plotter.plot(config['name'], config['filename'], size)
+    if not plot2D:
+        plotter.plot(config['name'], config['filename'], size)
+    else:
+        plotter.plot2D(config['name'], config['filename'], size)
