@@ -6,7 +6,7 @@
   },
   "style": "line",
   "scale": "log",
-  "files": ["data/perf-isl-hot.json", "data/perf-isl-hot-zerocheck.json", "data/perf-isl-hot-zerocheck-sparsity.json"],
+  "files": ["data/perf-isl-hot-zerocheck.json", "data/perf-isl-hot-zerocheck-sparsity.json"],
   "axis": [
     {
       "columns": "2"
@@ -104,14 +104,6 @@
   ],
   "assignment": [
     [
-      ["BM_ISL_Rowops_hot_scalar_gmp", "simplified int16_t", {
-        "color": "black",
-        "linestyle": "-.",
-        "legendGroup": "Baseline",
-        "argGroup": "gmp"
-      }]
-    ],
-    [
       ["BM_Zerocheck_ISL_Rowops_hot_vector_checked<int64_t>/sparsity:8", "zerocheck int64_t", {
         "color": "#253494",
         "linestyle": "-",
@@ -135,12 +127,6 @@
         "linestyle": "-",
         "legendGroup": "Zerocheck",
         "argGroup": "int8"
-      }],
-      ["BM_Zerocheck_ISL_Rowops_hot_scalar_gmp/sparsity:8", "zerocheck int8_t", {
-        "color": "black",
-        "linestyle": "-",
-        "legendGroup": "Zerocheck",
-        "argGroup": "gmp"
       }]
     ],
     [
@@ -167,12 +153,6 @@
         "linestyle": ":",
         "legendGroup": "Sparsity",
         "argGroup": "int8"
-      }],
-      ["BM_Zerocheck_Sparsity_ISL_Rowops_hot_scalar_gmp/sparsity:8", "zerocheck int8_t", {
-        "color": "black",
-        "linestyle": "-",
-        "legendGroup": "Zerocheck",
-        "argGroup": "gmp"
       }]
     ]
   ]
