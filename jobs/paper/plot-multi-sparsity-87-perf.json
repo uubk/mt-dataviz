@@ -121,12 +121,6 @@
         "linestyle": "-",
         "legendGroup": "Zerocheck",
         "argGroup": "int16"
-      }],
-      ["BM_Zerocheck_ISL_Rowops_hot_vector_checked<int8_t>/sparsity:8", "zerocheck int8_t", {
-        "color": "#a1dab4",
-        "linestyle": "-",
-        "legendGroup": "Zerocheck",
-        "argGroup": "int8"
       }]
     ],
     [
@@ -147,12 +141,6 @@
         "linestyle": ":",
         "legendGroup": "Sparsity",
         "argGroup": "int16"
-      }],
-      ["BM_Zerocheck_Sparsity_ISL_Rowops_hot_vector_checked<int8_t>/sparsity:8", "sparsity int8_t", {
-        "color": "#a1dab4",
-        "linestyle": ":",
-        "legendGroup": "Sparsity",
-        "argGroup": "int8"
       }]
     ]
   ]

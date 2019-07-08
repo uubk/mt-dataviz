@@ -8,7 +8,6 @@
   "preprocess": "diffSpeedup",
   "files": ["data/perf-isl-hot-zerocheck.json", "data/perf-isl-hot-zerocheck-sparsity.json",
     "data/perf-isl-hot-zerocheck.json", "data/perf-isl-hot-zerocheck-sparsity.json",
-    "data/perf-isl-hot-zerocheck.json", "data/perf-isl-hot-zerocheck-sparsity.json",
     "data/perf-isl-hot-zerocheck.json", "data/perf-isl-hot-zerocheck-sparsity.json"],
   "axis": [
     {
@@ -137,17 +136,6 @@
     [
       ["BM_Zerocheck_Sparsity_ISL_Rowops_hot_vector_checked<int16_t>/sparsity:2", "int16_t", {
         "color": "#41b6c4"
-      }]
-    ],
-    [
-      ["BM_Zerocheck_ISL_Rowops_hot_vector_checked<int8_t>/sparsity:2", "zerocheck int8_t", {
-        "color": "#a1dab4",
-        "skip": true
-      }]
-    ],
-    [
-      ["BM_Zerocheck_Sparsity_ISL_Rowops_hot_vector_checked<int8_t>/sparsity:2", "int8_t", {
-        "color": "#a1dab4"
       }]
     ]
   ]
