@@ -145,6 +145,22 @@ class Plotter():
             # Todo something useful
             xLegends = ["HEAD~" + str(numberOfExperiments-x-1) for x in range(numberOfExperiments)]
 
+        convertedToUs = False
+        if not self._speedup and not self._diff:
+            # We're plotting time. Switch from ns to us when appropriate
+            min = 1000
+            max = 0
+            for _, group in enumerate(self._groups):
+                for (x, y) in group['data']:
+                    if x > max:
+                        max = x
+                    if x < min:
+                        min = x
+            if min > 100 and max > 1000:
+                convertedToUs = True
+                for _, group in enumerate(self._groups):
+                    group['data'] = [(x/1000, y/1000) for (x, y) in group['data']]
+
         index = np.arange(len(self._groups[0]['data']))
         width = 0.4
         numExps = len(self._groups)
@@ -205,7 +221,10 @@ class Plotter():
         elif self._diff:
             ax.set_ylabel('Slowdown (%)', fontsize=20)
         else:
-            ax.set_ylabel('Time (ns)', fontsize=20)
+            if convertedToUs:
+                ax.set_ylabel('Time (us)', fontsize=20)
+            else:
+                ax.set_ylabel('Time (ns)', fontsize=20)
         ax.set_title(title)
 
         if numberOfExperiments > 5 and ":" in xLegends[0]:
