@@ -236,8 +236,6 @@ class Plotter():
         index = list(index)
 
         fig, ax = plt.subplots(figsize=size)
-        if self._logplot:
-            ax.set_yscale("log", nonposy='clip')
 
         legendGroups = {}
         argumentGroups = {}
@@ -293,6 +291,10 @@ class Plotter():
             else:
                 ax.set_ylabel('Time (ns)', fontsize=20)
         ax.set_title(title)
+
+        if self._logplot:
+            ax.set_yscale("log", nonposy='clip')
+            ax.get_yaxis().set_major_formatter(matplotlib.ticker.ScalarFormatter())
 
         if numberOfExperiments > 5 and ":" in xLegends[0]:
             plt.xticks(rotation=90)
