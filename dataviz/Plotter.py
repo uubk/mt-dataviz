@@ -70,7 +70,7 @@ class WrongDataShapeException(Exception):
 
 
 class Plotter():
-    def __init__(self, data, assignment, axis, lineplot, perAxisOptions, logplot, zero):
+    def __init__(self, data, assignment, axis, lineplot, perAxisOptions, logplot, zero, autoYScale):
         self._data = data
         self._assignment = assignment
         self._axis = axis
@@ -83,6 +83,7 @@ class Plotter():
         self.bars = not lineplot
         self._logplot = logplot
         self._zero = zero
+        self._autoYScale = autoYScale
 
     def groupData(self):
         for i in range(len(self._data)):
@@ -223,7 +224,7 @@ class Plotter():
                         max = x
                     if x < min:
                         min = x
-            if min > 100 and max > 1000:
+            if min > 100 and max > 1000 and self._autoYScale:
                 convertedToUs = True
                 for _, group in enumerate(self._groups):
                     group['data'] = [(x/1000, y/1000) for (x, y) in group['data']]

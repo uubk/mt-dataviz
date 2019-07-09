@@ -37,8 +37,11 @@ with open(args.config, "r") as cfgFile:
     zero = False
     if "yfix" in config and config["yfix"] == "zero":
         zero = True
+    autoYScale = True
+    if "yfix" in config and config["yfix"] == "noauto":
+        autoYScale = False
 
-    plotter = Plotter(data, assignment, config['axis'], lineplot, options, logplot, zero)
+    plotter = Plotter(data, assignment, config['axis'], lineplot, options, logplot, zero, autoYScale)
     if "mode" in config and config["mode"] == "history":
         plotter.groupDataByFile()
     else:
