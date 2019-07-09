@@ -61,6 +61,7 @@ def shiftedColorMap(cmap, start=0, midpoint=0.5, stop=1.0, name='shiftedcmap'):
 
     return newcmap
 
+
 class DuplicateDataException(Exception):
     pass
 
@@ -91,7 +92,7 @@ class Plotter():
             experimentsToUse = self._assignment[i]
 
             for (experimentRegex, experimentLabel) in experimentsToUse:
-                if len(self._axis) > 10:
+                if len(self._axis) > 20:
                     self._axis = [self._axis]
                 for _, axisGroup in enumerate(self._axis):
                     experimentData = [[] for _ in range(len(axisGroup))]
@@ -383,13 +384,6 @@ class Plotter():
                     max = x
                 if x < min:
                     min = x
-        convertedToUs = False
-        if not self._speedup and not self._diff:
-            # We're plotting time. Switch from ns to us when appropriate
-            if min > 100 and max > 1000:
-                convertedToUs = True
-                for _, group in enumerate(self._groups):
-                    group['data'] = [(x/1000, y/1000) for (x, y) in group['data']]
 
         # We also need to figure out how to label stuff...
         numberOfExperiments = len(self._groups[0]['data'])
@@ -446,7 +440,8 @@ class Plotter():
         fig, ax = plt.subplots(figsize=size)
         # We want to place 'white' at 1.0. This turns out to be quite involved
         # Range of values: [min, max]
-        min = 0 # Fix min to 0 for now
+        if min < 0:
+            min = 0 # Cap min to zero
         # We have an interval [min, max] with min >= 0. We now want to know how "long" the interval is and at which
         # percentage we find 1
         intervalLength = max - min
@@ -463,9 +458,9 @@ class Plotter():
         del xLabels[-1]
         xLabels.insert(0, xLegends[0])
         ax.set_xticks(xIdx)
-        ax.set_xticks(np.arange(0.5, len(xLegends)-0.5, step=1), minor=True)
+        ax.set_xticks(np.arange(0.5, len(xLegends)+0.5, step=1), minor=True)
         ax.set_yticks(np.arange(len(yLegends)))
-        ax.set_yticks(np.arange(0.5, len(yLegends)-0.5, step=1), minor=True)
+        ax.set_yticks(np.arange(-0.5, len(yLegends)+0.5, step=1), minor=True)
         ax.set_xticklabels(xLabels)
         ax.set_yticklabels(yLegends)
         plt.grid(b=True, which='minor', axis='y', linewidth=0.5, color='black', zorder=0)
