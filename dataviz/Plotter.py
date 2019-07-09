@@ -363,7 +363,7 @@ class Plotter():
             pass
 
 
-    def plot2D(self, title, prefix, size):
+    def plot2D(self, title, prefix, size, yScale):
         # Okay, so, 2D plots are tricky. We assume that one axis is the number of columns (N) and the other axis is
         # specified manually via mappings (M).
         # Matplotlib expects an NxM array, we have len(self._groups) = M and len(self._groups[whatever] = N
@@ -442,6 +442,11 @@ class Plotter():
         # Range of values: [min, max]
         if min < 0:
             min = 0 # Cap min to zero
+
+        if yScale != (1, 1):
+            min = yScale[0]
+            max = yScale[1]
+
         # We have an interval [min, max] with min >= 0. We now want to know how "long" the interval is and at which
         # percentage we find 1
         intervalLength = max - min

@@ -59,7 +59,11 @@ with open(args.config, "r") as cfgFile:
     if "size" in config and len(size) == 2:
         size = config["size"]
 
+    yScale = [1, 1]
+    if "yScale" in config and len(size) == 2:
+        yScale = config["yScale"]
+
     if not plot2D:
         plotter.plot(config['name'], config['filename'], size)
     else:
-        plotter.plot2D(config['name'], config['filename'], size)
+        plotter.plot2D(config['name'], config['filename'], size, yScale)

@@ -9,6 +9,7 @@
     "data/perf-isl-hot-zerocheck.json", "data/perf-isl-hot-zerocheck-sparsity.json",
     "data/perf-isl-hot-zerocheck.json", "data/perf-isl-hot-zerocheck-sparsity.json",
     "data/perf-isl-hot-zerocheck.json", "data/perf-isl-hot-zerocheck-sparsity.json"],
+  "yScale": [0.5,5.5],
   "axis": [
     [
       {
