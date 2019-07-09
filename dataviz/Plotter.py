@@ -1,4 +1,5 @@
 import math
+import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 from functools import reduce
@@ -7,6 +8,58 @@ import re
 from matplotlib import cm
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 
+
+# Ref: https://stackoverflow.com/a/20528097
+def shiftedColorMap(cmap, start=0, midpoint=0.5, stop=1.0, name='shiftedcmap'):
+    '''
+    Function to offset the "center" of a colormap. Useful for
+    data with a negative min and positive max and you want the
+    middle of the colormap's dynamic range to be at zero.
+
+    Input
+    -----
+      cmap : The matplotlib colormap to be altered
+      start : Offset from lowest point in the colormap's range.
+          Defaults to 0.0 (no lower offset). Should be between
+          0.0 and `midpoint`.
+      midpoint : The new center of the colormap. Defaults to
+          0.5 (no shift). Should be between 0.0 and 1.0. In
+          general, this should be  1 - vmax / (vmax + abs(vmin))
+          For example if your data range from -15.0 to +5.0 and
+          you want the center of the colormap at 0.0, `midpoint`
+          should be set to  1 - 5/(5 + 15)) or 0.75
+      stop : Offset from highest point in the colormap's range.
+          Defaults to 1.0 (no upper offset). Should be between
+          `midpoint` and 1.0.
+    '''
+    cdict = {
+        'red': [],
+        'green': [],
+        'blue': [],
+        'alpha': []
+    }
+
+    # regular index to compute the colors
+    reg_index = np.linspace(start, stop, 257)
+
+    # shifted index to match the data
+    shift_index = np.hstack([
+        np.linspace(0.0, midpoint, 128, endpoint=False),
+        np.linspace(midpoint, 1.0, 129, endpoint=True)
+    ])
+
+    for ri, si in zip(reg_index, shift_index):
+        r, g, b, a = cmap(ri)
+
+        cdict['red'].append((si, r, r))
+        cdict['green'].append((si, g, g))
+        cdict['blue'].append((si, b, b))
+        cdict['alpha'].append((si, a, a))
+
+    newcmap = matplotlib.colors.LinearSegmentedColormap(name, cdict)
+    plt.register_cmap(cmap=newcmap)
+
+    return newcmap
 
 class DuplicateDataException(Exception):
     pass
@@ -315,17 +368,17 @@ class Plotter():
 
         plotData = [[y[0] for y in x['data']] for x in self._groups]
 
+        min = 1000
+        max = 0
+        for _, group in enumerate(self._groups):
+            for (x, y) in group['data']:
+                if x > max:
+                    max = x
+                if x < min:
+                    min = x
         convertedToUs = False
         if not self._speedup and not self._diff:
             # We're plotting time. Switch from ns to us when appropriate
-            min = 1000
-            max = 0
-            for _, group in enumerate(self._groups):
-                for (x, y) in group['data']:
-                    if x > max:
-                        max = x
-                    if x < min:
-                        min = x
             if min > 100 and max > 1000:
                 convertedToUs = True
                 for _, group in enumerate(self._groups):
@@ -384,7 +437,15 @@ class Plotter():
             xLegends = ["HEAD~" + str(numberOfExperiments - x - 1) for x in range(numberOfExperiments)]
 
         fig, ax = plt.subplots(figsize=size)
-        im = ax.imshow(plotData, cmap=cm.RdBu)
+        # We want to place 'white' at 1.0. This turns out to be quite involved
+        # Range of values: [min, max]
+        min = 0 # Fix min to 0 for now
+        # We have an interval [min, max] with min >= 0. We now want to know how "long" the interval is and at which
+        # percentage we find 1
+        intervalLength = max - min
+        positionOfOne = ((1-min) / (intervalLength/100)) / 100
+        colorMap = shiftedColorMap(cm.RdBu, midpoint=positionOfOne)
+        im = ax.imshow(plotData, cmap=colorMap, vmin=min, vmax=max)
         colorbarAxis = inset_axes(ax, loc='upper right', width='100%', height='10%', bbox_to_anchor=(0.01, 0.55, 1., 1.102), bbox_transform=ax.transAxes)
         plt.colorbar(im, orientation='horizontal', aspect=60, cax=colorbarAxis)
         xIdx = np.arange(6, len(xLegends)-6, step=8)
