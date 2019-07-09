@@ -90,6 +90,8 @@ class Plotter():
             experimentsToUse = self._assignment[i]
 
             for (experimentRegex, experimentLabel) in experimentsToUse:
+                if len(self._axis) > 10:
+                    self._axis = [self._axis]
                 for _, axisGroup in enumerate(self._axis):
                     experimentData = [[] for _ in range(len(axisGroup))]
                     experiment = None
@@ -186,20 +188,22 @@ class Plotter():
         if not self._history:
             mask = {}
             values = {}
-            for details in self._axis:
-                for key, value in details.items():
-                    if key not in mask:
-                        mask[key] = False
-                        values[key] = value
-                    else:
-                        if values[key] != value:
-                            mask[key] = True
+            for axisGroup in self._axis:
+                for details in axisGroup:
+                    for key, value in details.items():
+                        if key not in mask:
+                            mask[key] = False
+                            values[key] = value
+                        else:
+                            if values[key] != value:
+                                mask[key] = True
             xLegends = [[] for _ in range(numberOfExperiments)]
             for key, changes in mask.items():
                 if changes:
-                    for idx, details in enumerate(self._axis):
-                        value = details[key]
-                        xLegends[idx].append(key + ": " + value + " ")
+                    for axisGroup in self._axis:
+                        for idx, details in enumerate(axisGroup):
+                            value = details[key]
+                            xLegends[idx].append(key + ": " + value + " ")
             if len(xLegends[0]) == 1:
                 xLegends = [re.sub(".*:", "", x[0]) for x in xLegends]
             else:
