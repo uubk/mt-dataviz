@@ -1,0 +1,142 @@
+{
+  "name": "Speedup (checked, cold, 0% sparsity)",
+  "filename": "plots/rowops_cold_sparsity_0",
+  "defaults": {
+      "sparsity": "1"
+  },
+  "style": "line",
+  "preprocess": "diffSpeedup",
+  "files": ["data/perf-isl-cold-zerocheck.json", "data/perf-isl-cold-zerocheck-sparsity.json",
+    "data/perf-isl-cold-zerocheck.json", "data/perf-isl-cold-zerocheck-sparsity.json",
+    "data/perf-isl-cold-zerocheck.json", "data/perf-isl-cold-zerocheck-sparsity.json"],
+  "axis": [
+    {
+      "columns": "2"
+    },
+    {
+      "columns": "3"
+    },
+    {
+      "columns": "4"
+    },
+    {
+      "columns": "5"
+    },
+    {
+      "columns": "6"
+    },
+    {
+      "columns": "7"
+    },
+    {
+      "columns": "8"
+    },
+    {
+      "columns": "9"
+    },
+    {
+      "columns": "10"
+    },
+    {
+      "columns": "11"
+    },
+    {
+      "columns": "12"
+    },
+    {
+      "columns": "13"
+    },
+    {
+      "columns": "14"
+    },
+    {
+      "columns": "15"
+    },
+    {
+      "columns": "16"
+    },
+    {
+      "columns": "17"
+    },
+    {
+      "columns": "18"
+    },
+    {
+      "columns": "19"
+    },
+    {
+      "columns": "20"
+    },
+    {
+      "columns": "21"
+    },
+    {
+      "columns": "22"
+    },
+    {
+      "columns": "23"
+    },
+    {
+      "columns": "24"
+    },
+    {
+      "columns": "25"
+    },
+    {
+      "columns": "26"
+    },
+    {
+      "columns": "27"
+    },
+    {
+      "columns": "28"
+    },
+    {
+      "columns": "29"
+    },
+    {
+      "columns": "30"
+    },
+    {
+      "columns": "31"
+    },
+    {
+      "columns": "32"
+    }
+  ],
+  "assignment": [
+    [
+      ["BM_Zerocheck_ISL_Rowops_cold_vector_checked<int64_t>/sparsity:1", "zerocheck int64_t", {
+        "color": "#253494",
+        "skip": true
+      }]
+    ],
+    [
+      ["BM_Zerocheck_Sparsity_ISL_Rowops_cold_vector_checked<int64_t>/sparsity:1", "int64_t", {
+        "color": "#253494"
+      }]
+    ],
+    [
+      ["BM_Zerocheck_ISL_Rowops_cold_vector_checked<int32_t>/sparsity:1", "zerocheck int32_t", {
+        "color": "#2c7fb8",
+        "skip": true
+      }]
+    ],
+    [
+      ["BM_Zerocheck_Sparsity_ISL_Rowops_cold_vector_checked<int32_t>/sparsity:1", "int32_t", {
+        "color": "#2c7fb8"
+      }]
+    ],
+    [
+      ["BM_Zerocheck_ISL_Rowops_cold_vector_checked<int16_t>/sparsity:1", "zerocheck int16_t", {
+        "color": "#41b6c4",
+        "skip": true
+      }]
+    ],
+    [
+      ["BM_Zerocheck_Sparsity_ISL_Rowops_cold_vector_checked<int16_t>/sparsity:1", "int16_t", {
+        "color": "#41b6c4"
+      }]
+    ]
+  ]
+}
