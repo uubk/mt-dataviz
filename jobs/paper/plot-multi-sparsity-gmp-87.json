@@ -1,6 +1,6 @@
 {
   "name": "Speedup (checked, 87.5% sparsity)",
-  "filename": "plots/rowops_sparsity_gmp-875",
+  "filename": "plots/rowops_sparsity_gmp-87",
   "defaults": {
       "sparsity": "1"
   },
