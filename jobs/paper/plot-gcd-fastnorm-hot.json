@@ -1,8 +1,9 @@
 {
-  "name": "fast normalization performance",
-  "filename": "plots/gcd_fastnorm_perf",
+  "name": "fast normalization speedup",
+  "filename": "plots/gcd_fastnorm",
   "defaults": {},
   "files": ["data/perf-gcd.json"],
+  "preprocess": "diffSpeedup",
   "size": [12,4],
   "axis": [
     {
@@ -125,17 +126,19 @@
   ],
   "assignment": [
     [
-      ["BM_FastNorm_Hot.*", "hot fast", {
+      ["BM_STDNorm_Hot.*", "hot slow", {
+        "color": "#2c7fb8",
+        "skip": true
+      }],
+      ["BM_FastNorm_Hot.*", "hot", {
         "color": "#253494"
       }],
-      ["BM_STDNorm_Hot.*", "hot slow", {
-        "color": "#2c7fb8"
-      }],
-      ["BM_FastNorm_Cold", "cold fast", {
-        "color": "#41b6c4"
-      }],
       ["BM_STDNorm_Cold", "cold slow", {
-        "color": "#a1dab4"
+        "color": "#a1dab4",
+        "skip": true
+      }],
+      ["BM_FastNorm_Cold", "cold", {
+        "color": "#41b6c4"
       }]
     ]
   ]
