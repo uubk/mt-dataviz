@@ -1,10 +1,10 @@
 {
-  "name":"Speedup over GMP (cold cache)",
-  "filename": "plots/rowops_cold_gmp",
+  "name":"Rowops total execution time (cold cache)",
+  "filename": "plots/rowops_cold_gmp_perf",
   "defaults": {},
-  "files": ["data/perf-isl-hot.json", "data/perf-isl-cold.json"],
-  "preprocess": "speedup",
+  "files": ["data/perf-isl-cold.json"],
   "style": "line",
+  "scale": "log",
   "axis": [
     {
       "columns": "2"
@@ -102,13 +102,12 @@
   ],
   "assignment": [
     [
-      ["BM_ISL_Rowops_hot_scalar_gmp.*", "GMP", {
+      ["BM_ISL_Rowops_cold_scalar_gmp.*", "GMP", {
         "color": "black",
         "linestyle": "-",
-        "skip": true
-      }]
-    ],
-    [
+        "legendGroup": "Scalar",
+        "argGroup": "GMP"
+      }],
       ["BM_ISL_Rowops_cold_scalar_checked<int64_t>.*", "scalar int64_t", {
         "color": "#b2df8a",
         "linestyle": "-",

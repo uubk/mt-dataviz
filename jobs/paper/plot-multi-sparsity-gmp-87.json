@@ -7,7 +7,7 @@
   "style": "line",
   "preprocess": "diffSpeedup",
   "files": ["data/perf-isl-hot-zerocheck.json", "data/perf-isl-hot-zerocheck-sparsity.json",
-      "data/perf-isl-hot-zerocheck.json", "data/perf-isl-cold-zerocheck-sparsity.json"],
+      "data/perf-isl-cold-zerocheck.json", "data/perf-isl-cold-zerocheck-sparsity.json"],
   "axis": [
     {
       "columns": "2"
@@ -116,7 +116,7 @@
       }]
     ],
     [
-      ["BM_Zerocheck_ISL_Rowops_hot_scalar_gmp/sparsity:8", "GMP cold", {
+      ["BM_Zerocheck_ISL_Rowops_cold_scalar_gmp/sparsity:8", "GMP cold", {
         "color": "#253494",
         "skip": true
       }]

@@ -1,8 +1,8 @@
 {
-  "name":"Rowops total execution time (cold cache)",
-  "filename": "plots/rowops_cold_gmp_perf_zerocheck",
+  "name": "Scalar over GMP (cold cache, checked)",
+  "filename": "plots/rowops_cold_gmp_scalar",
   "defaults": {},
-  "files": ["data/perf-isl-hot-zerocheck.json", "data/perf-isl-cold-zerocheck.json"],
+  "files": ["data/perf-isl-cold.json"],
   "style": "line",
   "scale": "log",
   "axis": [
@@ -102,21 +102,19 @@
   ],
   "assignment": [
     [
-      ["BM_Zerocheck_ISL_Rowops_hot_scalar_gmp/sparsity:1.*", "GMP", {
+      ["BM_ISL_Rowops_cold_scalar_gmp.*", "GMP", {
         "color": "black"
-      }]
-    ],
-    [
-      ["BM_Zerocheck_ISL_Rowops_cold_scalar_checked<int64_t>/sparsity:1.*", "int64_t", {
+      }],
+      ["BM_ISL_Rowops_cold_scalar_checked<int64_t>.*", "int64_t", {
         "color": "#253494"
       }],
-      ["BM_Zerocheck_ISL_Rowops_cold_scalar_checked<int32_t>/sparsity:1.*", "int32_t", {
+      ["BM_ISL_Rowops_cold_scalar_checked<int32_t>.*", "int32_t", {
         "color": "#2c7fb8"
       }],
-      ["BM_Zerocheck_ISL_Rowops_cold_scalar_checked<int16_t>/sparsity:1.*", "int16_t", {
+      ["BM_ISL_Rowops_cold_scalar_checked<int16_t>.*", "int16_t", {
         "color": "#41b6c4"
       }],
-      ["BM_Zerocheck_ISL_Rowops_cold_scalar_checked<int8_t>/sparsity:1.*", "int8_t", {
+      ["BM_ISL_Rowops_cold_scalar_checked<int8_t>.*", "int8_t", {
         "color": "#a1dab4"
       }]
     ]
