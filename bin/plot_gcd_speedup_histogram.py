@@ -15,49 +15,47 @@ parser.add_argument('--output', dest='output', required=True,
 
 args = parser.parse_args()
 
-filename = args.inputA
-dataA = []
-if filename.endswith(".bz2"):
-    with bz2.open(filename, "r") as input:
-        for line in input:
-            dataA.append(int(line))
-else:
-    with open(args.input, "r") as input:
-        for line in input:
-            dataA.append(int(line))
 
-filename = args.inputB
-dataB = []
-if filename.endswith(".bz2"):
-    with bz2.open(filename, "r") as input:
-        for line in input:
-            dataB.append(int(line))
-else:
-    with open(args.input, "r") as input:
-        for line in input:
-            dataB.append(int(line))
+def read_data(filename):
+    if filename.endswith(".bz2"):
+        with bz2.open(filename, "r") as input:
+            data = input.read().decode('utf-8')
+    else:
+        with open(args.input, "r") as input:
+            data = input.read()
+    return np.array(list(map(int, data.split('\n')[:-1])))
+
+filename = args.inputA
+dataA = read_data(args.inputA);
+dataB = read_data(args.inputB);
 
 prefix = args.output
 print("Got {} and {} datapoints".format(len(dataA), len(dataB)))
 
-data = []
-for idx, point in enumerate(dataA):
-    data.append(int(point/dataB[idx]*100))
+data = dataA/dataB
 
 # Plot histogram
 fig, ax = plt.subplots(figsize=[12, 4])
 ax.set_yscale("log", nonposy='clip')
-plt.grid(b=True, which='major', axis='y', linewidth=1, color='black', zorder=0)
+# plt.grid(b=True, which='major', axis='y', linewidth=1, color='black', zorder=0)
 #plt.grid(b=True, which='minor', axis='y', linewidth=0.2, color='grey', zorder=0)
-plt.grid(b=True, which='major', axis='x', linewidth=1, color='black', zorder=1)
+# plt.grid(b=True, which='major', axis='x', linewidth=1, color='black', zorder=1)
 ax.tick_params(axis='x', colors='black')
 ax.tick_params(axis='y', colors='black')
-ax.hist(data, bins=range(min(data), max(data) + 1, 1), align='left')
+ax.hist(data, bins=range(int(min(data)), int(max(data)) + 1, 1), align='left')
 (_, right) = plt.xlim()
 plt.xlim(2, right)
 xTicks = np.arange(10, right, 10)
 xTicks = np.insert(xTicks, 0, 2)
 ax.set_xticks(xTicks)
+
+ax2 = ax.twinx()
+n, bins, patches = ax.hist(data, bins=range(int(min(data)), int(max(data)) + 1, 1), align='left', cumulative=True, histtype='step', color='black', linewidth=2)
+patches[0].set_xy(patches[0].get_xy()[:-1])
+ax.spines['top'].set_visible(False)
+ax2.spines['top'].set_visible(False)
+plt.xlim(int(min(data)), int(max(data)))
+
 
 for format in [".png", ".pdf"]:
     if format == ".pdf":
