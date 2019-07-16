@@ -4,6 +4,7 @@ import bz2
 import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
+from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 
 parser = argparse.ArgumentParser(description='Plot gcd data file')
 parser.add_argument('--inputA', dest='inputA', required=True,
@@ -48,13 +49,46 @@ plt.xlim(2, right)
 xTicks = np.arange(10, right, 10)
 xTicks = np.insert(xTicks, 0, 2)
 ax.set_xticks(xTicks)
-
-ax2 = ax.twinx()
-n, bins, patches = ax.hist(data, bins=range(int(min(data)), int(max(data)) + 1, 1), align='left', cumulative=True, histtype='step', color='black', linewidth=2)
-patches[0].set_xy(patches[0].get_xy()[:-1])
 ax.spines['top'].set_visible(False)
-ax2.spines['top'].set_visible(False)
+ax.spines['right'].set_visible(False)
+med = np.median(data)
+print(med)
+ax.axvline(med, linewidth=2, color='black')
+plt.annotate('median', (med, 10**6 * 5), (med + 3, 10**7 * 2),
+             arrowprops={
+                 'width': 1.5,
+                 'headwidth': 4,
+                 'headlength': 4,
+                 'color': 'black'
+             })
+pc75= np.percentile(data, 75)
+ax.axvline(pc75, linewidth=2, color='black')
+plt.annotate('75th pc', (pc75, 10**6 * 5), (pc75 + 4, 10**6 * 5),
+             arrowprops={
+                 'width': 1.5,
+                 'headwidth': 4,
+                 'headlength': 4,
+                 'color': 'black'
+             })
+
+pc25= np.percentile(data, 25)
+ax.axvline(pc25, linewidth=2, color='black')
+plt.annotate('25th pc', (pc25, 10**6 * 5), (pc25 - 10, 10**6 * 5),
+             arrowprops={
+                 'width': 1.5,
+                 'headwidth': 4,
+                 'headlength': 4,
+                 'color': 'black'
+             })
+
+
+
 plt.xlim(int(min(data)), int(max(data)))
+
+axins = inset_axes(ax, width='45%', height='60%')
+lodata = data[data <= 2]
+axins.hist(lodata, align='left')
+plt.tight_layout()
 
 
 for format in [".png", ".pdf"]:
