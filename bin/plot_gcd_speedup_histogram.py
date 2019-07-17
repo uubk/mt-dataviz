@@ -54,7 +54,7 @@ ax.spines['right'].set_visible(False)
 med = np.median(data)
 print(med)
 ax.axvline(med, linewidth=2, color='black')
-plt.annotate('median', (med, 10**6 * 5), (med + 3, 10**7 * 2),
+plt.annotate('median', (med, 10**6 * 2), (med + 2, 10**6 * 5),
              arrowprops={
                  'width': 1.5,
                  'headwidth': 4,
@@ -63,7 +63,7 @@ plt.annotate('median', (med, 10**6 * 5), (med + 3, 10**7 * 2),
              })
 pc75= np.percentile(data, 75)
 ax.axvline(pc75, linewidth=2, color='black')
-plt.annotate('75th pc', (pc75, 10**6 * 5), (pc75 + 4, 10**6 * 5),
+plt.annotate('75th pc', (pc75, 10**6 * 2), (pc75 + 2, 10**6 * 2),
              arrowprops={
                  'width': 1.5,
                  'headwidth': 4,
@@ -73,7 +73,7 @@ plt.annotate('75th pc', (pc75, 10**6 * 5), (pc75 + 4, 10**6 * 5),
 
 pc25= np.percentile(data, 25)
 ax.axvline(pc25, linewidth=2, color='black')
-plt.annotate('25th pc', (pc25, 10**6 * 5), (pc25 - 10, 10**6 * 5),
+plt.annotate('25th pc', (pc25, 10**6 * 2), (pc25 - 5, 10**6 * 2),
              arrowprops={
                  'width': 1.5,
                  'headwidth': 4,
@@ -83,7 +83,7 @@ plt.annotate('25th pc', (pc25, 10**6 * 5), (pc25 - 10, 10**6 * 5),
 
 
 
-plt.xlim(int(min(data)), int(max(data)))
+plt.xlim(int(min(data)), 70)
 
 axins = inset_axes(ax, width='45%', height='60%')
 lodata = data[data <= 2]
