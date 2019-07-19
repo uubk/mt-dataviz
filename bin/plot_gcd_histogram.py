@@ -1,3 +1,4 @@
+#!/bin/env python3
 import argparse
 import bz2
 
@@ -28,6 +29,8 @@ else:
 prefix = args.output
 print("Got {} datapoints".format(len(data)))
 
+print(sum(data))
+
 # Plot histogram
 fig, ax = plt.subplots(figsize=[12, 4])
 ax.set_yscale("log", nonposy='clip')
@@ -39,11 +42,13 @@ ax.tick_params(axis='y', colors='black')
 maximum = max(data)/8
 maximum = int(maximum)
 ax.hist(data, bins=range(min(data), maximum, 1), align='left')
+plt.xlim(2, 470)
 (_, right) = plt.xlim()
-plt.xlim(2, right)
 xTicks = np.arange(10, right, 20)
 xTicks = np.insert(xTicks, 0, 2)
 ax.set_xticks(xTicks)
+(bottom, _ ) = plt.ylim()
+plt.ylim(bottom, 10**7)
 
 for format in [".png", ".pdf"]:
     if format == ".pdf":

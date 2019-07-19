@@ -1,3 +1,4 @@
+#!/bin/env python3
 import argparse
 import bz2
 
@@ -34,6 +35,7 @@ prefix = args.output
 print("Got {} and {} datapoints".format(len(dataA), len(dataB)))
 
 data = dataA/dataB
+print(sum(data<1)/len(data))
 
 # Plot histogram
 fig, ax = plt.subplots(figsize=[12, 4])
@@ -54,7 +56,7 @@ ax.spines['right'].set_visible(False)
 med = np.median(data)
 print(med)
 ax.axvline(med, linewidth=2, color='black')
-plt.annotate('median', (med, 10**6 * 2), (med + 2, 10**6 * 5),
+plt.annotate('median', (med, 10**6 * 5), (med + 2, 10**6 * 9),
              arrowprops={
                  'width': 1.5,
                  'headwidth': 4,
@@ -63,17 +65,16 @@ plt.annotate('median', (med, 10**6 * 2), (med + 2, 10**6 * 5),
              })
 pc75= np.percentile(data, 75)
 ax.axvline(pc75, linewidth=2, color='black')
-plt.annotate('75th pc', (pc75, 10**6 * 2), (pc75 + 2, 10**6 * 2),
+plt.annotate('75th pc', (pc75, 10**6 * 5), (pc75 + 2, 10**6 * 9),
              arrowprops={
                  'width': 1.5,
                  'headwidth': 4,
                  'headlength': 4,
                  'color': 'black'
              })
-
 pc25= np.percentile(data, 25)
 ax.axvline(pc25, linewidth=2, color='black')
-plt.annotate('25th pc', (pc25, 10**6 * 2), (pc25 - 5, 10**6 * 2),
+plt.annotate('25th pc', (pc25, 10**6 * 5), (pc25 - 3, 10**6 * 9),
              arrowprops={
                  'width': 1.5,
                  'headwidth': 4,
@@ -83,9 +84,10 @@ plt.annotate('25th pc', (pc25, 10**6 * 2), (pc25 - 5, 10**6 * 2),
 
 
 
-plt.xlim(int(min(data)), 70)
+plt.xlim(int(min(data)), 45)
 
 axins = inset_axes(ax, width='45%', height='60%')
+axins.set_yscale("log", nonposy='clip')
 lodata = data[data <= 2]
 axins.hist(lodata, align='left')
 plt.tight_layout()
