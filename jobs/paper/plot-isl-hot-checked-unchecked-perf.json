@@ -119,7 +119,7 @@
         "legendGroup": "Unchecked",
         "argGroup": "16 bits"
       }],
-      ["BM_ISL_Rowops_hot_scalar_unchecked<int8_t>.*", "checked int16_t", {
+      ["BM_ISL_Rowops_hot_scalar_unchecked<int8_t>.*", "checked int8_t", {
         "color": "#a1dab4",
         "linestyle": "-",
         "legendGroup": "Unchecked",
@@ -143,7 +143,7 @@
         "legendGroup": "Checked",
         "argGroup": "16 bits"
       }],
-      ["BM_ISL_Rowops_hot_scalar_checked<int8_t>.*", "unchecked int16_t", {
+      ["BM_ISL_Rowops_hot_scalar_checked<int8_t>.*", "unchecked int8_t", {
         "color": "#a1dab4",
         "linestyle": ":",
         "legendGroup": "Checked",

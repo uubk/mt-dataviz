@@ -4,6 +4,7 @@
   "defaults": {},
   "files": ["data/perf-isl-hot.json"],
   "style": "line",
+  "scale": "log",
   "axis": [
     {
       "columns": "2"
@@ -119,12 +120,6 @@
         "legendGroup": "Unchecked",
         "argGroup": "16 bits"
       }],
-      ["BM_ISL_Rowops_hot_vector_unchecked<int8_t>.*", "checked int16_t", {
-        "color": "#a1dab4",
-        "linestyle": "-",
-        "legendGroup": "Unchecked",
-        "argGroup": "8 bits"
-      }],
       ["BM_ISL_Rowops_hot_vector_checked<int64_t>.*", "unchecked int64_t", {
         "color": "#253494",
         "linestyle": ":",
@@ -143,17 +138,11 @@
         "legendGroup": "Checked",
         "argGroup": "16 bits"
       }],
-      ["BM_ISL_Rowops_hot_vector_checked<int8_t>.*", "unchecked int16_t", {
+      ["BM_ISL_Rowops_hot_vector_transprecision<void>", "transprecision", {
         "color": "#a1dab4",
         "linestyle": ":",
         "legendGroup": "Checked",
-        "argGroup": "8 bits"
-      }],
-      ["BM_ISL_Rowops_hot_vector_transprecision<void>.*", "transprecision", {
-        "color": "black",
-        "linestyle": ":",
-        "legendGroup": "Checked",
-        "argGroup": "Transprecision"
+        "argGroup": "transprecision"
       }]
     ]
   ]
