@@ -1,6 +1,6 @@
 {
   "name": "Rowops total execution time (checked, hot cache)",
-  "filename": "plots/rowops_hot_tp",
+  "filename": "plots/rowops_hot_tp_perf",
   "defaults": {},
   "files": ["data/perf-isl-hot.json"],
   "style": "line",
@@ -102,47 +102,41 @@
   ],
   "assignment": [
     [
-      ["BM_ISL_Rowops_hot_vector_unchecked<int64_t>.*", "checked int64_t", {
-        "color": "#253494",
-        "linestyle": "-",
-        "legendGroup": "Unchecked",
-        "argGroup": "64 bits"
-      }],
-      ["BM_ISL_Rowops_hot_vector_unchecked<int32_t>.*", "checked int32_t", {
-        "color": "#2c7fb8",
-        "linestyle": "-",
-        "legendGroup": "Unchecked",
-        "argGroup": "32 bits"
-      }],
-      ["BM_ISL_Rowops_hot_vector_unchecked<int16_t>.*", "checked int16_t", {
-        "color": "#41b6c4",
-        "linestyle": "-",
-        "legendGroup": "Unchecked",
-        "argGroup": "16 bits"
-      }],
-      ["BM_ISL_Rowops_hot_vector_checked<int64_t>.*", "unchecked int64_t", {
+      ["BM_ISL_Rowops_hot_vector_checked<int64_t>.*", "vectorized int64_t", {
         "color": "#253494",
         "linestyle": ":",
-        "legendGroup": "Checked",
+        "legendGroup": "Vector",
         "argGroup": "64 bits"
       }],
-      ["BM_ISL_Rowops_hot_vector_checked<int32_t>.*", "unchecked int32_t", {
+      ["BM_ISL_Rowops_hot_vector_checked<int32_t>.*", "vectorized int32_t", {
         "color": "#2c7fb8",
         "linestyle": ":",
-        "legendGroup": "Checked",
+        "legendGroup": "Vector",
         "argGroup": "32 bits"
       }],
-      ["BM_ISL_Rowops_hot_vector_checked<int16_t>.*", "unchecked int16_t", {
+      ["BM_ISL_Rowops_hot_vector_checked<int16_t>.*", "vectorized int16_t", {
         "color": "#41b6c4",
         "linestyle": ":",
-        "legendGroup": "Checked",
+        "legendGroup": "Vector",
         "argGroup": "16 bits"
       }],
-      ["BM_ISL_Rowops_hot_vector_transprecision<void>", "transprecision", {
-        "color": "#a1dab4",
-        "linestyle": ":",
-        "legendGroup": "Checked",
-        "argGroup": "transprecision"
+      ["BM_ISL_Rowops_hot_vector_transprecision_typed<int64_t>.*", "transprecision int64_t", {
+        "color": "#253494",
+        "linestyle": "-",
+        "legendGroup": "Transprecision",
+        "argGroup": "64 bits"
+      }],
+      ["BM_ISL_Rowops_hot_vector_transprecision_typed<int32_t>.*", "transprecision int32_t", {
+        "color": "#2c7fb8",
+        "linestyle": "-",
+        "legendGroup": "Transprecision",
+        "argGroup": "32 bits"
+      }],
+      ["BM_ISL_Rowops_hot_vector_transprecision<void>.*", "transprecision int16_t", {
+        "color": "#41b6c4",
+        "linestyle": "-",
+        "legendGroup": "Transprecision",
+        "argGroup": "16 bits"
       }]
     ]
   ]
