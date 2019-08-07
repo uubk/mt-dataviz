@@ -142,20 +142,6 @@
         "legendGroup": "Scalar",
         "argGroup": "16 bits"
       }],
-      ["BM_ISL_Rowops_hot_scalar_unchecked<int8_t>.*", "unchecked int8_t", {
-        "color": "#a1dab4",
-        "skip": true,
-        "linestyle": "-",
-        "legendGroup": "Scalar",
-        "argGroup": "8 bits"
-      }],
-      ["BM_ISL_Rowops_hot_scalar_checked<int8_t>.*", "int8_t", {
-        "color": "#a1dab4",
-        "linestyle": "-",
-        "legendGroup": "Scalar",
-        "argGroup": "8 bits"
-      }],
-
       ["BM_ISL_Rowops_hot_vector_unchecked<int64_t>.*", "vector unchecked int64_t", {
         "color": "#253494",
         "skip": true,
