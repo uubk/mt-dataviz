@@ -48,10 +48,11 @@ ax.set_yscale("log", nonposy='clip')
 ax.tick_params(axis='x', colors='black')
 ax.tick_params(axis='y', colors='black')
 if args.isgcd == "False":
-    ax.hist(data, bins=np.array(range(0, (int(max(data)))*5+1, 1))/5, align='left')
-    plt.xlim(0.2, (int(max(data))+0.2))
-    xTicks = np.arange(0.2, (int(max(data))+0.2), 0.2)
-    xTicks = np.insert(xTicks, 0, (int(max(data))+0.2))
+    bins = np.array(range(0, max((int(max(data)))*5+1, 5), 1))/5
+    ax.hist(data, bins=bins, align='left')
+    plt.xlim(0.0, (max(data) + 0.2))
+    xTicks = np.arange(0.0, (max(data)+0.2), 0.2)
+    #xTicks = np.insert(xTicks, 0, (int(max(data))+0.2))
     ax.set_xticks(xTicks)
 else:
     ax.hist(data, bins=range(int(min(data)), int(max(data)) + 1, 1), align='left')
