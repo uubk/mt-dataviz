@@ -1,0 +1,565 @@
+{
+  "name": "Speedup for sparsity (checked, hot, int64_t)",
+  "filename": "plots/rowops_hot_sparsity_tp_int64",
+  "defaults": {
+  },
+  "style": "2d",
+  "preprocess": "diffSpeedup",
+  "files": ["data/perf-isl-hot-zerocheck.json", "data/perf-isl-hot-zerocheck-sparsity.json",
+    "data/perf-isl-hot-zerocheck.json", "data/perf-isl-hot-zerocheck-sparsity.json",
+    "data/perf-isl-hot-zerocheck.json", "data/perf-isl-hot-zerocheck-sparsity.json",
+    "data/perf-isl-hot-zerocheck.json", "data/perf-isl-hot-zerocheck-sparsity.json"],
+  "yScale": [0.5,15.5],
+  "axis": [
+    [
+      {
+        "columns": "2",
+        "sparsity": "1"
+      },
+      {
+        "columns": "3",
+        "sparsity": "1"
+      },
+      {
+        "columns": "4",
+        "sparsity": "1"
+      },
+      {
+        "columns": "5",
+        "sparsity": "1"
+      },
+      {
+        "columns": "6",
+        "sparsity": "1"
+      },
+      {
+        "columns": "7",
+        "sparsity": "1"
+      },
+      {
+        "columns": "8",
+        "sparsity": "1"
+      },
+      {
+        "columns": "9",
+        "sparsity": "1"
+      },
+      {
+        "columns": "10",
+        "sparsity": "1"
+      },
+      {
+        "columns": "11",
+        "sparsity": "1"
+      },
+      {
+        "columns": "12",
+        "sparsity": "1"
+      },
+      {
+        "columns": "13",
+        "sparsity": "1"
+      },
+      {
+        "columns": "14",
+        "sparsity": "1"
+      },
+      {
+        "columns": "15",
+        "sparsity": "1"
+      },
+      {
+        "columns": "16",
+        "sparsity": "1"
+      },
+      {
+        "columns": "17",
+        "sparsity": "1"
+      },
+      {
+        "columns": "18",
+        "sparsity": "1"
+      },
+      {
+        "columns": "19",
+        "sparsity": "1"
+      },
+      {
+        "columns": "20",
+        "sparsity": "1"
+      },
+      {
+        "columns": "21",
+        "sparsity": "1"
+      },
+      {
+        "columns": "22",
+        "sparsity": "1"
+      },
+      {
+        "columns": "23",
+        "sparsity": "1"
+      },
+      {
+        "columns": "24",
+        "sparsity": "1"
+      },
+      {
+        "columns": "25",
+        "sparsity": "1"
+      },
+      {
+        "columns": "26",
+        "sparsity": "1"
+      },
+      {
+        "columns": "27",
+        "sparsity": "1"
+      },
+      {
+        "columns": "28",
+        "sparsity": "1"
+      },
+      {
+        "columns": "29",
+        "sparsity": "1"
+      },
+      {
+        "columns": "30",
+        "sparsity": "1"
+      },
+      {
+        "columns": "31",
+        "sparsity": "1"
+      },
+      {
+        "columns": "32",
+        "sparsity": "1"
+      }
+    ],
+    [
+      {
+        "columns": "2",
+        "sparsity": "2"
+      },
+      {
+        "columns": "3",
+        "sparsity": "2"
+      },
+      {
+        "columns": "4",
+        "sparsity": "2"
+      },
+      {
+        "columns": "5",
+        "sparsity": "2"
+      },
+      {
+        "columns": "6",
+        "sparsity": "2"
+      },
+      {
+        "columns": "7",
+        "sparsity": "2"
+      },
+      {
+        "columns": "8",
+        "sparsity": "2"
+      },
+      {
+        "columns": "9",
+        "sparsity": "2"
+      },
+      {
+        "columns": "10",
+        "sparsity": "2"
+      },
+      {
+        "columns": "11",
+        "sparsity": "2"
+      },
+      {
+        "columns": "12",
+        "sparsity": "2"
+      },
+      {
+        "columns": "13",
+        "sparsity": "2"
+      },
+      {
+        "columns": "14",
+        "sparsity": "2"
+      },
+      {
+        "columns": "15",
+        "sparsity": "2"
+      },
+      {
+        "columns": "16",
+        "sparsity": "2"
+      },
+      {
+        "columns": "17",
+        "sparsity": "2"
+      },
+      {
+        "columns": "18",
+        "sparsity": "2"
+      },
+      {
+        "columns": "19",
+        "sparsity": "2"
+      },
+      {
+        "columns": "20",
+        "sparsity": "2"
+      },
+      {
+        "columns": "21",
+        "sparsity": "2"
+      },
+      {
+        "columns": "22",
+        "sparsity": "2"
+      },
+      {
+        "columns": "23",
+        "sparsity": "2"
+      },
+      {
+        "columns": "24",
+        "sparsity": "2"
+      },
+      {
+        "columns": "25",
+        "sparsity": "2"
+      },
+      {
+        "columns": "26",
+        "sparsity": "2"
+      },
+      {
+        "columns": "27",
+        "sparsity": "2"
+      },
+      {
+        "columns": "28",
+        "sparsity": "2"
+      },
+      {
+        "columns": "29",
+        "sparsity": "2"
+      },
+      {
+        "columns": "30",
+        "sparsity": "2"
+      },
+      {
+        "columns": "31",
+        "sparsity": "2"
+      },
+      {
+        "columns": "32",
+        "sparsity": "2"
+      }
+    ],
+    [
+      {
+        "columns": "2",
+        "sparsity": "4"
+      },
+      {
+        "columns": "3",
+        "sparsity": "4"
+      },
+      {
+        "columns": "4",
+        "sparsity": "4"
+      },
+      {
+        "columns": "5",
+        "sparsity": "4"
+      },
+      {
+        "columns": "6",
+        "sparsity": "4"
+      },
+      {
+        "columns": "7",
+        "sparsity": "4"
+      },
+      {
+        "columns": "8",
+        "sparsity": "4"
+      },
+      {
+        "columns": "9",
+        "sparsity": "4"
+      },
+      {
+        "columns": "10",
+        "sparsity": "4"
+      },
+      {
+        "columns": "11",
+        "sparsity": "4"
+      },
+      {
+        "columns": "12",
+        "sparsity": "4"
+      },
+      {
+        "columns": "13",
+        "sparsity": "4"
+      },
+      {
+        "columns": "14",
+        "sparsity": "4"
+      },
+      {
+        "columns": "15",
+        "sparsity": "4"
+      },
+      {
+        "columns": "16",
+        "sparsity": "4"
+      },
+      {
+        "columns": "17",
+        "sparsity": "4"
+      },
+      {
+        "columns": "18",
+        "sparsity": "4"
+      },
+      {
+        "columns": "19",
+        "sparsity": "4"
+      },
+      {
+        "columns": "20",
+        "sparsity": "4"
+      },
+      {
+        "columns": "21",
+        "sparsity": "4"
+      },
+      {
+        "columns": "22",
+        "sparsity": "4"
+      },
+      {
+        "columns": "23",
+        "sparsity": "4"
+      },
+      {
+        "columns": "24",
+        "sparsity": "4"
+      },
+      {
+        "columns": "25",
+        "sparsity": "4"
+      },
+      {
+        "columns": "26",
+        "sparsity": "4"
+      },
+      {
+        "columns": "27",
+        "sparsity": "4"
+      },
+      {
+        "columns": "28",
+        "sparsity": "4"
+      },
+      {
+        "columns": "29",
+        "sparsity": "4"
+      },
+      {
+        "columns": "30",
+        "sparsity": "4"
+      },
+      {
+        "columns": "31",
+        "sparsity": "4"
+      },
+      {
+        "columns": "32",
+        "sparsity": "4"
+      }
+    ],
+    [
+      {
+        "columns": "2",
+        "sparsity": "8"
+      },
+      {
+        "columns": "3",
+        "sparsity": "8"
+      },
+      {
+        "columns": "4",
+        "sparsity": "8"
+      },
+      {
+        "columns": "5",
+        "sparsity": "8"
+      },
+      {
+        "columns": "6",
+        "sparsity": "8"
+      },
+      {
+        "columns": "7",
+        "sparsity": "8"
+      },
+      {
+        "columns": "8",
+        "sparsity": "8"
+      },
+      {
+        "columns": "9",
+        "sparsity": "8"
+      },
+      {
+        "columns": "10",
+        "sparsity": "8"
+      },
+      {
+        "columns": "11",
+        "sparsity": "8"
+      },
+      {
+        "columns": "12",
+        "sparsity": "8"
+      },
+      {
+        "columns": "13",
+        "sparsity": "8"
+      },
+      {
+        "columns": "14",
+        "sparsity": "8"
+      },
+      {
+        "columns": "15",
+        "sparsity": "8"
+      },
+      {
+        "columns": "16",
+        "sparsity": "8"
+      },
+      {
+        "columns": "17",
+        "sparsity": "8"
+      },
+      {
+        "columns": "18",
+        "sparsity": "8"
+      },
+      {
+        "columns": "19",
+        "sparsity": "8"
+      },
+      {
+        "columns": "20",
+        "sparsity": "8"
+      },
+      {
+        "columns": "21",
+        "sparsity": "8"
+      },
+      {
+        "columns": "22",
+        "sparsity": "8"
+      },
+      {
+        "columns": "23",
+        "sparsity": "8"
+      },
+      {
+        "columns": "24",
+        "sparsity": "8"
+      },
+      {
+        "columns": "25",
+        "sparsity": "8"
+      },
+      {
+        "columns": "26",
+        "sparsity": "8"
+      },
+      {
+        "columns": "27",
+        "sparsity": "8"
+      },
+      {
+        "columns": "28",
+        "sparsity": "8"
+      },
+      {
+        "columns": "29",
+        "sparsity": "8"
+      },
+      {
+        "columns": "30",
+        "sparsity": "8"
+      },
+      {
+        "columns": "31",
+        "sparsity": "8"
+      },
+      {
+        "columns": "32",
+        "sparsity": "8"
+      }
+    ]
+  ],
+  "assignment": [
+    [
+      ["BM_Zerocheck_ISL_Rowops_hot_vector_transprecision<int64_t>/sparsity:1", "zerocheck 0%", {
+        "color": "#253494",
+        "skip": true
+      }]
+    ],
+    [
+      ["BM_Zerocheck_Sparsity_ISL_Rowops_hot_vector_transprecision<int64_t>/sparsity:1", "0%", {
+        "color": "#253494"
+      }]
+    ],
+    [
+      ["BM_Zerocheck_ISL_Rowops_hot_vector_transprecision<int64_t>/sparsity:2", "zerocheck 50%", {
+        "color": "#2c7fb8",
+        "skip": true
+      }]
+    ],
+    [
+      ["BM_Zerocheck_Sparsity_ISL_Rowops_hot_vector_transprecision<int64_t>/sparsity:2", "50%", {
+        "color": "#2c7fb8"
+      }]
+    ],
+    [
+      ["BM_Zerocheck_ISL_Rowops_hot_vector_transprecision<int64_t>/sparsity:4", "zerocheck 75%", {
+        "color": "#41b6c4",
+        "skip": true
+      }]
+    ],
+    [
+      ["BM_Zerocheck_Sparsity_ISL_Rowops_hot_vector_transprecision<int64_t>/sparsity:4", "75%", {
+        "color": "#41b6c4"
+      }]
+    ],
+    [
+      ["BM_Zerocheck_ISL_Rowops_hot_vector_transprecision<int64_t>/sparsity:8", "zerocheck 87.5%", {
+        "color": "#41b6c4",
+        "skip": true
+      }]
+    ],
+    [
+      ["BM_Zerocheck_Sparsity_ISL_Rowops_hot_vector_transprecision<int64_t>/sparsity:8", "87.5%", {
+        "color": "#41b6c4"
+      }]
+    ]
+  ]
+}
