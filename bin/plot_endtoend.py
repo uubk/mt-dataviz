@@ -54,21 +54,21 @@ speedupLIFix = speedupLIFix[sortIdx]
 # Plot histogram
 fig = plt.figure(figsize=[12, 4])
 figGrid = plt.GridSpec(1, 24, wspace=0, hspace=0)
-ax = fig.add_subplot(figGrid[0, 0:21])
+ax = fig.add_subplot(figGrid[0, 0:20])
 plt.grid(b=True, which='major', axis='y', linewidth=0.2, color='grey', zorder=0)
 #plt.grid(b=True, which='minor', axis='y', linewidth=0.2, color='grey', zorder=0)
 plt.grid(b=True, which='major', axis='x', linewidth=0.2, color='grey', zorder=1)
 ax.tick_params(axis='x', colors='black')
 ax.tick_params(axis='y', colors='black')
-imath = ax.plot(speedupImath, label="IMath")
-isl = ax.plot(speedupMulti, label="ISL hand-vectorized")
-libint = ax.plot(speedupLIFix, label="libint")
+imath = ax.plot(speedupImath, label="Element-granularity transprecision")
+isl = ax.plot(speedupMulti, label="Matrix-granularity transprecison (manual)")
+libint = ax.plot(speedupLIFix, label="Matrix-granularity transprecision (automatic)")
 plt.xlim(0)
 ax.legend()
 plt.xlabel("Testcase")
-plt.ylabel("Speedup")
+plt.ylabel("Speedup over arbitrary precision (GMP)")
 
-ax2 = fig.add_subplot(figGrid[0, 22:])
+ax2 = fig.add_subplot(figGrid[0, 21:])
 
 colorize = lambda c: {"notch": True,
                   "patch_artist": True,
@@ -84,9 +84,6 @@ ax2.boxplot(speedupLIFix, positions=[0.6], **colorize(libint[0]._color))
 ax2.get_xaxis().set_visible(False)
 ax2.tick_params(axis='y', colors='black')
 ax2.grid(b=True, which='major', axis='y', linewidth=0.2, color='black', zorder=0)
-
-ax.set_title("Speedup over GMP")
-ax2.set_title("Speedup\ndistribution")
 
 #bins = np.array(range(0, max((int(max(data)))*5+1, 5), 1))/5
 #ax.hist(data, bins=bins, align='left')

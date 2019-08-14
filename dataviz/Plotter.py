@@ -350,6 +350,9 @@ class Plotter():
         if self._zero:
             ax.set_ylim(ymin=0)
 
+        if numberOfExperiments == 31:
+            plt.xlabel("Columns", size=20)
+
         for format in self.formats:
             if format == ".pdf":
                 ax.set_title("")
