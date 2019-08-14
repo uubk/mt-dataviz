@@ -353,7 +353,6 @@ class Plotter():
         for format in self.formats:
             if format == ".pdf":
                 ax.set_title("")
-                ax.set_ylabel("")
             plt.savefig(prefix + format, dpi=180, extraArtists=extraArtists)
 
         try:

@@ -52,19 +52,39 @@ speedupMulti = speedupMulti[sortIdx]
 speedupLIFix = speedupLIFix[sortIdx]
 
 # Plot histogram
-fig, ax = plt.subplots(figsize=[12, 4])
+fig = plt.figure(figsize=[12, 4])
+figGrid = plt.GridSpec(1, 24, wspace=0, hspace=0)
+ax = fig.add_subplot(figGrid[0, 0:21])
 plt.grid(b=True, which='major', axis='y', linewidth=0.2, color='grey', zorder=0)
 #plt.grid(b=True, which='minor', axis='y', linewidth=0.2, color='grey', zorder=0)
 plt.grid(b=True, which='major', axis='x', linewidth=0.2, color='grey', zorder=1)
 ax.tick_params(axis='x', colors='black')
 ax.tick_params(axis='y', colors='black')
-plt.plot(speedupImath, label="IMath")
-plt.plot(speedupMulti, label="ISL hand-vectorized")
-plt.plot(speedupLIFix, label="libint")
+imath = ax.plot(speedupImath, label="IMath")
+isl = ax.plot(speedupMulti, label="ISL hand-vectorized")
+libint = ax.plot(speedupLIFix, label="libint")
 plt.xlim(0)
-plt.legend()
+ax.legend()
 plt.xlabel("Testcase")
 plt.ylabel("Speedup")
+
+ax2 = fig.add_subplot(figGrid[0, 22:])
+
+colorize = lambda c: {"notch": True,
+                  "patch_artist": True,
+                 "boxprops": dict(facecolor=c, color=c),
+            "capprops": dict(color=c),
+            "whiskerprops": dict(color=c),
+            "flierprops": dict(color=c, markeredgecolor=c),
+            "medianprops": dict(color=c)}
+
+ax2.boxplot(speedupImath, positions=[0.0], **colorize(imath[0]._color))
+ax2.boxplot(speedupMulti, positions=[0.3], **colorize(isl[0]._color))
+ax2.boxplot(speedupLIFix, positions=[0.6], **colorize(libint[0]._color))
+ax2.get_xaxis().set_visible(False)
+ax2.tick_params(axis='y', colors='black')
+ax2.grid(b=True, which='major', axis='y', linewidth=0.2, color='black', zorder=0)
+
 #bins = np.array(range(0, max((int(max(data)))*5+1, 5), 1))/5
 #ax.hist(data, bins=bins, align='left')
 #plt.xlim(0.0, (max(data) + 0.2))
