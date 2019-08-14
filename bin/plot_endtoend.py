@@ -85,6 +85,9 @@ ax2.get_xaxis().set_visible(False)
 ax2.tick_params(axis='y', colors='black')
 ax2.grid(b=True, which='major', axis='y', linewidth=0.2, color='black', zorder=0)
 
+ax.set_title("Speedup over GMP")
+ax2.set_title("Speedup\ndistribution")
+
 #bins = np.array(range(0, max((int(max(data)))*5+1, 5), 1))/5
 #ax.hist(data, bins=bins, align='left')
 #plt.xlim(0.0, (max(data) + 0.2))
