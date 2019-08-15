@@ -53,7 +53,7 @@ with open(args.config, "r") as cfgFile:
     if "preprocess" in config and config["preprocess"] == "diffSpeedup":
         plotter.groupToDiffSpeedup()
 
-    size = [4, 7]
+    size = [5, 7]
     if plot2D:
         size = [8, 3]
     if "size" in config and len(size) == 2:
