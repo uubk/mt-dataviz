@@ -292,7 +292,7 @@ class Plotter():
                 ax.set_ylabel('Time (us)', fontsize=20)
             else:
                 ax.set_ylabel('Time (ns)', fontsize=20)
-        ax.set_title(title)
+        #ax.set_title(title)
 
         if self._logplot:
             ax.set_yscale("log", nonposy='clip')
@@ -312,7 +312,7 @@ class Plotter():
                     continue
                 names.append(name)
                 items.append(axes[0])
-            legend = plt.legend(items, names, loc=3, fontsize=14, bbox_to_anchor=(0., 1.02, 1., .102), ncol=2, mode="expand", borderaxespad=0.)
+            legend = plt.legend(items, names, loc=3, fontsize=14, bbox_to_anchor=(0., 1.02, 1., .102), ncol=2, mode="expand", borderaxespad=0., frameon=False)
             plt.gca().add_artist(legend)
             extraArtists.append(legend)
             # Argument group
@@ -323,11 +323,14 @@ class Plotter():
                     continue
                 names.append(name)
                 items.append(axes[0])
-            legend = plt.legend(items, names, loc=2, fontsize=14)
+            legend = plt.legend(items, names, loc=2, fontsize=14, frameon=False)
             plt.gca().add_artist(legend)
             extraArtists.append(legend)
         else:
             ax.legend(fontsize=14)
+
+        ax.spines["top"].set_visible(False)
+        ax.spines["right"].set_visible(False)
 
         plt.grid(b=True, which='major', axis='y', linewidth=0.3, color='grey', zorder=0)
         plt.grid(b=True, which='minor', axis='y', linewidth=0.2, color='lightgrey')
@@ -352,6 +355,7 @@ class Plotter():
 
         if numberOfExperiments == 31:
             plt.xlabel("Columns", size=20)
+            plt.tight_layout()
 
         for format in self.formats:
             if format == ".pdf":
@@ -479,6 +483,11 @@ class Plotter():
 
         if self._zero:
             ax.set_ylim(ymin=0)
+
+        plt.ylabel("Sparsity")
+        if numberOfExperiments == 31:
+            plt.xlabel("Columns", size=20)
+            plt.tight_layout()
 
         for format in self.formats:
             if format == ".pdf":
