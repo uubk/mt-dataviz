@@ -344,8 +344,8 @@ class Plotter():
 
 
 
-        plt.grid(b=True, which='major', axis='y', linewidth=0.3, color='black', zorder=0)
-        plt.grid(b=True, which='minor', axis='y', linewidth=0.2, color='grey')
+        plt.grid(b=True, which='major', axis='y', linewidth=0.3, color='grey', zorder=0)
+        plt.grid(b=True, which='minor', axis='y', linewidth=0.2, color='lightgrey')
         ax.tick_params(axis='x', colors='grey')
         ax.tick_params(axis='y', colors='white', which='both')
         for idx, label in enumerate(ax.xaxis.get_ticklabels()):
