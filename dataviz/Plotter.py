@@ -335,12 +335,19 @@ class Plotter():
         ax.spines["right"].set_visible(False)
         ax.spines["left"].set_visible(False)
         if self._logplot:
-            ax.yaxis.set_major_locator(plt.LogLocator(numticks=5))
+            currentLimit = plt.ylim()
+            upper = math.floor(math.log10(currentLimit[1]))
+            lower = math.floor(math.log10(currentLimit[0]))
+            if (math.fabs(upper) - math.fabs(lower) < 2):
+                newLimit = (currentLimit[0], math.pow(10, upper+1))
+                plt.ylim(newLimit)
 
-        plt.grid(b=True, which='major', axis='y', linewidth=0.3, color='grey', zorder=0)
-        plt.grid(b=True, which='minor', axis='y', linewidth=0.2, color='lightgrey')
+
+
+        plt.grid(b=True, which='major', axis='y', linewidth=0.3, color='black', zorder=0)
+        plt.grid(b=True, which='minor', axis='y', linewidth=0.2, color='grey')
         ax.tick_params(axis='x', colors='grey')
-        ax.tick_params(axis='y', colors='grey')
+        ax.tick_params(axis='y', colors='white', which='both')
         for idx, label in enumerate(ax.xaxis.get_ticklabels()):
             xValue = xLegends[idx]
             try:
