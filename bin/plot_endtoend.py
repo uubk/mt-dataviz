@@ -16,6 +16,8 @@ parser.add_argument('--inputMulti', dest='Multi', required=True,
                     help='Multi')
 parser.add_argument('--inputLIFix', dest='LIFix', required=True,
                     help='LIFix')
+parser.add_argument('--inputLITPx', dest='LITP', required=True,
+                    help='LITP')
 parser.add_argument('--output', dest='output', required=True,
                     help='Configures prefix to plot to')
 
@@ -36,6 +38,7 @@ dataBaseline = read_data(args.inputGMP)
 dataIMath = read_data(args.IMath)
 dataMulti = read_data(args.Multi)
 dataLIFix = read_data(args.LIFix)
+dataLITP = read_data(args.LITP)
 
 
 prefix = args.output
@@ -44,12 +47,14 @@ print("Got {}, {}, {} and {} datapoints".format(len(dataBaseline), len(dataIMath
 speedupImath = dataBaseline/dataIMath
 speedupMulti = dataBaseline/dataMulti
 speedupLIFix = dataBaseline/dataLIFix
+speedupLITP = dataBaseline/dataLITP
 
 # Sort all lists the same way
 sortIdx = sorted(range(len(speedupLIFix)), key=lambda k: speedupLIFix[k])
 speedupImath = speedupImath[sortIdx]
 speedupMulti = speedupMulti[sortIdx]
 speedupLIFix = speedupLIFix[sortIdx]
+speedupLITP = speedupLITP[sortIdx]
 
 # Plot histogram
 fig = plt.figure(figsize=[12, 4])
@@ -62,11 +67,19 @@ ax.tick_params(axis='x', colors='black')
 ax.tick_params(axis='y', colors='black')
 imath = ax.plot(speedupImath, label="Element-granularity transprecision")
 isl = ax.plot(speedupMulti, label="Matrix-granularity transprecison (manual)")
-libint = ax.plot(speedupLIFix, label="Matrix-granularity transprecision (automatic)")
+libint = ax.plot(speedupLIFix, label="Fixed type")
+libint_tp = ax.plot(speedupLITP, label="Matrix-granularity transprecision (automatic)")
 plt.xlim(0)
-ax.legend()
-plt.xlabel("Testcase")
-plt.ylabel("Speedup over arbitrary precision (GMP)")
+legend = ax.legend(fontsize=14)
+legend.get_frame().set_edgecolor('white')
+plt.xlabel("Testcase", fontsize=14)
+plt.ylabel("Speedup over arbitrary precision (GMP)", fontsize=12)
+for idx, label in enumerate(ax.yaxis.get_ticklabels()):
+    label.set_color('black')
+    label.set_size(14)
+for idx, label in enumerate(ax.xaxis.get_ticklabels()):
+    label.set_color('black')
+    label.set_size(14)
 
 ax2 = fig.add_subplot(figGrid[0, 21:])
 
@@ -81,6 +94,7 @@ colorize = lambda c: {"notch": True,
 ax2.boxplot(speedupImath, positions=[0.0], **colorize(imath[0]._color))
 ax2.boxplot(speedupMulti, positions=[0.3], **colorize(isl[0]._color))
 ax2.boxplot(speedupLIFix, positions=[0.6], **colorize(libint[0]._color))
+ax2.boxplot(speedupLITP, positions=[0.9], **colorize(libint_tp[0]._color))
 ax2.get_xaxis().set_visible(False)
 ax2.tick_params(axis='y', colors='black')
 ax2.grid(b=True, which='major', axis='y', linewidth=0.2, color='black', zorder=0)
@@ -97,7 +111,6 @@ plt.tight_layout()
 for format in [".png", ".pdf"]:
     if format == ".pdf":
         ax.set_title("")
-        ax.set_ylabel("")
     plt.savefig(prefix + format, dpi=180)# extraArtists=extraArtists)
 
 try:
