@@ -312,7 +312,8 @@ class Plotter():
                     continue
                 names.append(name)
                 items.append(axes[0])
-            legend = plt.legend(items, names, loc=3, fontsize=14, bbox_to_anchor=(0., 1.02, 1., .102), ncol=2, mode="expand", borderaxespad=0., frameon=False)
+            legend = plt.legend(items, names, loc=3, fontsize=14, bbox_to_anchor=(0., 1.02, 1., .102), ncol=2, mode="expand", borderaxespad=0.)
+            legend.get_frame().set_edgecolor('white')
             plt.gca().add_artist(legend)
             extraArtists.append(legend)
             # Argument group
@@ -323,7 +324,8 @@ class Plotter():
                     continue
                 names.append(name)
                 items.append(axes[0])
-            legend = plt.legend(items, names, loc=2, fontsize=14, frameon=False)
+            legend = plt.legend(items, names, loc=2, fontsize=14)
+            legend.get_frame().set_edgecolor('white')
             plt.gca().add_artist(legend)
             extraArtists.append(legend)
         else:
@@ -331,6 +333,7 @@ class Plotter():
 
         ax.spines["top"].set_visible(False)
         ax.spines["right"].set_visible(False)
+        ax.spines["left"].set_visible(False)
 
         plt.grid(b=True, which='major', axis='y', linewidth=0.3, color='grey', zorder=0)
         plt.grid(b=True, which='minor', axis='y', linewidth=0.2, color='lightgrey')
@@ -459,6 +462,11 @@ class Plotter():
         positionOfOne = ((1-min) / (intervalLength/100)) / 100
         colorMap = shiftedColorMap(cm.RdBu, midpoint=positionOfOne)
         im = ax.imshow(plotData, cmap=colorMap, vmin=min, vmax=max)
+
+        plt.ylabel("Sparsity")
+        if numberOfExperiments == 31:
+            plt.xlabel("Columns", size=20)
+
         colorbarAxis = inset_axes(ax, loc='upper right', width='100%', height='10%', bbox_to_anchor=(0.01, 0.55, 1., 1.102), bbox_transform=ax.transAxes)
         plt.colorbar(im, orientation='horizontal', aspect=60, cax=colorbarAxis)
         xIdx = np.arange(6, len(xLegends)-6, step=8)
@@ -484,10 +492,7 @@ class Plotter():
         if self._zero:
             ax.set_ylim(ymin=0)
 
-        plt.ylabel("Sparsity")
-        if numberOfExperiments == 31:
-            plt.xlabel("Columns", size=20)
-            plt.tight_layout()
+        plt.tight_layout()
 
         for format in self.formats:
             if format == ".pdf":

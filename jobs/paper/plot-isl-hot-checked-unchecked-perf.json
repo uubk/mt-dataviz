@@ -103,49 +103,49 @@
     [
       ["BM_ISL_Rowops_hot_scalar_unchecked<int64_t>.*", "checked int64_t", {
         "color": "#253494",
-        "linestyle": "-",
+        "marker": "v",
         "legendGroup": "Unchecked",
         "argGroup": "64 bits"
       }],
       ["BM_ISL_Rowops_hot_scalar_unchecked<int32_t>.*", "checked int32_t", {
         "color": "#2c7fb8",
-        "linestyle": "-",
+        "marker": "v",
         "legendGroup": "Unchecked",
         "argGroup": "32 bits"
       }],
       ["BM_ISL_Rowops_hot_scalar_unchecked<int16_t>.*", "checked int16_t", {
         "color": "#41b6c4",
-        "linestyle": "-",
+        "marker": "v",
         "legendGroup": "Unchecked",
         "argGroup": "16 bits"
       }],
       ["BM_ISL_Rowops_hot_scalar_unchecked<int8_t>.*", "checked int8_t", {
         "color": "#a1dab4",
-        "linestyle": "-",
+        "marker": "v",
         "legendGroup": "Unchecked",
         "argGroup": "8 bits"
       }],
       ["BM_ISL_Rowops_hot_scalar_checked<int64_t>.*", "unchecked int64_t", {
         "color": "#253494",
-        "linestyle": ":",
+        "marker": "o",
         "legendGroup": "Checked",
         "argGroup": "64 bits"
       }],
       ["BM_ISL_Rowops_hot_scalar_checked<int32_t>.*", "unchecked int32_t", {
         "color": "#2c7fb8",
-        "linestyle": ":",
+        "marker": "o",
         "legendGroup": "Checked",
         "argGroup": "32 bits"
       }],
       ["BM_ISL_Rowops_hot_scalar_checked<int16_t>.*", "unchecked int16_t", {
         "color": "#41b6c4",
-        "linestyle": ":",
+        "marker": "o",
         "legendGroup": "Checked",
         "argGroup": "16 bits"
       }],
       ["BM_ISL_Rowops_hot_scalar_checked<int8_t>.*", "unchecked int8_t", {
         "color": "#a1dab4",
-        "linestyle": ":",
+        "marker": "o",
         "legendGroup": "Checked",
         "argGroup": "8 bits"
       }]
