@@ -81,7 +81,14 @@ for idx, label in enumerate(ax.xaxis.get_ticklabels()):
     label.set_color('black')
     label.set_size(14)
 
+ax.spines["top"].set_visible(False)
+ax.spines["right"].set_visible(False)
+ax.spines["left"].set_visible(False)
+
 ax2 = fig.add_subplot(figGrid[0, 21:])
+ax2.spines["top"].set_visible(False)
+ax2.spines["right"].set_visible(False)
+ax2.spines["left"].set_visible(False)
 
 colorize = lambda c: {"notch": True,
                   "patch_artist": True,
