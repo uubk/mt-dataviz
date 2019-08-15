@@ -3,6 +3,7 @@ import argparse
 import bz2
 
 import numpy as np
+import seaborn as sns
 import matplotlib
 import matplotlib.pyplot as plt
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes
@@ -37,16 +38,17 @@ prefix = args.output
 print("Got {} and {} datapoints".format(len(dataA), len(dataB)))
 
 data = dataA/dataB
-print(sum(data<1)/len(data))
+# print(sum(data<1)/len(data))
 
+sns.set_context('paper', font_scale=3)
 # Plot histogram
-fig, ax = plt.subplots(figsize=[12, 4])
+fig, ax = plt.subplots(figsize=[18.5, 6])
 ax.set_yscale("log", nonposy='clip')
 # plt.grid(b=True, which='major', axis='y', linewidth=1, color='black', zorder=0)
 #plt.grid(b=True, which='minor', axis='y', linewidth=0.2, color='grey', zorder=0)
 # plt.grid(b=True, which='major', axis='x', linewidth=1, color='black', zorder=1)
-ax.tick_params(axis='x', colors='black')
-ax.tick_params(axis='y', colors='black')
+# ax.tick_params(axis='x', colors='black')
+# ax.tick_params(axis='y', colors='black')
 if args.isgcd == "False":
     bins = np.array(range(0, max((int(max(data)))*5+1, 5), 1))/5
     ax.hist(data, bins=bins, align='left')
@@ -59,38 +61,41 @@ else:
     (_, right) = plt.xlim()
     plt.xlim(2, right)
     xTicks = np.arange(10, right, 10)
-    xTicks = np.insert(xTicks, 0, 2)
+    # xTicks = np.insert(xTicks, 0, 2)
     ax.set_xticks(xTicks)
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
     med = np.median(data)
     print(med)
     ax.axvline(med, linewidth=2, color='black')
-    plt.annotate('median', (med, 10**6 * 5), (med + 2, 10**6 * 9),
+    plt.annotate('median', (med + 0.1, 10**6 * 5), (med + 1, 10**7),
                  arrowprops={
                      'width': 1.5,
-                     'headwidth': 4,
-                     'headlength': 4,
+                     'headwidth': 6,
+                     'headlength': 6,
                      'color': 'black'
-                 })
+                 },
+                 fontsize=26)
     pc75= np.percentile(data, 75)
     ax.axvline(pc75, linewidth=2, color='black')
-    plt.annotate('75th pc', (pc75, 10**6 * 5), (pc75 + 2, 10**6 * 9),
+    plt.annotate('75pc', (pc75 + 0.1, 10**6 * 1), (pc75 + 1.5, 10**6 * 3),
                  arrowprops={
                      'width': 1.5,
-                     'headwidth': 4,
-                     'headlength': 4,
+                     'headwidth': 6,
+                     'headlength': 6,
                      'color': 'black'
-                 })
+                 },
+                 fontsize=26)
     pc25= np.percentile(data, 25)
     ax.axvline(pc25, linewidth=2, color='black')
-    plt.annotate('25th pc', (pc25, 10**6 * 5), (pc25 - 3, 10**6 * 9),
+    plt.annotate('25pc', (pc25 - 0.1, 10**6 * 5), (pc25 - 3, 10**7),
                  arrowprops={
                      'width': 1.5,
-                     'headwidth': 4,
-                     'headlength': 4,
+                     'headwidth': 6,
+                     'headlength': 6,
                      'color': 'black'
-                 })
+                 },
+                 fontsize=26)
 
 
 
@@ -106,8 +111,10 @@ plt.tight_layout()
 for format in [".png", ".pdf"]:
     if format == ".pdf":
         ax.set_title("")
-        ax.set_ylabel("")
-    plt.savefig(prefix + format, dpi=180)# extraArtists=extraArtists)
+        ax.set_ylabel("Count")
+        ax.set_xlabel("Speedup")
+    plt.savefig(prefix + format, bbox_inches='tight',
+                dpi=180)  # extraArtists=extraArtists)
 
 try:
     import mpld3
