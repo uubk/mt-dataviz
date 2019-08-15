@@ -334,6 +334,8 @@ class Plotter():
         ax.spines["top"].set_visible(False)
         ax.spines["right"].set_visible(False)
         ax.spines["left"].set_visible(False)
+        if self._logplot:
+            ax.yaxis.set_major_locator(plt.LogLocator(numticks=5))
 
         plt.grid(b=True, which='major', axis='y', linewidth=0.3, color='grey', zorder=0)
         plt.grid(b=True, which='minor', axis='y', linewidth=0.2, color='lightgrey')
