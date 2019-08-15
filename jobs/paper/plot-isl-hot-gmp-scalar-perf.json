@@ -106,16 +106,13 @@
         "color": "black"
       }],
       ["BM_ISL_Rowops_hot_scalar_checked<int64_t>.*", "int64_t", {
-        "color": "#253494"
+        "color": "#2b8cbe"
       }],
       ["BM_ISL_Rowops_hot_scalar_checked<int32_t>.*", "int32_t", {
-        "color": "#2c7fb8"
+        "color": "#7bccc4"
       }],
       ["BM_ISL_Rowops_hot_scalar_checked<int16_t>.*", "int16_t", {
-        "color": "#41b6c4"
-      }],
-      ["BM_ISL_Rowops_hot_scalar_checked<int8_t>.*", "int8_t", {
-        "color": "#a1dab4"
+        "color": "#bae4bc"
       }]
     ]
   ]

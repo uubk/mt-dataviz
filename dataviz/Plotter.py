@@ -472,12 +472,14 @@ class Plotter():
         colorMap = shiftedColorMap(cm.RdBu, midpoint=positionOfOne)
         im = ax.imshow(plotData, cmap=colorMap, vmin=min, vmax=max)
 
-        plt.ylabel("Sparsity")
+        plt.ylabel("Sparsity", size=14)
         if numberOfExperiments == 31:
-            plt.xlabel("Columns", size=20)
+            plt.xlabel("Columns", size=14)
 
         colorbarAxis = inset_axes(ax, loc='upper right', width='100%', height='10%', bbox_to_anchor=(0.01, 0.55, 1., 1.102), bbox_transform=ax.transAxes)
         plt.colorbar(im, orientation='horizontal', aspect=60, cax=colorbarAxis)
+        plt.xlabel("Speedup", size=14)
+        colorbarAxis.xaxis.set_label_position('top')
         xIdx = np.arange(6, len(xLegends)-6, step=8)
         xIdx = np.insert(xIdx, 0, 0)
         xLabels = list(filter(lambda x:

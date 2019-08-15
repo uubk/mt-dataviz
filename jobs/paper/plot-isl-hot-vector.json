@@ -103,33 +103,27 @@
   "assignment": [
     [
       ["BM_ISL_Rowops_hot_scalar_checked<int16_t>.*", "scalar int16_t", {
-        "color": "#41b6c4",
+        "color": "#bae4bc",
         "marker": "v",
         "skip": true
       }],
       ["BM_ISL_Rowops_hot_vector_checked<int64_t>.*", "vectorized int64_t", {
-        "color": "#253494",
+        "color": "#2b8cbe",
         "marker": "o",
         "legendGroup": "Vector",
         "argGroup": "64 bits"
       }],
       ["BM_ISL_Rowops_hot_vector_checked<int32_t>.*", "vectorized int32_t", {
-        "color": "#2c7fb8",
+        "color": "#7bccc4",
         "marker": "o",
         "legendGroup": "Vector",
         "argGroup": "32 bits"
       }],
       ["BM_ISL_Rowops_hot_vector_checked<int16_t>.*", "vectorized int16_t", {
-        "color": "#41b6c4",
+        "color": "#bae4bc",
         "marker": "o",
         "legendGroup": "Vector",
         "argGroup": "16 bits"
-      }],
-      ["BM_ISL_Rowops_hot_vector_checked<int8_t>.*", "vectorized int8_t", {
-        "color": "#a1dab4",
-        "marker": "o",
-        "legendGroup": "Vector",
-        "argGroup": "8 bits"
       }]
     ]
   ]
