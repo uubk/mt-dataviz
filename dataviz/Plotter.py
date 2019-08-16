@@ -333,7 +333,10 @@ class Plotter():
             plt.gca().add_artist(legend)
             extraArtists.append(legend)
         else:
-            ax.legend(fontsize=14)
+            handles, labels = ax.get_legend_handles_labels()
+            handles = [i[0] for i in handles]
+            legend = plt.legend(handles, labels, loc=2, fontsize=14)
+            legend.get_frame().set_edgecolor('white')
 
         ax.spines["top"].set_visible(False)
         ax.spines["right"].set_visible(False)
