@@ -1,4 +1,4 @@
-#!/bin/env python3
+#!/usr/bin/env python3
 import argparse
 import bz2
 
@@ -8,21 +8,16 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 
 parser = argparse.ArgumentParser(description='Plot gcd data file')
-parser.add_argument('--inputGMP', dest='inputGMP', required=True,
-                    help='inputGMP')
-parser.add_argument('--inputIMath', dest='IMath', required=True,
-                    help='IMath')
-parser.add_argument('--inputMulti', dest='Multi', required=True,
-                    help='Multi')
-parser.add_argument('--inputLIFix', dest='LIFix', required=True,
-                    help='LIFix')
-parser.add_argument('--inputLITPx', dest='LITP', required=True,
-                    help='LITP')
-parser.add_argument('--inputLIMC', dest='LIMC', required=True,
-                    help='LIMC')
+parser.add_argument('--inputBaseline', dest='inputBaseline', required=True,
+                    help='Baseline data file')
+parser.add_argument('--titleBaseline', dest='titleBaseline', required=True,
+                    help='Baseline description')
+parser.add_argument('--input', dest='input', nargs='+',
+                    help='Input file to use')
+parser.add_argument('--title', dest='title', nargs='+',
+                    help='Title for input file')
 parser.add_argument('--output', dest='output', required=True,
-                    help='Configures prefix to plot to')
-
+                    help='Output file prefix')
 args = parser.parse_args()
 
 
@@ -36,30 +31,26 @@ def read_data(filename):
     return np.array(list(map(int, data.split('\n')[:-1])))
 
 
-dataBaseline = read_data(args.inputGMP)
-dataIMath = read_data(args.IMath)
-dataMulti = read_data(args.Multi)
-dataLIFix = read_data(args.LIFix)
-dataLITP = read_data(args.LITP)
-dataLIMC = read_data(args.LIMC)
+dataBaseline = read_data(args.inputBaseline)
+titleBaseline = args.titleBaseline
 
+dataRest = []
+titleRest = []
+for idx, filename in enumerate(args.input):
+    data = read_data(filename)
+    title = args.title[idx]
+    dataRest.append(data)
+    titleRest.append(title)
+    print("Got {} datapoints".format(len(data)))
 
 prefix = args.output
-print("Got {}, {}, {} and {} datapoints".format(len(dataBaseline), len(dataIMath), len(dataMulti), len(dataLIFix)))
+print("Got {} datapoints for baseline".format(len(dataBaseline)))
 
-speedupImath = dataBaseline/dataIMath
-speedupMulti = dataBaseline/dataMulti
-speedupLIFix = dataBaseline/dataLIFix
-#speedupLITP = dataBaseline/dataLITP
-speedupLIMC = dataBaseline/dataLIMC
+dataRest = [dataBaseline/x for x in dataRest]
 
 # Sort all lists the same way
-sortIdx = sorted(range(len(speedupLIMC)), key=lambda k: speedupLIMC[k])
-speedupImath = speedupImath[sortIdx]
-speedupMulti = speedupMulti[sortIdx]
-speedupLIFix = speedupLIFix[sortIdx]
-#speedupLITP = speedupLITP[sortIdx]
-speedupLIMC = speedupLIMC[sortIdx]
+sortIdx = sorted(range(len(dataRest[0])), key=lambda k: dataRest[0][k])
+dataRest = [x[sortIdx] for x in dataRest]
 
 # Plot histogram
 fig = plt.figure(figsize=[12, 4])
@@ -70,11 +61,10 @@ plt.grid(b=True, which='major', axis='y', linewidth=0.2, color='grey', zorder=0)
 plt.grid(b=True, which='major', axis='x', linewidth=0.2, color='grey', zorder=1)
 ax.tick_params(axis='x', colors='black')
 ax.tick_params(axis='y', colors='black')
-imath = ax.plot(speedupImath, label="Element-granularity transprecision")
-isl = ax.plot(speedupMulti, label="Matrix-granularity transprecison (manual)")
-libint = ax.plot(speedupLIFix, label="Libint fixed type multi-column")
-#libint_tp = ax.plot(speedupLITP, label="Matrix-granularity transprecision (automatic)")
-libint_mc = ax.plot(speedupLIMC, label="Libint transprecision multi-column")
+plotRefs = []
+for idx, data in enumerate(dataRest):
+    plotRefs.append(ax.plot(data, label=titleRest[idx]))
+
 plt.xlim(0)
 legend = ax.legend(fontsize=14)
 legend.get_frame().set_edgecolor('white')
@@ -104,11 +94,8 @@ colorize = lambda c: {"notch": True,
             "flierprops": dict(color=c, markeredgecolor=c),
             "medianprops": dict(color=c)}
 
-ax2.boxplot(speedupImath, positions=[0.0], **colorize(imath[0]._color))
-ax2.boxplot(speedupMulti, positions=[0.3], **colorize(isl[0]._color))
-ax2.boxplot(speedupLIFix, positions=[0.6], **colorize(libint[0]._color))
-#ax2.boxplot(speedupLITP, positions=[0.9], **colorize(libint_tp[0]._color))
-ax2.boxplot(speedupLIMC, positions=[1.2], **colorize(libint_mc[0]._color))
+for idx, data in enumerate(dataRest):
+    ax2.boxplot(data, positions=[0.3 * idx], **colorize(plotRefs[idx][0]._color))
 ax2.get_xaxis().set_visible(False)
 ax2.tick_params(axis='y', colors='black')
 ax2.grid(b=True, which='major', axis='y', linewidth=0.2, color='black', zorder=0)
