@@ -50,15 +50,15 @@ print("Got {}, {}, {} and {} datapoints".format(len(dataBaseline), len(dataIMath
 speedupImath = dataBaseline/dataIMath
 speedupMulti = dataBaseline/dataMulti
 speedupLIFix = dataBaseline/dataLIFix
-speedupLITP = dataBaseline/dataLITP
+#speedupLITP = dataBaseline/dataLITP
 speedupLIMC = dataBaseline/dataLIMC
 
 # Sort all lists the same way
-sortIdx = sorted(range(len(speedupLIFix)), key=lambda k: speedupLIFix[k])
+sortIdx = sorted(range(len(speedupLIMC)), key=lambda k: speedupLIMC[k])
 speedupImath = speedupImath[sortIdx]
 speedupMulti = speedupMulti[sortIdx]
 speedupLIFix = speedupLIFix[sortIdx]
-speedupLITP = speedupLITP[sortIdx]
+#speedupLITP = speedupLITP[sortIdx]
 speedupLIMC = speedupLIMC[sortIdx]
 
 # Plot histogram
@@ -72,9 +72,9 @@ ax.tick_params(axis='x', colors='black')
 ax.tick_params(axis='y', colors='black')
 imath = ax.plot(speedupImath, label="Element-granularity transprecision")
 isl = ax.plot(speedupMulti, label="Matrix-granularity transprecison (manual)")
-libint = ax.plot(speedupLIFix, label="Fixed type")
-libint_tp = ax.plot(speedupLITP, label="Matrix-granularity transprecision (automatic)")
-libint_mc = ax.plot(speedupLIMC, label="Fixed type (multi-column)")
+libint = ax.plot(speedupLIFix, label="Libint fixed type multi-column")
+#libint_tp = ax.plot(speedupLITP, label="Matrix-granularity transprecision (automatic)")
+libint_mc = ax.plot(speedupLIMC, label="Libint transprecision multi-column")
 plt.xlim(0)
 legend = ax.legend(fontsize=14)
 legend.get_frame().set_edgecolor('white')
@@ -107,7 +107,7 @@ colorize = lambda c: {"notch": True,
 ax2.boxplot(speedupImath, positions=[0.0], **colorize(imath[0]._color))
 ax2.boxplot(speedupMulti, positions=[0.3], **colorize(isl[0]._color))
 ax2.boxplot(speedupLIFix, positions=[0.6], **colorize(libint[0]._color))
-ax2.boxplot(speedupLITP, positions=[0.9], **colorize(libint_tp[0]._color))
+#ax2.boxplot(speedupLITP, positions=[0.9], **colorize(libint_tp[0]._color))
 ax2.boxplot(speedupLIMC, positions=[1.2], **colorize(libint_mc[0]._color))
 ax2.get_xaxis().set_visible(False)
 ax2.tick_params(axis='y', colors='black')
