@@ -66,10 +66,10 @@ for idx, data in enumerate(dataRest):
     plotRefs.append(ax.plot(data, label=titleRest[idx]))
 
 plt.xlim(0)
-legend = ax.legend(fontsize=14)
+legend = ax.legend(fontsize=16)
 legend.get_frame().set_edgecolor('white')
-plt.xlabel("Testcase", fontsize=14)
-plt.ylabel("Speedup over arbitrary precision (GMP)", fontsize=12)
+plt.xlabel("Testcase", fontsize=16)
+plt.ylabel("Speedup", fontsize=16)
 for idx, label in enumerate(ax.yaxis.get_ticklabels()):
     label.set_color('black')
     label.set_size(14)
