@@ -312,6 +312,8 @@ class Plotter():
                     continue
                 names.append(name)
                 items.append(axes[0])
+            # This removes the errorbars from the legend
+            items = [i[0] for i in items]
             legend = plt.legend(items, names, loc=3, fontsize=14, bbox_to_anchor=(0., 1.02, 1., .102), ncol=2, mode="expand", borderaxespad=0.)
             legend.get_frame().set_edgecolor('white')
             plt.gca().add_artist(legend)
@@ -324,6 +326,8 @@ class Plotter():
                     continue
                 names.append(name)
                 items.append(axes[0])
+            # This removes the errorbars from the legend
+            items = [i[0] for i in items]
             legend = plt.legend(items, names, loc=2, fontsize=14)
             legend.get_frame().set_edgecolor('white')
             plt.gca().add_artist(legend)

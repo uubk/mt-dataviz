@@ -18,6 +18,8 @@ parser.add_argument('--inputLIFix', dest='LIFix', required=True,
                     help='LIFix')
 parser.add_argument('--inputLITPx', dest='LITP', required=True,
                     help='LITP')
+parser.add_argument('--inputLIMC', dest='LIMC', required=True,
+                    help='LIMC')
 parser.add_argument('--output', dest='output', required=True,
                     help='Configures prefix to plot to')
 
@@ -39,6 +41,7 @@ dataIMath = read_data(args.IMath)
 dataMulti = read_data(args.Multi)
 dataLIFix = read_data(args.LIFix)
 dataLITP = read_data(args.LITP)
+dataLIMC = read_data(args.LIMC)
 
 
 prefix = args.output
@@ -48,6 +51,7 @@ speedupImath = dataBaseline/dataIMath
 speedupMulti = dataBaseline/dataMulti
 speedupLIFix = dataBaseline/dataLIFix
 speedupLITP = dataBaseline/dataLITP
+speedupLIMC = dataBaseline/dataLIMC
 
 # Sort all lists the same way
 sortIdx = sorted(range(len(speedupLIFix)), key=lambda k: speedupLIFix[k])
@@ -55,6 +59,7 @@ speedupImath = speedupImath[sortIdx]
 speedupMulti = speedupMulti[sortIdx]
 speedupLIFix = speedupLIFix[sortIdx]
 speedupLITP = speedupLITP[sortIdx]
+speedupLIMC = speedupLIMC[sortIdx]
 
 # Plot histogram
 fig = plt.figure(figsize=[12, 4])
@@ -69,6 +74,7 @@ imath = ax.plot(speedupImath, label="Element-granularity transprecision")
 isl = ax.plot(speedupMulti, label="Matrix-granularity transprecison (manual)")
 libint = ax.plot(speedupLIFix, label="Fixed type")
 libint_tp = ax.plot(speedupLITP, label="Matrix-granularity transprecision (automatic)")
+libint_mc = ax.plot(speedupLIMC, label="Fixed type (multi-column)")
 plt.xlim(0)
 legend = ax.legend(fontsize=14)
 legend.get_frame().set_edgecolor('white')
@@ -102,6 +108,7 @@ ax2.boxplot(speedupImath, positions=[0.0], **colorize(imath[0]._color))
 ax2.boxplot(speedupMulti, positions=[0.3], **colorize(isl[0]._color))
 ax2.boxplot(speedupLIFix, positions=[0.6], **colorize(libint[0]._color))
 ax2.boxplot(speedupLITP, positions=[0.9], **colorize(libint_tp[0]._color))
+ax2.boxplot(speedupLIMC, positions=[1.2], **colorize(libint_mc[0]._color))
 ax2.get_xaxis().set_visible(False)
 ax2.tick_params(axis='y', colors='black')
 ax2.grid(b=True, which='major', axis='y', linewidth=0.2, color='black', zorder=0)
