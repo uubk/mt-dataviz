@@ -34,7 +34,7 @@ print("Got {} datapoints".format(len(data)))
 print(sum(data))
 sns.set_context('paper', font_scale=3)
 # Plot histogram
-fig, ax = plt.subplots(figsize=[18.5, 6])
+fig, ax = plt.subplots(figsize=[18.5, 4])
 ax.set_yscale("log", nonposy='clip')
 # ax.tick_params(axis='x', colors='black')
 # ax.tick_params(axis='y', colors='black')
