@@ -5,6 +5,7 @@
   "files": ["data/perf-isl-cold.json"],
   "style": "line",
   "scale": "log",
+  "size": [5, 6],
   "axis": [
     {
       "columns": "2"
