@@ -5,7 +5,6 @@
   "files": ["data/perf-isl-cold.json"],
   "preprocess": "speedup",
   "style": "line",
-  "size": [5, 6],
   "axis": [
     {
       "columns": "2"

@@ -1,0 +1,142 @@
+{
+  "name":"GCD performance (hot cache)",
+  "filename": "plots/perf_gcd_hot",
+  "defaults": {},
+  "files": ["data/perf-gcd.json"],
+  "style": "line",
+  "preprocess": "diffSpeedup",
+  "axis": [
+    {
+      "testcase": "1"
+    },
+    {
+      "testcase": "2"
+    },
+    {
+      "testcase": "3"
+    },
+    {
+      "testcase": "4"
+    },
+    {
+      "testcase": "5"
+    },
+    {
+      "testcase": "6"
+    },
+    {
+      "testcase": "7"
+    },
+    {
+      "testcase": "8"
+    },
+    {
+      "testcase": "9"
+    },
+    {
+      "testcase": "10"
+    },
+    {
+      "testcase": "11"
+    },
+    {
+      "testcase": "12"
+    },
+    {
+      "testcase": "13"
+    },
+    {
+      "testcase": "14"
+    },
+    {
+      "testcase": "15"
+    },
+    {
+      "testcase": "16"
+    },
+    {
+      "testcase": "17"
+    },
+    {
+      "testcase": "18"
+    },
+    {
+      "testcase": "19"
+    },
+    {
+      "testcase": "20"
+    },
+    {
+      "testcase": "21"
+    },
+    {
+      "testcase": "22"
+    },
+    {
+      "testcase": "23"
+    },
+    {
+      "testcase": "24"
+    },
+    {
+      "testcase": "25"
+    },
+    {
+      "testcase": "26"
+    },
+    {
+      "testcase": "27"
+    },
+    {
+      "testcase": "28"
+    },
+    {
+      "testcase": "29"
+    },
+    {
+      "testcase": "30"
+    },
+    {
+      "testcase": "31"
+    },
+    {
+      "testcase": "32"
+    },
+    {
+      "testcase": "33"
+    },
+    {
+      "testcase": "34"
+    },
+    {
+      "testcase": "35"
+    },
+    {
+      "testcase": "36"
+    },
+    {
+      "testcase": "37"
+    },
+    {
+      "testcase": "38"
+    }
+  ],
+  "assignment": [
+    [
+        ["BM_STDNorm_Hot", "baseline", {
+          "color": "#2c7fb8",
+          "skip": true
+        }],
+        ["BM_NewNorm_Hot", "Prime-factor base", {
+          "color": "#a1dab4"
+        }],
+        ["BM_STDNorm_Hot", "baseline", {
+          "color": "#2c7fb8",
+          "skip": true
+        }],
+        ["BM_FastNorm_Hot", "Fast normalization", {
+          "color": "#41b6c4"
+        }]
+    ]
+  ]
+}
