@@ -374,7 +374,7 @@ class Plotter():
 
         if numberOfExperiments == 31:
             plt.xlabel("Columns", size=20)
-            # plt.tight_layout()
+        plt.tight_layout()
 
         for format in self.formats:
             if format == ".pdf":
