@@ -375,6 +375,7 @@ class Plotter():
         if numberOfExperiments == 31:
             plt.xlabel("Columns", size=20)
         plt.tight_layout()
+        #plt.gcf().subplots_adjust(bottom=0.2)
 
         for format in self.formats:
             if format == ".pdf":
