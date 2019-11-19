@@ -24,18 +24,46 @@ with open(args.config, "r") as cfgFile:
                 # We have custom draw options
                 options[item[1]] = item[2]
 
+    # Read flags
     lineplot = False
     if "style" in config and config["style"] == "line":
         lineplot = True
     logplot = False
     if "scale" in config and config["scale"] == "log":
         logplot = True
+    plot2D = False
+    if "style" in config and config["style"] == "2d":
+        plot2D = True
+    zero = False
+    if "yfix" in config and config["yfix"] == "zero":
+        zero = True
+    autoYScale = True
+    if "yfix" in config and config["yfix"] == "noauto":
+        autoYScale = False
 
-    plotter = Plotter(data, assignment, config['axis'], lineplot, options, logplot)
+    plotter = Plotter(data, assignment, config['axis'], lineplot, options, logplot, zero, autoYScale)
     if "mode" in config and config["mode"] == "history":
         plotter.groupDataByFile()
     else:
         plotter.groupData()
     if "preprocess" in config and config["preprocess"] == "speedup":
         plotter.groupToSpeedup()
-    plotter.plot(config['name'], config['filename'])
+    if "preprocess" in config and config["preprocess"] == "diff":
+        plotter.groupToDiff()
+    if "preprocess" in config and config["preprocess"] == "diffSpeedup":
+        plotter.groupToDiffSpeedup()
+
+    size = [5, 7]
+    if plot2D:
+        size = [8, 3]
+    if "size" in config and len(size) == 2:
+        size = config["size"]
+
+    yScale = [1, 1]
+    if "yScale" in config and len(size) == 2:
+        yScale = config["yScale"]
+
+    if not plot2D:
+        plotter.plot(config['name'], config['filename'], size)
+    else:
+        plotter.plot2D(config['name'], config['filename'], size, yScale)

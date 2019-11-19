@@ -26,7 +26,7 @@ with open(args.config, "r") as cfgFile:
     for task in config:
         projectId = task["project"]
         project = gl.projects.get(projectId)
-        pipelines = project.pipelines.list(ref=task["branch"], status='success')
+        pipelines = project.pipelines.list(ref=task["branch"])
         # Find last pipeline
         pipelines = sorted(pipelines, reverse=True, key=lambda x: x.id)
         pipelineIndex = 0

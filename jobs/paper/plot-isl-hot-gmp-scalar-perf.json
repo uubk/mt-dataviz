@@ -1,0 +1,120 @@
+{
+  "name": "Scalar over GMP (hot cache, checked)",
+  "filename": "plots/rowops_hot_gmp_scalar",
+  "defaults": {},
+  "files": ["data/perf-isl-hot.json"],
+  "style": "line",
+  "scale": "log",
+  "size": [5, 6],
+  "axis": [
+    {
+      "columns": "2"
+    },
+    {
+      "columns": "3"
+    },
+    {
+      "columns": "4"
+    },
+    {
+      "columns": "5"
+    },
+    {
+      "columns": "6"
+    },
+    {
+      "columns": "7"
+    },
+    {
+      "columns": "8"
+    },
+    {
+      "columns": "9"
+    },
+    {
+      "columns": "10"
+    },
+    {
+      "columns": "11"
+    },
+    {
+      "columns": "12"
+    },
+    {
+      "columns": "13"
+    },
+    {
+      "columns": "14"
+    },
+    {
+      "columns": "15"
+    },
+    {
+      "columns": "16"
+    },
+    {
+      "columns": "17"
+    },
+    {
+      "columns": "18"
+    },
+    {
+      "columns": "19"
+    },
+    {
+      "columns": "20"
+    },
+    {
+      "columns": "21"
+    },
+    {
+      "columns": "22"
+    },
+    {
+      "columns": "23"
+    },
+    {
+      "columns": "24"
+    },
+    {
+      "columns": "25"
+    },
+    {
+      "columns": "26"
+    },
+    {
+      "columns": "27"
+    },
+    {
+      "columns": "28"
+    },
+    {
+      "columns": "29"
+    },
+    {
+      "columns": "30"
+    },
+    {
+      "columns": "31"
+    },
+    {
+      "columns": "32"
+    }
+  ],
+  "assignment": [
+    [
+      ["BM_ISL_Rowops_hot_scalar_gmp.*", "GMP", {
+        "color": "black"
+      }],
+      ["BM_ISL_Rowops_hot_scalar_checked<int64_t>.*", "int64_t", {
+        "color": "#2b8cbe"
+      }],
+      ["BM_ISL_Rowops_hot_scalar_checked<int32_t>.*", "int32_t", {
+        "color": "#7bccc4"
+      }],
+      ["BM_ISL_Rowops_hot_scalar_checked<int16_t>.*", "int16_t", {
+        "color": "#bae4bc"
+      }]
+    ]
+  ]
+}
