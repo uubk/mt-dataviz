@@ -15,7 +15,6 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Get release
-      - name: Set env
         run: echo ::set-env name=TAG::$(echo ${GITHUB_REF:10})
       - name: Build container
         run: docker build -t "docker.pkg.github.com/uubk/mt-dataviz/dataviz:${TAG}" .
