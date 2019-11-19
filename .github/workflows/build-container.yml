@@ -1,0 +1,40 @@
+name: Build and create release
+
+on:
+  push:
+    tags:
+    - 'v*'
+
+env:
+  DOCKER_BUILDKIT: '1'
+
+jobs:
+  build:
+    name: Build docker container
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v1
+      - name: Build container
+        run: docker build -t "docker.pkg.github.com/uubk/mt-dataviz/dataviz:${TAG}" .
+      - name: Publish container
+        run: |
+          echo "${GITHUB_TOKEN}" | docker login docker.pkg.github.com -u uubk --password-stdin
+          echo "${DOCKERHUB_TOKEN}" | docker login -u uubk --password-stdin
+          docker tag compiler:latest "docker.pkg.github.com/uubk/mt-dataviz/dataviz:${TAG}"
+          docker push "docker.pkg.github.com/uubk/mt-dataviz/dataviz:${TAG}"
+          docker tag "docker.pkg.github.com/uubk/mt-dataviz/dataviz:${TAG}" "uubk/mt-dataviz:${TAG}"
+          docker push "uubk/mt-dataviz:${TAG}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+          TAG: ${{ github.ref }}
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
