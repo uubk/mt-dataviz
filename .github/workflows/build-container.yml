@@ -22,7 +22,6 @@ jobs:
         run: |
           echo "${GITHUB_TOKEN}" | docker login docker.pkg.github.com -u uubk --password-stdin
           echo "${DOCKERHUB_TOKEN}" | docker login -u uubk --password-stdin
-          docker tag compiler:latest "docker.pkg.github.com/uubk/mt-dataviz/dataviz:${TAG}"
           docker push "docker.pkg.github.com/uubk/mt-dataviz/dataviz:${TAG}"
           docker tag "docker.pkg.github.com/uubk/mt-dataviz/dataviz:${TAG}" "uubk/mt-dataviz:${TAG}"
           docker push "uubk/mt-dataviz:${TAG}"
